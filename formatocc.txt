@@ -1,0 +1,31 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Algoritmos y Estructura de Datos Avanzadas
+// Curso: 2º
+// Práctica *numero : *nombre_practica
+// Autor: javier Gómez Alayón
+// Correo: alu0101562445@ull.edu.es
+// Fecha: *date
+// Archivo ¬: Implementación de *programa_sin_cc
+//        En este fichero se implementa las funciones de la clase *programa_sin_cc
+// Referencias:
+//        Enlaces de interés
+//
+// Historial de revisiones
+//        *date - Creación (primera versión) del código
+#ifndef C_*programa_sin_cc_CC
+#define C_*programa_sin_cc_CC
+
+#include"*programa_sin_cc.h"
+
+/** *programa_sin_cc::*programa_sin_cc()
+  * @brief Crea el objeto de la clase *programa_sin_cc.
+  * @param 
+  * @return objeto de la clase *programa_sin_cc
+  */
+*programa_sin_cc::*programa_sin_cc() {
+
+}
+
+#endif
