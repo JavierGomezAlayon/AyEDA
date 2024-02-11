@@ -21,13 +21,28 @@
 
 /** Cell::Cell()
   * @brief Crea el objeto de la clase Cell.
-  * @param 
+  * @param pos, estado
   * @return objeto de la clase Cell
   */
-Cell::Cell(const Position&, const State&) {
+Cell::Cell(const Position& pos, const State& estado) {
 
 }
 
+/** int nextState(const Lattice&) 
+  * @brief determina el siguiente estado de la célula
+  * @param lattice
+  * @return el siguiente estado de la célula
+  */
+int Cell::nextState(const Lattice& lattice) {
+  
+}
+
+/** void updateState()
+  * @brief actualiza el estado de la célula
+  */
+void updateState() {
+
+}
 
 /** std::ostream& operator<<(std::ostream&, const Cell&)
   * @brief sobrecarga del operador <<
@@ -37,6 +52,5 @@ Cell::Cell(const Position&, const State&) {
 std::ostream& operator<<(std::ostream& os, const Cell& celula) {
 
 }
-
 
 #endif

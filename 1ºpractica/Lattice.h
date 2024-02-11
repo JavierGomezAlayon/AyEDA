@@ -25,7 +25,7 @@ class Lattice {
   const Cell& getCell(const Position&) const;
   void nextGeneration();
  private:
- 
+  
 };
 
 

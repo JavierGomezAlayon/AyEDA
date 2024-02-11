@@ -38,7 +38,7 @@ const Cell& Lattice::getCell(const Position& posicion) const {
 }
 
 /** void Lattice::nextGeneration()
-  * @brief 
+  * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
 
