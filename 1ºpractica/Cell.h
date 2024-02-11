@@ -19,7 +19,7 @@
 #include"Position.h"
 #include"State.h"
 #include"Lattice.h"
-#include"iostream"
+#include<iostream>
 
 class Cell {
  public:

@@ -40,7 +40,7 @@ int Cell::nextState(const Lattice& lattice) {
 /** void updateState()
   * @brief actualiza el estado de la célula
   */
-void updateState() {
+void Cell::updateState() {
 
 }
 
