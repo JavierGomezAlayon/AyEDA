@@ -46,6 +46,21 @@ int Cell::nextState(const Lattice& lattice) {
   // Con la función que hay en la practica
 }
 
+/** State getState() const;
+  * @brief obtienes el estado de la celula
+  * @return estado de la celula
+  */
+State Cell::getState() const {
+  return this->estado_;
+}
+
+/** State setState(State);
+  * @brief Pone como estado de la celula el valor dado
+  * @param estado
+  */
+void Cell::setState(State estado) {
+  this->estado_ = estado;
+}
 /** void updateState()
   * @brief actualiza el estado de la célula
   */

@@ -35,10 +35,10 @@ Lattice::Lattice(const int tamano) {
 void Lattice::inicializar() {
   State estado_cero(0);
   State estado_uno(1);
-  for(int pos = 0; pos < this->vector_.size(); pos++) {
-    Position posicion(pos);
+  for(int i = 0; i < this->vector_.size(); i++) {
+    Position posicion(i);
     Cell celula = this->getCell(posicion);
-    if (pos == this->vector_.size() / 2) {
+    if (i == this->vector_.size() / 2) {
       celula.setState(estado_uno);
     } else {
       celula.setState(estado_cero);
@@ -59,8 +59,8 @@ const Cell& Lattice::getCell(const Position& posicion) const {
   * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
-  for(int pos = 0; pos < this->vector_.size(); pos++) {
-    Position posicion(pos);
+  for(int i = 0; i < this->vector_.size(); i++) {
+    Position posicion(i);
     Cell celula = this->getCell(posicion);
     celula.updateState();
   }
@@ -72,8 +72,8 @@ void Lattice::nextGeneration() {
   * @return objeto de la clase ostream
   */
 std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
-  for(int pos = 0; pos < tabla.vector_.size(); pos++) {
-    Position posicion(pos);
+  for(int i = 0; i < tabla.vector_.size(); i++) {
+    Position posicion(i);
     os << tabla.getCell(posicion);
   }
 }
