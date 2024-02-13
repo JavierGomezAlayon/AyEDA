@@ -14,18 +14,21 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
+#include<vector>
+#include"Position.h"
 #ifndef C_Lattice_H
 #define C_Lattice_H
 #include"Cell.h"
-#include"Position.h"
+class Cell;
 
 class Lattice {
  public:
-  Lattice();
+  Lattice(const int);
   const Cell& getCell(const Position&) const;
+  void inicializar();
   void nextGeneration();
  private:
-  
+  std::vector <Cell> vector_;
 };
 
 

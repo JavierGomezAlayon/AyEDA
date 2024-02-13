@@ -19,6 +19,9 @@
 
 #include"Cell.h"
 
+Cell::Cell() {
+}
+
 /** Cell::Cell()
   * @brief Crea el objeto de la clase Cell.
   * @param pos, estado

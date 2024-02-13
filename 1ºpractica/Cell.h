@@ -17,20 +17,22 @@
 #ifndef C_Cell_H
 #define C_Cell_H
 #include"Position.h"
+#include<iostream>
 #include"State.h"
 #include"Lattice.h"
-#include<iostream>
+class Lattice;
 
 class Cell {
  public:
+  Cell();
   Cell(const Position&, const State&);
   State getState() const;
   State setState(State);
   int nextState(const Lattice&);
   void updateState();
-  
  private:
- 
+  Position posicion_;
+  State stado_;
 };
 
 

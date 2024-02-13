@@ -24,7 +24,15 @@
   * @param 
   * @return objeto de la clase Lattice
   */
-Lattice::Lattice() {
+Lattice::Lattice(const int tamano) {
+  vector_.resize(tamano);
+  return;
+}
+
+/** void inicializar();
+  * @brief 
+  */
+void inicializar() {
 
 }
 

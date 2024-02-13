@@ -21,7 +21,7 @@ class State {
  public:
   State();
  private:
- 
+  int estado_;
 };
 
 
