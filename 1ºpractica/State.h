@@ -20,8 +20,11 @@
 class State {
  public:
   State();
+  State(const int);
+  int getState() const;
+  void setState(const int);
  private:
-  int estado_;
+  unsigned int estado_; // con un struct
 };
 
 

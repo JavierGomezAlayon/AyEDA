@@ -30,9 +30,11 @@ class Cell {
   State setState(State);
   int nextState(const Lattice&);
   void updateState();
+  friend std::ostream& operator<<(std::ostream& os, const Cell& celula);
  private:
   Position posicion_;
-  State stado_;
+  State estado_;
+  State siguiente_estado_;
 };
 
 

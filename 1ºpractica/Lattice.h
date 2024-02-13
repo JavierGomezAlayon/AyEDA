@@ -27,8 +27,11 @@ class Lattice {
   const Cell& getCell(const Position&) const;
   void inicializar();
   void nextGeneration();
+  friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
   std::vector <Cell> vector_;
+  int frontera_; // con un struct
+  int tamano_;
 };
 
 

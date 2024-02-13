@@ -19,16 +19,22 @@
 
 #include"Cell.h"
 
-Cell::Cell() {
-}
-
 /** Cell::Cell()
+  * @brief Constructor por defecto de la clase Cell.
+  * @param pos, estado
+  * @return objeto de la clase Cell
+  */
+Cell::Cell() {}
+
+/** Cell::Cell(const Position& pos, const State& estado)
   * @brief Crea el objeto de la clase Cell.
   * @param pos, estado
   * @return objeto de la clase Cell
   */
 Cell::Cell(const Position& pos, const State& estado) {
-
+  this->posicion_ = pos;
+  this->estado_ = estado;
+  return;
 }
 
 /** int nextState(const Lattice&) 
@@ -37,14 +43,14 @@ Cell::Cell(const Position& pos, const State& estado) {
   * @return el siguiente estado de la célula
   */
 int Cell::nextState(const Lattice& lattice) {
-  
+  // Con la función que hay en la practica
 }
 
 /** void updateState()
   * @brief actualiza el estado de la célula
   */
 void Cell::updateState() {
-
+  this->estado_ = this->siguiente_estado_;
 }
 
 /** std::ostream& operator<<(std::ostream&, const Cell&)
@@ -53,7 +59,7 @@ void Cell::updateState() {
   * @return objeto ostream
   */
 std::ostream& operator<<(std::ostream& os, const Cell& celula) {
-
+  // Necesito hacerlo con un struct
 }
 
 #endif

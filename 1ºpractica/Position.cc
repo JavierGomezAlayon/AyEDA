@@ -20,12 +20,36 @@
 #include"Position.h"
 
 /** Position::Position()
-  * @brief Crea el objeto de la clase Position.
-  * @param 
+  * @brief constructor por defecto de la clase Position.
+  * @note se pone el valor 0 por defecto
   * @return objeto de la clase Position
   */
 Position::Position() {
-
+  this->setPosition(int{0});
 }
+/** Position::Position(const int)
+  * @brief Crea el objeto de la clase Position.
+  * @return objeto de la clase Position
+  */
+Position::Position(const int posicion) {
+  this->posicion_ = posicion;
+}
+
+/** int Position::getPosition() const 
+  * @brief Para obtener el valor del estado
+  * @return El estado
+  */
+int Position::getPosition() const {
+  return this->posicion_;
+}
+
+/** void Position::setPosition(const int estado)
+  * @brief Pone como estado el valor dado
+  * @param estado
+  */
+void Position::setPosition(const int position) {
+  this->posicion_ = position;
+}
+
 
 #endif

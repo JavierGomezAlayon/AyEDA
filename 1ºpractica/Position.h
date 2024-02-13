@@ -20,8 +20,11 @@
 class Position {
  public:
   Position();
+  Position(const int);
+  int getPosition() const;
+  void setPosition(const int);
  private:
- 
+ int posicion_;
 };
 
 
