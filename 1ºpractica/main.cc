@@ -21,7 +21,7 @@
 #include"Cell.h"
 #include"funciones_main.h"
 
-int main(int argc, char &argv) {
+int main(int argc, char** argv) {
   std::cout << "hola" << std::endl;
   return 0;
 }
