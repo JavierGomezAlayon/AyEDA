@@ -19,20 +19,11 @@
 
 #include"State.h"
 
-/** State::State()
-  * @brief Constructor estandar de la clase State.
-  * @note se pone el valor 0 por defecto
-  * @return objeto de la clase State
-  */
-State::State() {
-  this->setState(int{0});
-}
-
 /** State::State(const int)
   * @brief Constructor de la clase State.
   * @return objeto de la clase State
   */
-State::State(const int estado) {
+State::State(const estado estado) {
   this->setState(estado);
 }
 
@@ -48,8 +39,13 @@ int State::getState() const {
   * @brief Pone como estado el valor dado
   * @param estado
   */
-void State::setState(const int estado) {
+void State::setState(const estado estado) {
   this->estado_ = estado;
 }
 
+std::ostream &operator<<(std::ostream &os, const State &estado) {
+  os << char(estado.estado_);
+  return os;
+}
 #endif
+

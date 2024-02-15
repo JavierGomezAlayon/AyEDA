@@ -16,15 +16,21 @@
 //        02/08/24 - Creación (primera versión) del código
 #ifndef C_State_H
 #define C_State_H
+#include <iostream>
+
+enum estado {
+  muerto = ' ',
+  vivo = 'x'
+};
 
 class State {
  public:
-  State();
-  State(const int);
+  State(const estado = muerto);
   int getState() const;
-  void setState(const int);
+  void setState(const estado);
+  friend std::ostream& operator<<(std::ostream& os, const State& estado);
  private:
-  unsigned int estado_; // con un struct
+  estado estado_; // con un struct
 };
 
 

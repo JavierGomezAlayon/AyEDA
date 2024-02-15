@@ -21,16 +21,22 @@
 #include"Cell.h"
 class Cell;
 
+enum frontera {
+  abierta,
+  cerrada,
+  reflejada
+};
+
 class Lattice {
  public:
-  Lattice(const int);
+  Lattice(const int, frontera, std::string);
   const Cell& getCell(const Position&) const;
   void inicializar();
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  std::vector <Cell> vector_;
-  int frontera_; // con un struct
+  Cell *vector_;
+  frontera frontera_; 
   int tamano_;
 };
 

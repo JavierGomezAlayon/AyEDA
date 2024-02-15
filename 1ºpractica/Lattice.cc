@@ -21,11 +21,13 @@
 
 /** Lattice::Lattice()
   * @brief Crea el objeto de la clase Lattice.
-  * @param 
+  * @param tamano,frontera,fichero
   * @return objeto de la clase Lattice
   */
-Lattice::Lattice(const int tamano) {
-  vector_.resize(tamano);
+Lattice::Lattice(const int tamano, frontera frontera, std::string fichero) { // tengo que poner el fichero y la frontera
+  tamano_ = tamano;
+  frontera_ = frontera;
+  vector_ = new Cell[tamano];
   return;
 }
 
@@ -33,15 +35,13 @@ Lattice::Lattice(const int tamano) {
   * @brief inicializa la tabla con todas las celulas a estado 0 menos el del medio
   */
 void Lattice::inicializar() {
-  State estado_cero(0);
-  State estado_uno(1);
-  for(int i = 0; i < this->vector_.size(); i++) {
+  for(int i = 0; i < this->tamano_; i++) {
     Position posicion(i);
     Cell celula = this->getCell(posicion);
-    if (i == this->vector_.size() / 2) {
-      celula.setState(estado_uno);
+    if (i == this->tamano_ / 2) {
+      celula.setState(vivo);
     } else {
-      celula.setState(estado_cero);
+      celula.setState(muerto);
     }
   }
 }
@@ -52,14 +52,14 @@ void Lattice::inicializar() {
   * @return retorna una celula constante
   */
 const Cell& Lattice::getCell(const Position& posicion) const {
-  return vector_.at(posicion.getPosition());
+  return vector_[posicion.getPosition()];
 }
 
 /** void Lattice::nextGeneration()
   * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
-  for(int i = 0; i < this->vector_.size(); i++) {
+  for(int i = 0; i < this->tamano_; i++) {
     Position posicion(i);
     Cell celula = this->getCell(posicion);
     celula.updateState();
@@ -72,7 +72,7 @@ void Lattice::nextGeneration() {
   * @return objeto de la clase ostream
   */
 std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
-  for(int i = 0; i < tabla.vector_.size(); i++) {
+  for(int i = 1; i <= tabla.tamano_; i++) {
     Position posicion(i);
     os << tabla.getCell(posicion);
   }

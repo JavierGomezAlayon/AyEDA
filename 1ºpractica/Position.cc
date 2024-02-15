@@ -19,14 +19,6 @@
 
 #include"Position.h"
 
-/** Position::Position()
-  * @brief constructor por defecto de la clase Position.
-  * @note se pone el valor 0 por defecto
-  * @return objeto de la clase Position
-  */
-Position::Position() {
-  this->setPosition(int{0});
-}
 /** Position::Position(const int)
   * @brief Crea el objeto de la clase Position.
   * @return objeto de la clase Position

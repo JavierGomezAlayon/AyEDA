@@ -22,7 +22,15 @@
 #include"funciones_main.h"
 
 int main(int argc, char** argv) {
-  std::cout << "hola" << std::endl;
+  State estate(vivo);
+  Position posicion(0);
+  Cell celula1(posicion,estate);
+  Lattice lattice(8,abierta,"hola");
+  lattice.inicializar();
+  std::cout << celula1 << std::endl;
+  Position posicion1(10);
+  std::cout << lattice.getCell(posicion1) << std::endl;
+  std::cout << lattice << std::endl;
   return 0;
 }
 

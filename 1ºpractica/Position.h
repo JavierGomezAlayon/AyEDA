@@ -19,8 +19,7 @@
 
 class Position {
  public:
-  Position();
-  Position(const int);
+  Position(const int = 0);
   int getPosition() const;
   void setPosition(const int);
  private:

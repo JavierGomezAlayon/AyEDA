@@ -75,6 +75,8 @@ void Cell::updateState() {
   */
 std::ostream& operator<<(std::ostream& os, const Cell& celula) {
   // Necesito hacerlo con un struct
+  os << celula.estado_;
+  return os;
 }
 
 #endif
