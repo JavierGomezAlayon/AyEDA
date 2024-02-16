@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
   State estate(vivo);
   Position posicion(0);
   Cell celula1(posicion, estate);
-  Lattice lattice(64,fria,"hola");
+  Lattice lattice(32,fria,"hola");
   lattice.inicializar();
   for(int i = 0 ; i < 100 ; i++) {
     std::cout << lattice << std::endl;
