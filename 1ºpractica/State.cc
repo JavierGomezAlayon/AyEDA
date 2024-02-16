@@ -44,7 +44,16 @@ void State::setState(const estado estado) {
 }
 
 std::ostream &operator<<(std::ostream &os, const State &estado) {
-  os << char(estado.estado_);
+  switch(estado.estado_) {
+    case vivo:
+      os << 'x';
+      break;
+    case muerto:
+      os << ' ';
+      break;
+    default:
+      os << "Error";
+  }
   return os;
 }
 #endif

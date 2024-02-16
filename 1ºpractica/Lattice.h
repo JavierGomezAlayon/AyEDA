@@ -22,22 +22,25 @@
 class Cell;
 
 enum frontera {
-  abierta,
-  cerrada,
-  reflejada
+  fria,
+  caliente,
+  periodica,
+  reflectora
 };
 
 class Lattice {
  public:
   Lattice(const int, frontera, std::string);
   const Cell& getCell(const Position&) const;
+  const frontera getFrontera() const;
   void inicializar();
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
   Cell *vector_;
-  frontera frontera_; 
+  frontera frontera_;
   int tamano_;
+  int generacion_;
 };
 
 

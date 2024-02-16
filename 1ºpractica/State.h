@@ -19,8 +19,8 @@
 #include <iostream>
 
 enum estado {
-  muerto = ' ',
-  vivo = 'x'
+  muerto,
+  vivo
 };
 
 class State {
@@ -30,7 +30,7 @@ class State {
   void setState(const estado);
   friend std::ostream& operator<<(std::ostream& os, const State& estado);
  private:
-  estado estado_; // con un struct
+  estado estado_;
 };
 
 

@@ -24,9 +24,10 @@
   * @param tamano,frontera,fichero
   * @return objeto de la clase Lattice
   */
-Lattice::Lattice(const int tamano, frontera frontera, std::string fichero) { // tengo que poner el fichero y la frontera
+Lattice::Lattice(const int tamano, frontera frontera, std::string fichero) { 
   tamano_ = tamano;
   frontera_ = frontera;
+  generacion_ = 0;
   vector_ = new Cell[tamano];
   return;
 }
@@ -35,13 +36,10 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero) { // 
   * @brief inicializa la tabla con todas las celulas a estado 0 menos el del medio
   */
 void Lattice::inicializar() {
-  for(int i = 0; i < this->tamano_; i++) {
-    Position posicion(i);
-    Cell celula = this->getCell(posicion);
-    if (i == this->tamano_ / 2) {
-      celula.setState(vivo);
-    } else {
-      celula.setState(muerto);
+  for (int i = 0; i < tamano_ ; i++) {
+    vector_[i] = Cell(Position(i),State(muerto));
+    if (i == tamano_ / 2) {
+      vector_[i] = Cell(Position(i),State(vivo));
     }
   }
 }
@@ -62,8 +60,14 @@ void Lattice::nextGeneration() {
   for(int i = 0; i < this->tamano_; i++) {
     Position posicion(i);
     Cell celula = this->getCell(posicion);
+    celula.nextState(*this);
+  }
+  for(int i = 0; i < this->tamano_; i++) {
+    Position posicion(i);
+    Cell celula = this->getCell(posicion);
     celula.updateState();
   }
+  this->generacion_ ++;
 }
 
 /** ostream& operator<<(ostream&, const Lattice&);
@@ -72,9 +76,16 @@ void Lattice::nextGeneration() {
   * @return objeto de la clase ostream
   */
 std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
-  for(int i = 1; i <= tabla.tamano_; i++) {
+  for(int i = 0; i < tabla.tamano_; i++) {
     Position posicion(i);
     os << tabla.getCell(posicion);
   }
+  os << " G(" << tabla.generacion_ << ")" << std::endl;
+  return os;
+}
+
+const frontera Lattice::getFrontera() const{
+  return frontera_;
 }
 #endif
+

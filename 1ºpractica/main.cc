@@ -24,12 +24,15 @@
 int main(int argc, char** argv) {
   State estate(vivo);
   Position posicion(0);
-  Cell celula1(posicion,estate);
-  Lattice lattice(8,abierta,"hola");
+  Cell celula1(posicion, estate);
+  Lattice lattice(4,fria,"hola");
   lattice.inicializar();
-  std::cout << celula1 << std::endl;
-  Position posicion1(10);
-  std::cout << lattice.getCell(posicion1) << std::endl;
+  std::cout << lattice << std::endl;
+  lattice.nextGeneration();
+  std::cout << lattice << std::endl;
+  lattice.nextGeneration();
+  std::cout << lattice << std::endl;
+  lattice.nextGeneration();
   std::cout << lattice << std::endl;
   return 0;
 }

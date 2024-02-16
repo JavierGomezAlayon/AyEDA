@@ -43,7 +43,17 @@ Cell::Cell(const Position& pos, const State& estado) {
   * @return el siguiente estado de la célula
   */
 int Cell::nextState(const Lattice& lattice) {
-  // Con la función que hay en la practica
+  int siguiente_estado = (this->estado_.getState() + lattice.getCell(this->posicion_.getPosition() + 1).estado_.getState() \
+  + this->estado_.getState() * lattice.getCell(this->posicion_.getPosition() + 1).estado_.getState() + lattice.getCell(this->posicion_.getPosition() - 1).estado_.getState() \
+  * this->estado_.getState() * lattice.getCell(this->posicion_.getPosition() + 1).estado_.getState());
+  if (siguiente_estado % 2 == 0) {
+    std::cout << "está muerta" << std::endl;
+    this->siguiente_estado_ = State(muerto);
+  } else {
+    std::cout << "está vivo" << std::endl;
+    this->siguiente_estado_ = State(vivo);
+  }
+  
 }
 
 /** State getState() const;
