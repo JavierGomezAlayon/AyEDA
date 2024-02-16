@@ -25,15 +25,12 @@ int main(int argc, char** argv) {
   State estate(vivo);
   Position posicion(0);
   Cell celula1(posicion, estate);
-  Lattice lattice(4,fria,"hola");
+  Lattice lattice(64,fria,"hola");
   lattice.inicializar();
-  std::cout << lattice << std::endl;
-  lattice.nextGeneration();
-  std::cout << lattice << std::endl;
-  lattice.nextGeneration();
-  std::cout << lattice << std::endl;
-  lattice.nextGeneration();
-  std::cout << lattice << std::endl;
+  for(int i = 0 ; i < 100 ; i++) {
+    std::cout << lattice << std::endl;
+    lattice.nextGeneration();
+  }
   return 0;
 }
 

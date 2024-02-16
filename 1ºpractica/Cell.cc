@@ -38,22 +38,23 @@ Cell::Cell(const Position& pos, const State& estado) {
 }
 
 /** int nextState(const Lattice&) 
-  * @brief determina el siguiente estado de la célula
+  * @brief determina el siguiente estado de la célula y lo guarda en siguiente_estado_
   * @param lattice
-  * @return el siguiente estado de la célula
   */
-int Cell::nextState(const Lattice& lattice) {
-  int siguiente_estado = (this->estado_.getState() + lattice.getCell(this->posicion_.getPosition() + 1).estado_.getState() \
-  + this->estado_.getState() * lattice.getCell(this->posicion_.getPosition() + 1).estado_.getState() + lattice.getCell(this->posicion_.getPosition() - 1).estado_.getState() \
-  * this->estado_.getState() * lattice.getCell(this->posicion_.getPosition() + 1).estado_.getState());
+void Cell::nextState(const Lattice& lattice) {
+  Position posicion_centro = this->posicion_;
+  // Determino las células de los lados y del centro
+  int centro = this->estado_.getState();
+  int izquierda = lattice.getCell(posicion_centro.getPosition() - 1).estado_.getState();
+  int derecha = lattice.getCell(posicion_centro.getPosition() + 1).estado_.getState();
+  // Función de nextState
+  int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro * derecha);
+  // Según el int genero el siguiente estado
   if (siguiente_estado % 2 == 0) {
-    std::cout << "está muerta" << std::endl;
-    this->siguiente_estado_ = State(muerto);
+    this->siguiente_estado_.setState(muerto);
   } else {
-    std::cout << "está vivo" << std::endl;
-    this->siguiente_estado_ = State(vivo);
+    this->siguiente_estado_.setState(vivo);
   }
-  
 }
 
 /** State getState() const;

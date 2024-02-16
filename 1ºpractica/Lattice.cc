@@ -49,7 +49,7 @@ void Lattice::inicializar() {
   * @param posicion
   * @return retorna una celula constante
   */
-const Cell& Lattice::getCell(const Position& posicion) const {
+Cell& Lattice::getCell(const Position& posicion) const {
   return vector_[posicion.getPosition()];
 }
 
@@ -59,15 +59,17 @@ const Cell& Lattice::getCell(const Position& posicion) const {
 void Lattice::nextGeneration() {
   for(int i = 0; i < this->tamano_; i++) {
     Position posicion(i);
-    Cell celula = this->getCell(posicion);
-    celula.nextState(*this);
+    this->getCell(posicion).nextState(*this);
   }
   for(int i = 0; i < this->tamano_; i++) {
     Position posicion(i);
-    Cell celula = this->getCell(posicion);
-    celula.updateState();
+    this->getCell(posicion).updateState();
   }
   this->generacion_ ++;
+}
+
+const frontera Lattice::getFrontera() const{
+  return frontera_;
 }
 
 /** ostream& operator<<(ostream&, const Lattice&);
@@ -80,12 +82,9 @@ std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
     Position posicion(i);
     os << tabla.getCell(posicion);
   }
-  os << " G(" << tabla.generacion_ << ")" << std::endl;
+  os << " G(" << tabla.generacion_ << ")";
   return os;
 }
 
-const frontera Lattice::getFrontera() const{
-  return frontera_;
-}
 #endif
 

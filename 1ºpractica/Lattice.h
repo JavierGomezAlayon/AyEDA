@@ -31,7 +31,7 @@ enum frontera {
 class Lattice {
  public:
   Lattice(const int, frontera, std::string);
-  const Cell& getCell(const Position&) const;
+  Cell& getCell(const Position&) const;
   const frontera getFrontera() const;
   void inicializar();
   void nextGeneration();
