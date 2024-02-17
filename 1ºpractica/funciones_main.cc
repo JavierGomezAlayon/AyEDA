@@ -30,27 +30,33 @@ Dato RecogerParametro(int argc, char *argv[]) {
   const std::string KSize = "-size";
   const std::string KBorder = "-border";
   const std::string Kfichero = "-init";
+  // constantes de frontera
+  const std::string KOpen = "b=open";
+  const std::string KPeriodica = "b=periodic";
+  const std::string KReflectora = "b=reflectora";
   // Instancio la struct de datos
   Dato datos;
   // Compruebo que el número de argumento sea correcto.
-  if (argc > 3 && argc < 8) {
+  if (argc > 4 && argc < 9) {
     // Recorro el array comprobando lo que contiene
-    for (int i = 0; i < argc; i++) {
+    for (int i = 1; i < argc; i++) {
       if (argv[i] == KSize) {
         datos.tamano = *argv[i + 1];
         i++;
       } else if (argv[i] == KBorder) { // compruebo que tipo de borde es y le asigno un objeto frontera al struct datos.
-        if (argv[i + 1] == "b=open") { // si es open se comprueba si es fria o caliente y se pone dicho tipo.
-          if (*argv[i + 2] == 0) { datos.border_type = fria; }
-          else if ( *argv[i + 2] == 1) { datos.border_type = caliente; }
-          else {
+        if (argv[i + 1] == KOpen) { // si es open se comprueba si es fria o caliente y se pone dicho tipo.
+          if (*argv[i + 2] == '0') {
+            datos.border_type = fria; 
+          } else if(*argv[i + 2] == '1') { 
+            datos.border_type = caliente; 
+          } else {
             std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
             exit(EXIT_FAILURE);
           }
           i++;
-        } else if (argv[i + 1] == "b=periodic") {
+        } else if (argv[i + 1] == KPeriodica) {
           datos.border_type = periodica;
-        } else if (argv[i + 1] == "b=reflectora" ) {
+        } else if (argv[i + 1] == KReflectora ) {
           datos.border_type = reflectora;
         } else { // Error
           std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
@@ -61,7 +67,7 @@ Dato RecogerParametro(int argc, char *argv[]) {
         datos.fichero = argv[i + 1];
         i++;
       } else { // Error
-        std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
+        std::cerr << "Error (1): Has puesto un argumento invalido. ostras" << std::endl;
         exit(EXIT_FAILURE);
       }
     }

@@ -23,9 +23,9 @@
 
 int main(int argc, char* argv[]) {
   Dato datos = RecogerParametro(argc, argv);
-  Lattice lattice(32, fria, datos.fichero);
+  Lattice lattice(datos.tamano, datos.border_type, datos.fichero);
   lattice.inicializar();
-  for(int i = 0 ; i < 100 ; i++) {
+  for(int i = 0 ; i < 41 ; i++) {
     std::cout << lattice << std::endl;
     lattice.nextGeneration();
   }
