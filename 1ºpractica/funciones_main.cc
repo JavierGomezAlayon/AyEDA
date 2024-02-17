@@ -36,12 +36,14 @@ Dato RecogerParametro(int argc, char *argv[]) {
   const std::string KReflectora = "b=reflectora";
   // Instancio la struct de datos
   Dato datos;
+  datos.fichero = "";
   // Compruebo que el número de argumento sea correcto.
   if (argc > 4 && argc < 9) {
     // Recorro el array comprobando lo que contiene
     for (int i = 1; i < argc; i++) {
       if (argv[i] == KSize) {
-        datos.tamano = *argv[i + 1];
+
+        datos.tamano = std::atoi(argv[i + 1]);
         i++;
       } else if (argv[i] == KBorder) { // compruebo que tipo de borde es y le asigno un objeto frontera al struct datos.
         if (argv[i + 1] == KOpen) { // si es open se comprueba si es fria o caliente y se pone dicho tipo.

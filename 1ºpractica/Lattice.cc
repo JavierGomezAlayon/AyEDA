@@ -24,11 +24,28 @@
   * @param tamano,frontera,fichero
   * @return objeto de la clase Lattice
   */
-Lattice::Lattice(const int tamano, frontera frontera, std::string fichero) { 
+Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") { 
   tamano_ = tamano;
   frontera_ = frontera;
   generacion_ = 0;
   vector_ = new Cell[tamano];
+  if (fichero != "") {
+    std::ifstream input(fichero);
+    estado estado;
+    for (int i = 0; i < tamano; i++) {
+      int estado_input = -1;
+      input >> estado_input;
+      if (estado_input == 0) {
+        estado = muerto;
+      } else if (estado_input == 1) {
+        estado = vivo;
+      } else { // error
+        std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
+        exit(EXIT_FAILURE);
+      }
+      vector_[i] = Cell(Position(i), estado);
+    }
+  }
   return;
 }
 

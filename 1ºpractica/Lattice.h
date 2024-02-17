@@ -14,11 +14,14 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#include<vector>
-#include"Position.h"
 #ifndef C_Lattice_H
 #define C_Lattice_H
+
+#include<vector>
+#include<fstream>
+#include"Position.h"
 #include"Cell.h"
+
 class Cell;
 
 enum frontera {
