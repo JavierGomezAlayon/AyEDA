@@ -84,7 +84,7 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") 
   */
 Lattice::~Lattice() {
   if (this->frontera_ == fria || this->frontera_ == caliente) {
-    for (int i = 0; i < this->tamano_ + 2; i++) {
+    for (int i = 0; i < this->tamano_; i++) {
       delete vector_[i];
     }
   } else {
@@ -126,17 +126,35 @@ Cell& Lattice::getCell(const Position& posicion) const {
   return *vector_[posicion.getPosition()];
 }
 
+/** const int Lattice::getTamano() const
+  * @brief devuelve el tamaño del lattice
+  * @return el tamaño del vector de celulas
+  */
+const int Lattice::getTamano() const {
+  return this->tamano_;
+}
 /** void Lattice::nextGeneration()
   * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
-  for(int i = 0; i < this->tamano_; i++) {
-    Position posicion(i);
-    this->getCell(posicion).nextState(*this);
-  }
-  for(int i = 0; i < this->tamano_; i++) {
-    Position posicion(i);
-    this->getCell(posicion).updateState();
+  if (this->frontera_ == fria || this->frontera_ == caliente) {
+    for(int i = 1; i < this->tamano_ - 1; i++) { // cada celula obtiene el nextState
+      Position posicion(i);
+      this->getCell(posicion).nextState(*this);
+    }
+    for(int i = 1; i < this->tamano_ - 1; i++) { // cada celula se actualiza el estado
+      Position posicion(i);
+      this->getCell(posicion).updateState();
+    }
+  } else {
+    for(int i = 0; i < this->tamano_; i++) { // cada celula obtiene el nextState
+      Position posicion(i);
+      this->getCell(posicion).nextState(*this);
+    }
+    for(int i = 0; i < this->tamano_; i++) { // cada celula se actualiza el estado
+      Position posicion(i);
+      this->getCell(posicion).updateState();
+    }
   }
   this->generacion_ ++;
 }

@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
   if (datos.fichero == "") {
     lattice.inicializar();
   }
-  for(int i = 0 ; i < 41 ; i++) {
+  for(int i = 0 ; i < 42 ; i++) {
     std::cout << lattice << std::endl;
     lattice.nextGeneration();
   }

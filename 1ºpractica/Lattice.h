@@ -37,6 +37,7 @@ class Lattice {
   ~Lattice();
   Cell& getCell(const Position&) const;
   const frontera getFrontera() const;
+  const int getTamano() const;
   void inicializar();
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);

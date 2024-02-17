@@ -30,5 +30,4 @@ struct Dato {
 
 Dato RecogerParametro(int argc, char *argv[]);
 
-
 #endif
