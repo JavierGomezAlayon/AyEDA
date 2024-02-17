@@ -42,7 +42,6 @@ Dato RecogerParametro(int argc, char *argv[]) {
     // Recorro el array comprobando lo que contiene
     for (int i = 1; i < argc; i++) {
       if (argv[i] == KSize) {
-
         datos.tamano = std::atoi(argv[i + 1]);
         i++;
       } else if (argv[i] == KBorder) { // compruebo que tipo de borde es y le asigno un objeto frontera al struct datos.
@@ -69,7 +68,7 @@ Dato RecogerParametro(int argc, char *argv[]) {
         datos.fichero = argv[i + 1];
         i++;
       } else { // Error
-        std::cerr << "Error (1): Has puesto un argumento invalido. ostras" << std::endl;
+        std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
         exit(EXIT_FAILURE);
       }
     }

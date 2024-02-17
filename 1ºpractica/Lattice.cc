@@ -25,38 +25,94 @@
   * @return objeto de la clase Lattice
   */
 Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") { 
-  tamano_ = tamano;
   frontera_ = frontera;
   generacion_ = 0;
-  vector_ = new Cell[tamano];
-  if (fichero != "") {
-    std::ifstream input(fichero);
-    estado estado;
-    for (int i = 0; i < tamano; i++) {
-      int estado_input = -1;
-      input >> estado_input;
-      if (estado_input == 0) {
-        estado = muerto;
-      } else if (estado_input == 1) {
-        estado = vivo;
-      } else { // error
-        std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
-        exit(EXIT_FAILURE);
+  if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
+    tamano_ = tamano + 2;
+    vector_.resize(tamano_);
+    if (frontera == fria) {
+      vector_[0] = new Cell(Position(0), estado(muerto));
+      vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(muerto));
+    }
+    if (frontera == caliente) {
+      vector_[0] = new Cell(Position(0), estado(vivo));
+      vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(vivo));
+    }
+    if (fichero != "") {
+      std::ifstream input(fichero);
+      estado estado;
+      for (int i = 1; i < tamano + 1; i++) {
+        int estado_input = -1;
+        input >> estado_input;
+        if (estado_input == 0) {
+          estado = muerto;
+        } else if (estado_input == 1) {
+          estado = vivo;
+        } else { // error
+          std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
+          exit(EXIT_FAILURE);
+        }
+        vector_[i] = new Cell(Position(i), estado);
       }
-      vector_[i] = Cell(Position(i), estado);
+    }
+  } else if (frontera == periodica) {
+    tamano_ = tamano;
+    vector_.resize(tamano);
+    if (fichero != "") {
+      std::ifstream input(fichero);
+      estado estado;
+      for (int i = 0; i < tamano; i++) {
+        int estado_input = -1;
+        input >> estado_input;
+        if (estado_input == 0) {
+          estado = muerto;
+        } else if (estado_input == 1) {
+          estado = vivo;
+        } else { // error
+          std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
+          exit(EXIT_FAILURE);
+        }
+        vector_[i] = new Cell(Position(i), estado);
+      }
     }
   }
   return;
+}
+
+/** ~Lattice()
+  * @brief el destructor de la clase Lattice
+  */
+Lattice::~Lattice() {
+  if (this->frontera_ == fria || this->frontera_ == caliente) {
+    for (int i = 0; i < this->tamano_ + 2; i++) {
+      delete vector_[i];
+    }
+  } else {
+    for (int i = 0; i < this->tamano_; i++) {
+      delete vector_[i];
+    }
+  }
 }
 
 /** void inicializar();
   * @brief inicializa la tabla con todas las celulas a estado 0 menos el del medio
   */
 void Lattice::inicializar() {
-  for (int i = 0; i < tamano_ ; i++) {
-    vector_[i] = Cell(Position(i),State(muerto));
-    if (i == tamano_ / 2) {
-      vector_[i] = Cell(Position(i),State(vivo));
+  if (this->frontera_ == fria || this->frontera_ == caliente) {
+    for (int i = 0; i < tamano_ ; i++) {
+      if (i == tamano_ / 2) {
+        vector_[i] = new Cell(Position(i),State(vivo));
+      } else {
+        vector_[i] = new Cell(Position(i),State(muerto));
+      }
+    }
+  } else {
+    for (int i = 0; i < tamano_ ; i++) {
+      if (i == tamano_ / 2) {
+        vector_[i] = new Cell(Position(i),State(vivo));
+      } else {
+        vector_[i] = new Cell(Position(i),State(muerto));
+      }
     }
   }
 }
@@ -67,7 +123,7 @@ void Lattice::inicializar() {
   * @return retorna una celula constante
   */
 Cell& Lattice::getCell(const Position& posicion) const {
-  return vector_[posicion.getPosition()];
+  return *vector_[posicion.getPosition()];
 }
 
 /** void Lattice::nextGeneration()

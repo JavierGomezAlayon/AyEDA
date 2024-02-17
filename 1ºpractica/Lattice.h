@@ -34,13 +34,14 @@ enum frontera {
 class Lattice {
  public:
   Lattice(const int, frontera, std::string);
+  ~Lattice();
   Cell& getCell(const Position&) const;
   const frontera getFrontera() const;
   void inicializar();
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  Cell *vector_;
+  std::vector<Cell*> vector_;
   frontera frontera_;
   int tamano_;
   int generacion_;

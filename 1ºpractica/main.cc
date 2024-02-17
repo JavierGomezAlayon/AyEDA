@@ -23,7 +23,6 @@
 
 int main(int argc, char* argv[]) {
   Dato datos = RecogerParametro(argc, argv);
-  std::cout << datos.tamano << std::endl;
   Lattice lattice(datos.tamano, datos.border_type, datos.fichero);
   if (datos.fichero == "") {
     lattice.inicializar();
