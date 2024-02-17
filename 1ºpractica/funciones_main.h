@@ -17,6 +17,18 @@
 #ifndef C_funciones_main_H
 #define C_funciones_main_H
 
+#include<iostream>
+#include<string>
+#include"Lattice.h"
+
+// Definimos un struct para poder pasar al main los datos correspondientes.
+struct Dato {
+  frontera border_type;
+  int tamano;
+  std::string fichero;
+};
+
+Dato RecogerParametro(int argc, char *argv[]);
 
 
 #endif

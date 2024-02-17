@@ -21,11 +21,9 @@
 #include"Cell.h"
 #include"funciones_main.h"
 
-int main(int argc, char** argv) {
-  State estate(vivo);
-  Position posicion(0);
-  Cell celula1(posicion, estate);
-  Lattice lattice(32,fria,"hola");
+int main(int argc, char* argv[]) {
+  Dato datos = RecogerParametro(argc, argv);
+  Lattice lattice(32, fria, datos.fichero);
   lattice.inicializar();
   for(int i = 0 ; i < 100 ; i++) {
     std::cout << lattice << std::endl;
