@@ -40,7 +40,7 @@ Dato RecogerParametro(int argc, char *argv[]) {
         datos.tamano = *argv[i + 1];
         i++;
       } else if (argv[i] == KBorder) { // compruebo que tipo de borde es y le asigno un objeto frontera al struct datos.
-        if (argv[i + 1] == "open") { // si es open se comprueba si es fria o caliente y se pone dicho tipo.
+        if (argv[i + 1] == "b=open") { // si es open se comprueba si es fria o caliente y se pone dicho tipo.
           if (*argv[i + 2] == 0) { datos.border_type = fria; }
           else if ( *argv[i + 2] == 1) { datos.border_type = caliente; }
           else {
