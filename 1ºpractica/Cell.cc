@@ -58,7 +58,8 @@ void Cell::nextState(const Lattice& lattice) {
     derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
   }
   // Función de nextState
-  int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro * derecha);
+  int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro *
+   derecha);
   // Según el int genero el siguiente estado
   if (siguiente_estado % 2 == 0) {
     this->siguiente_estado_.setState(muerto);

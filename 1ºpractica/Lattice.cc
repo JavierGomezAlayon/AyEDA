@@ -99,7 +99,7 @@ Lattice::~Lattice() {
   */
 void Lattice::inicializar() {
   if (this->frontera_ == fria || this->frontera_ == caliente) {
-    for (int i = 0; i < tamano_ ; i++) {
+    for (int i = 1; i < tamano_ - 1 ; i++) {
       if (i == tamano_ / 2) {
         vector_[i] = new Cell(Position(i),State(vivo));
       } else {
@@ -133,6 +133,14 @@ Cell& Lattice::getCell(const Position& posicion) const {
 const int Lattice::getTamano() const {
   return this->tamano_;
 }
+
+/** const frontera Lattice::getFrontera() const
+  * @brief devuelve el tipo de frontera del lattice
+  * @return el tipo de frontera del lattice
+  */
+const frontera Lattice::getFrontera() const{
+  return frontera_;
+}
 /** void Lattice::nextGeneration()
   * @brief Se carga la siguiente generación de celulas
   */
@@ -159,9 +167,6 @@ void Lattice::nextGeneration() {
   this->generacion_ ++;
 }
 
-const frontera Lattice::getFrontera() const{
-  return frontera_;
-}
 
 /** ostream& operator<<(ostream&, const Lattice&);
   * @brief sobrecarga del operador <<
