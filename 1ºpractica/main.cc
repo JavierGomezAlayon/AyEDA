@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
   if (datos.fichero == "") {
     lattice.inicializar();
   }
+  // bucle para pasar de generación en generación
   while (getch()) {
     std::cout << lattice << std::endl;
     lattice.nextGeneration();

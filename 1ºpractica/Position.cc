@@ -21,6 +21,7 @@
 
 /** Position::Position(const int)
   * @brief Crea el objeto de la clase Position.
+  * @param posicion	
   * @return objeto de la clase Position
   */
 Position::Position(const int posicion) {
