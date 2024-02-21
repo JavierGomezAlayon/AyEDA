@@ -57,7 +57,7 @@ Dato RecogerParametro(int argc, char *argv[]) {
           i++;
         } else if (argv[i + 1] == KPeriodica) {
           datos.border_type = periodica;
-        } else if (argv[i + 1] == KReflectora ) {
+        } else if (argv[i + 1] == KReflectora ) { // Parte de la modificación para las fronteras reflectoras.
           datos.border_type = reflectora;
         } else { // Error
           std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;

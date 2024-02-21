@@ -21,10 +21,9 @@
 
 /** Cell::Cell()
   * @brief Constructor por defecto de la clase Cell.
-  * @param pos, estado
   * @return objeto de la clase Cell
   */
-Cell::Cell() {}
+//Cell::Cell() {}
 
 /** Cell::Cell(const Position& pos, const State& estado)
   * @brief Crea el objeto de la clase Cell.
@@ -47,19 +46,32 @@ void Cell::nextState(const Lattice& lattice) {
   int centro = this->estado_.getState(); // el centro siempre va a ser la celula que llama al metodo.
   int izquierda;
   int derecha;
-  if (lattice.getFrontera() == periodica && posicion_centro == 0) {
-    izquierda = lattice.getCell(lattice.getTamano() - 1).estado_.getState();
-    derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
-  } else if (lattice.getFrontera() == periodica && posicion_centro == lattice.getTamano() - 1) {
-    izquierda = lattice.getCell(posicion_centro - 1).estado_.getState();
-    derecha = lattice.getCell(0).estado_.getState();
+  // Aquí está la modificación para las fronteras reflectoras.
+  // Explicación:
+  // En el caso de que la frontera sea reflectora y la célula esté en el borde primero se le asigna el estado a la célula Real 
+  // y después la célula ficticia (la que está fuera de la frontera) se le asigna el estado de la célula real.
+  if (lattice.getFrontera() == reflectora && (posicion_centro == 0 || posicion_centro == lattice.getTamano() - 1)) {
+    if (posicion_centro == 0) {
+      derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
+      izquierda = derecha;
+    } else {
+      izquierda = lattice.getCell(posicion_centro - 1).estado_.getState();
+      derecha = izquierda;
+    }
+  } else if (lattice.getFrontera() == periodica && (posicion_centro == 0 || posicion_centro == lattice.getTamano() - 1)) {
+    if (posicion_centro == 0) {
+      izquierda = lattice.getCell(lattice.getTamano() - 1).estado_.getState();
+      derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
+    } else {
+      izquierda = lattice.getCell(posicion_centro - 1).estado_.getState();
+      derecha = lattice.getCell(0).estado_.getState();
+    }
   } else {
     izquierda = lattice.getCell(posicion_centro - 1).estado_.getState();
     derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
   }
   // Función de nextState
-  int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro *
-   derecha);
+  int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro * derecha);
   // Según el int genero el siguiente estado
   if (siguiente_estado % 2 == 0) {
     this->siguiente_estado_.setState(muerto);

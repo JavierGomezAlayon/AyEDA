@@ -33,8 +33,7 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") 
     if (frontera == fria) {
       vector_[0] = new Cell(Position(0), estado(muerto));
       vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(muerto));
-    }
-    if (frontera == caliente) {
+    } else if (frontera == caliente) {
       vector_[0] = new Cell(Position(0), estado(vivo));
       vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(vivo));
     }
@@ -55,10 +54,10 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") 
         vector_[i] = new Cell(Position(i), estado);
       }
     }
-  } else if (frontera == periodica) {
+  } else if (frontera == periodica || frontera == reflectora) { // si tiene una frontera periodica o reflectora
     tamano_ = tamano;
     vector_.resize(tamano);
-    if (fichero != "") {
+    if (fichero != "") { // si hay un fichero se lee el fichero
       std::ifstream input(fichero);
       estado estado;
       for (int i = 0; i < tamano; i++) {
@@ -75,7 +74,7 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") 
         vector_[i] = new Cell(Position(i), estado);
       }
     }
-  }
+  } 
   return;
 }
 
@@ -109,7 +108,7 @@ void Lattice::inicializar() {
   } else {
     for (int i = 0; i < tamano_ ; i++) {
       if (i == tamano_ / 2) {
-        vector_[i] = new Cell(Position(i),State(vivo));
+        vector_[i] = new Cell(Position(i),State(vivo)); 
       } else {
         vector_[i] = new Cell(Position(i),State(muerto));
       }
