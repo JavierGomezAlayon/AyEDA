@@ -4,7 +4,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Algoritmos y Estructura de Datos Avanzadas
 // Curso: 2º
-// Práctica 01 : Autómata celular elemental
+// Práctica 02 : El juego de la vida
 // Autor: javier Gómez Alayón
 // Correo: alu0101562445@ull.edu.es
 // Fecha: 02/08/24
@@ -22,7 +22,7 @@
 #include"Cell.h"
 #include"funciones_main.h"
 
-// algo copiado de internet para hacer las cosas más bonitas y pasar de generación en generación de una forma más cómoda.
+// función copiada de internet para hacer las cosas más bonitas y pasar de generación en generación de una forma más cómoda.
 #include <termios.h>
 #include <unistd.h>
 int getch() {
@@ -39,9 +39,12 @@ int getch() {
 
 int main(int argc, char* argv[]) {
   Dato datos = RecogerParametro(argc, argv);
-  Lattice lattice(datos.tamano, datos.border_type, datos.fichero);
+  // inicializamos el objeto lattice
   if (datos.fichero == "") {
+    Lattice lattice(datos.tamano, datos.border_type);
     lattice.inicializar();
+  } else {
+    Lattice lattice(datos.fichero);
   }
   // bucle para pasar de generación en generación
   while (getch()) {

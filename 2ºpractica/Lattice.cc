@@ -3,7 +3,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Algoritmos y Estructura de Datos Avanzadas
 // Curso: 2º
-// Práctica 01 : Autómata celular elemental
+// Práctica 02 : El juego de la vida
 // Autor: javier Gómez Alayón
 // Correo: alu0101562445@ull.edu.es
 // Fecha: 02/08/24
@@ -18,30 +18,10 @@
 #define C_Lattice_CC
 
 #include"Lattice.h"
-
-/** Lattice::Lattice()
-  * @brief Crea el objeto de la clase Lattice.
-  * @param tamano,frontera,fichero
-  * @return objeto de la clase Lattice
-  */
-Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") { 
-  frontera_ = frontera;
-  generacion_ = 0;
-  if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
-    tamano_ = tamano + 2;
-    vector_.resize(tamano_);
-    if (frontera == fria) {
-      vector_[0] = new Cell(Position(0), estado(muerto));
-      vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(muerto));
-    }
-    if (frontera == caliente) {
-      vector_[0] = new Cell(Position(0), estado(vivo));
-      vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(vivo));
-    }
-    if (fichero != "") {
-      std::ifstream input(fichero);
+Lattice::Lattice(const std::string fichero) {
+  std::ifstream input(fichero);
       estado estado;
-      for (int i = 1; i < tamano + 1; i++) {
+      for (int i = 0; i < tamano; i++) {
         int estado_input = -1;
         input >> estado_input;
         if (estado_input == 0) {
@@ -54,6 +34,25 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") 
         }
         vector_[i] = new Cell(Position(i), estado);
       }
+}
+/** Lattice::Lattice()
+  * @brief Crea el objeto de la clase Lattice.
+  * @param tamano,frontera,fichero
+  * @return objeto de la clase Lattice
+  */
+Lattice::Lattice(const int tamano, frontera frontera) { 
+  frontera_ = frontera;
+  generacion_ = 0;
+  if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
+    tamano_ = tamano + 2;
+    vector_.resize(tamano_);
+    if (frontera == fria) {
+      vector_[0] = new Cell(Position(0), estado(muerto));
+      vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(muerto));
+    }
+    if (frontera == caliente) {
+      vector_[0] = new Cell(Position(0), estado(vivo));
+      vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(vivo));
     }
   } else if (frontera == periodica) {
     tamano_ = tamano;
@@ -83,14 +82,8 @@ Lattice::Lattice(const int tamano, frontera frontera, std::string fichero = "") 
   * @brief el destructor de la clase Lattice
   */
 Lattice::~Lattice() {
-  if (this->frontera_ == fria || this->frontera_ == caliente) {
-    for (int i = 0; i < this->tamano_; i++) {
-      delete vector_[i];
-    }
-  } else {
-    for (int i = 0; i < this->tamano_; i++) {
-      delete vector_[i];
-    }
+  for (int i = 0; i < this->tamano_.first; i++) {
+    delete vector_[i];
   }
 }
 
@@ -174,7 +167,7 @@ void Lattice::nextGeneration() {
   * @return objeto de la clase ostream
   */
 std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
-  for(int i = 0; i < tabla.tamano_; i++) {
+  for(int i = 0; i < tabla.tamano_.first; i++) {
     Position posicion(i);
     os << tabla.getCell(posicion);
   }

@@ -3,7 +3,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Algoritmos y Estructura de Datos Avanzadas
 // Curso: 2º
-// Práctica 01 : Autómata celular elemental
+// Práctica 02 : El juego de la vida
 // Autor: javier Gómez Alayón
 // Correo: alu0101562445@ull.edu.es
 // Fecha: 02/08/24

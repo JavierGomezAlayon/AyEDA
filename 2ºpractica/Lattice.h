@@ -3,7 +3,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Algoritmos y Estructura de Datos Avanzadas
 // Curso: 2º
-// Práctica 01 : Autómata celular elemental
+// Práctica 02 : El juego de la vida
 // Autor: javier Gómez Alayón
 // Correo: alu0101562445@ull.edu.es
 // Fecha: 02/08/24
@@ -28,12 +28,14 @@ enum frontera {
   fria,
   caliente,
   periodica,
-  reflectora
+  reflectora,
+  sin_frontera
 };
 
 class Lattice {
  public:
-  Lattice(const int, frontera, std::string);
+  Lattice(const std::pair<int,int>,const frontera);
+  Lattice(const std::string);
   ~Lattice();
   Cell& getCell(const Position&) const;
   const frontera getFrontera() const;
@@ -42,11 +44,12 @@ class Lattice {
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  std::vector<Cell*> vector_;
+  Cell** vector_;
   frontera frontera_;
-  int tamano_;
+  std::pair<int, int> tamano_;
   int generacion_;
 };
+
 
 
 

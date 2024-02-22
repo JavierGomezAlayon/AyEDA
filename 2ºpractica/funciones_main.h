@@ -3,7 +3,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Algoritmos y Estructura de Datos Avanzadas
 // Curso: 2º
-// Práctica 01 : Autómata celular elemental
+// Práctica 02 : El juego de la vida
 // Autor: javier Gómez Alayón
 // Correo: alu0101562445@ull.edu.es
 // Fecha: 02/11/24
@@ -24,10 +24,11 @@
 // Definimos un struct para poder pasar al main los datos correspondientes.
 struct Dato {
   frontera border_type;
-  int tamano;
+  std::pair<int,int> tamano;
   std::string fichero;
 };
 
 Dato RecogerParametro(int argc, char *argv[]);
+void Recoger_borde(char *argv[], int &i, Dato &datos);
 
 #endif
