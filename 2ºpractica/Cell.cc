@@ -14,8 +14,6 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_Cell_CC
-#define C_Cell_CC
 
 #include"Cell.h"
 
@@ -42,21 +40,11 @@ Cell::Cell(const Position& pos, const State& estado) {
   * @param lattice
   */
 void Cell::nextState(const Lattice& lattice) {
-  int posicion_centro = this->posicion_.getPosition();
+  std::pair<int,int> posicion_centro = this->posicion_.getPosition();
   // Determino las células de los lados y del centro
   int centro = this->estado_.getState(); // el centro siempre va a ser la celula que llama al metodo.
   int izquierda;
   int derecha;
-  if (lattice.getFrontera() == periodica && posicion_centro == 0) {
-    izquierda = lattice.getCell(lattice.getTamano() - 1).estado_.getState();
-    derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
-  } else if (lattice.getFrontera() == periodica && posicion_centro == lattice.getTamano() - 1) {
-    izquierda = lattice.getCell(posicion_centro - 1).estado_.getState();
-    derecha = lattice.getCell(0).estado_.getState();
-  } else {
-    izquierda = lattice.getCell(posicion_centro - 1).estado_.getState();
-    derecha = lattice.getCell(posicion_centro + 1).estado_.getState();
-  }
   // Función de nextState
   int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro *
    derecha);
@@ -97,9 +85,6 @@ void Cell::updateState() {
   * @return objeto ostream
   */
 std::ostream& operator<<(std::ostream& os, const Cell& celula) {
-  // Necesito hacerlo con un struct
   os << celula.estado_;
   return os;
 }
-
-#endif

@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # VARIABLES
-DIRECTORIO=./1ºpractica/
+DIRECTORIO=./2ºpractica/
 PROGRAMA=
-numero_de_practica="01"
+numero_de_practica="02"
 nombre_de_practica="Autómata celular elemental"
 # PROGRAMAS
-mkdir "$DIRECTORIO"
+#mkdir "$DIRECTORIO"
 while [ "$1" != "" ]; do
   PROGRAMA=$1
   shift
@@ -23,5 +23,5 @@ while [ "$1" != "" ]; do
   #touch "$DIRECTORIO""$PROGRAMA"/Makefile
   #cat Makefile | sed -e "s/¬/$PROGRAMA.cc/g" -e "s|\*programa_sin_cc|$PROGRAMA|g" > "$DIRECTORIO""$PROGRAMA"/Makefile 
 done
-touch "$DIRECTORIO"makefile
-cat makefile > "$DIRECTORIO"makefile
+#touch "$DIRECTORIO"makefile
+#cat makefile > "$DIRECTORIO"makefile

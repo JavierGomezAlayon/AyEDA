@@ -15,8 +15,7 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_main_CC
-#define C_main_CC
+
 
 #include"Lattice.h"
 #include"Cell.h"
@@ -53,5 +52,3 @@ int main(int argc, char* argv[]) {
   }
   return 0;
 }
-
-#endif

@@ -21,6 +21,7 @@
 #include<fstream>
 #include"Position.h"
 #include"Cell.h"
+#include"VectorVariable.h"
 
 class Cell;
 
@@ -34,17 +35,17 @@ enum frontera {
 
 class Lattice {
  public:
-  Lattice(const std::pair<int,int>,const frontera);
+  Lattice(const std::pair<int,int>&, const frontera);
   Lattice(const std::string);
   ~Lattice();
   Cell& getCell(const Position&) const;
   const frontera getFrontera() const;
-  const int getTamano() const;
+  const std::pair<int,int> getTamano() const;
   void inicializar();
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  Cell** vector_;
+  VectorVariable vector_;
   frontera frontera_;
   std::pair<int, int> tamano_;
   int generacion_;

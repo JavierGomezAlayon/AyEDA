@@ -14,8 +14,6 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_Lattice_CC
-#define C_Lattice_CC
 
 #include"Lattice.h"
 Lattice::Lattice(const std::string fichero) {
@@ -40,9 +38,9 @@ Lattice::Lattice(const std::string fichero) {
   * @param tamano,frontera,fichero
   * @return objeto de la clase Lattice
   */
-Lattice::Lattice(const int tamano, frontera frontera) { 
-  frontera_ = frontera;
-  generacion_ = 0;
+Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) { 
+  this->frontera_ = frontera;
+  this->generacion_ = 0;
   if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
     tamano_ = tamano + 2;
     vector_.resize(tamano_);
@@ -55,25 +53,8 @@ Lattice::Lattice(const int tamano, frontera frontera) {
       vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(vivo));
     }
   } else if (frontera == periodica) {
-    tamano_ = tamano;
+    tamano_ = std::pair<int,int> tamano;
     vector_.resize(tamano);
-    if (fichero != "") {
-      std::ifstream input(fichero);
-      estado estado;
-      for (int i = 0; i < tamano; i++) {
-        int estado_input = -1;
-        input >> estado_input;
-        if (estado_input == 0) {
-          estado = muerto;
-        } else if (estado_input == 1) {
-          estado = vivo;
-        } else { // error
-          std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
-          exit(EXIT_FAILURE);
-        }
-        vector_[i] = new Cell(Position(i), estado);
-      }
-    }
   }
   return;
 }
@@ -116,14 +97,14 @@ void Lattice::inicializar() {
   * @return retorna una celula constante
   */
 Cell& Lattice::getCell(const Position& posicion) const {
-  return *vector_[posicion.getPosition()];
+  return *vector_[posicion.getPosition().first][posicion.getPosition().second];
 }
 
 /** const int Lattice::getTamano() const
   * @brief devuelve el tamaño del lattice
   * @return el tamaño del vector de celulas
   */
-const int Lattice::getTamano() const {
+const std::pair<int,int> Lattice::getTamano() const {
   return this->tamano_;
 }
 
@@ -134,6 +115,7 @@ const int Lattice::getTamano() const {
 const frontera Lattice::getFrontera() const{
   return frontera_;
 }
+
 /** void Lattice::nextGeneration()
   * @brief Se carga la siguiente generación de celulas
   */
@@ -175,5 +157,4 @@ std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
   return os;
 }
 
-#endif
 

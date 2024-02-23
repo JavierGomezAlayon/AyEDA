@@ -14,8 +14,6 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_State_CC
-#define C_State_CC
 
 #include"State.h"
 
@@ -43,6 +41,11 @@ void State::setState(const estado estado) {
   this->estado_ = estado;
 }
 
+/** std::ostream &operator<<(std::ostream &os, const State &estado)
+  * @brief Sobrecarga del operador <<
+  * @param os, estado
+  * @return os
+  */
 std::ostream &operator<<(std::ostream &os, const State &estado) {
   switch(estado.estado_) {
     case vivo:
@@ -56,5 +59,5 @@ std::ostream &operator<<(std::ostream &os, const State &estado) {
   }
   return os;
 }
-#endif
+
 

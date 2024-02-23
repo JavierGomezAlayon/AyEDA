@@ -20,13 +20,13 @@
 #include<iostream>
 #include<vector>
 #include"Cell.h"
-
+template <class T>
 class VectorVariable {
  public:
-  VectorVariable();
+  VectorVariable(const int);
   friend std::ostream& operator<<(std::ostream& os, const VectorVariable vector);
  private:
-  std::vector<Cell*> vector_;
+  std::vector<T> vector_;
  
 };
 

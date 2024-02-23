@@ -14,8 +14,6 @@
 //
 // Historial de revisiones
 //        *date - Creación (primera versión) del código
-#ifndef C_*programa_sin_cc_CC
-#define C_*programa_sin_cc_CC
 
 #include"*programa_sin_cc.h"
 
@@ -28,4 +26,3 @@
 
 }
 
-#endif

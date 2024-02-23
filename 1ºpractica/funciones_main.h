@@ -30,4 +30,6 @@ struct Dato {
 
 Dato RecogerParametro(int argc, char *argv[]);
 
+void Recoger_borde(char *argv[], int &i, const std::string &KOpen, Dato &datos, const std::string &KPeriodica, const std::string &KReflectora, const std::string &kSinborde);
+
 #endif

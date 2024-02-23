@@ -14,8 +14,6 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_Position_CC
-#define C_Position_CC
 
 #include"Position.h"
 
@@ -45,4 +43,3 @@ void Position::setPosition(const int posicionX,  const int posicionY) {
 }
 
 
-#endif

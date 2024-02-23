@@ -14,8 +14,6 @@
 //
 // Historial de revisiones
 //        02/11/24 - Creación (primera versión) del código
-#ifndef C_funciones_main_CC
-#define C_funciones_main_CC
 
 #include"funciones_main.h"
 
@@ -91,5 +89,3 @@ void Recoger_borde(char *argv[], int &i, Dato &datos) {
     exit(EXIT_FAILURE);
   }
 }
-
-#endif
