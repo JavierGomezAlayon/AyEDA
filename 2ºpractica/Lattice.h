@@ -45,7 +45,7 @@ class Lattice {
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  VectorVariable vector_;
+  MatrizVariable matriz_;
   frontera frontera_;
   std::pair<int, int> tamano_;
   int generacion_;

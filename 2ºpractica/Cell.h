@@ -24,9 +24,9 @@ class Lattice;
 
 class Cell {
  public:
-  Cell();
   Cell(const Position&, const State&);
   State getState() const;
+  Position getPosition() const;
   void setState(State);
   void nextState(const Lattice&);
   void updateState();

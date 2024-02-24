@@ -17,13 +17,6 @@
 
 #include"Cell.h"
 
-/** Cell::Cell()
-  * @brief Constructor por defecto de la clase Cell.
-  * @param pos, estado
-  * @return objeto de la clase Cell
-  */
-Cell::Cell() {}
-
 /** Cell::Cell(const Position& pos, const State& estado)
   * @brief Crea el objeto de la clase Cell.
   * @param pos, estado
@@ -62,6 +55,14 @@ void Cell::nextState(const Lattice& lattice) {
   */
 State Cell::getState() const {
   return this->estado_;
+}
+
+/** Position getPosition() const;
+  * @brief obtienes la posición de la celula
+  * @return posición de la celula
+  */
+Position Cell::getPosition() const {
+  return this->posicion_;
 }
 
 /** State setState(State);

@@ -20,13 +20,20 @@
 #include<iostream>
 #include<vector>
 #include"Cell.h"
-template <class T>
 class VectorVariable {
  public:
   VectorVariable(const int);
+  ~VectorVariable();
+  Cell& getCell(const int);
+  int getTamano() const;
+  int begin() const;
+  int end() const;
+  void setCell(const int, const Cell&);
+  void AumentarTamano(const bool);
   friend std::ostream& operator<<(std::ostream& os, const VectorVariable vector);
  private:
-  std::vector<T> vector_;
+  std::vector<Cell*> vector_;
+  int referencia0_; // Referencia donde está la posición 0.
  
 };
 
