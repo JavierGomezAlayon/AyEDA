@@ -23,8 +23,8 @@
 
 // Definimos un struct para poder pasar al main los datos correspondientes.
 struct Dato {
-  frontera border_type;
-  std::pair<int,int> tamano;
+  frontera border_type = sin_frontera;
+  std::pair<int,int> tamano = std::pair<int,int>(1,1);
   std::string fichero;
 };
 

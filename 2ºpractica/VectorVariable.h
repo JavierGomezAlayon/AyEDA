@@ -20,6 +20,8 @@
 #include<iostream>
 #include<vector>
 #include"Cell.h"
+class Cell;
+
 class VectorVariable {
  public:
   VectorVariable(const int = 1);

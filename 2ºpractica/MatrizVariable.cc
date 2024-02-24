@@ -40,15 +40,6 @@ MatrizVariable::~MatrizVariable() {
   this->matriz_.clear();
 }
 
-/** Cell& MatrizVariable::getCell()
-  * @brief Devuelve la celda de la posición indicada.
-  * @param posicion: posición de la celda.
-  * @return celda de la posición indicada.
-  */
-Cell& MatrizVariable::getCell(const std::pair<int,int> posicion) {
-  return this->matriz_.at(posicion.first + this->referencia0_filas_).getCell(posicion.second);
-}
-
 /** std::pair<int, int> MatrizVariable::getTamano()
   * @brief Devuelve el tamaño de la matriz.
   * @return tamaño de la matriz.

@@ -39,16 +39,16 @@ int getch() {
 int main(int argc, char* argv[]) {
   Dato datos = RecogerParametro(argc, argv);
   // inicializamos el objeto lattice
-  if (datos.fichero == "") {
-    Lattice lattice(datos.tamano, datos.border_type);
-    lattice.inicializar();
-  } else {
-    Lattice lattice(datos.fichero);
+  Lattice lattice(datos.tamano, datos.border_type);
+  //lattice.inicializar();
+
+  if (datos.fichero != "") {
+    lattice = Lattice(datos.fichero);
   }
   // bucle para pasar de generación en generación
   while (getch()) {
     std::cout << lattice << std::endl;
-    lattice.nextGeneration();
+    //lattice.nextGeneration();
   }
   return 0;
 }

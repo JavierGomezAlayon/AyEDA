@@ -16,6 +16,7 @@
 //        02/08/24 - Creación (primera versión) del código
 
 #include"Lattice.h"
+#include"MatrizVariable.h"
 
 Lattice::Lattice(const std::string fichero) {
   std::ifstream input(fichero);
@@ -24,7 +25,10 @@ Lattice::Lattice(const std::string fichero) {
   input >> this->tamano_.second;
   this->matriz_= MatrizVariable(this->tamano_);
   estado estado;
-  for (int i = 0; i < this->matriz_.getTamano().first * this->matriz_.getTamano().second; i++) {
+  std::string linea;
+  for (int i = 0; i < this->matriz_.getTamano().first ; i++) {
+    std::getline(input, linea);
+    std::cout << linea << std::endl;
     int estado_input = -1;
     input >> estado_input;
     if (estado_input == 0) {

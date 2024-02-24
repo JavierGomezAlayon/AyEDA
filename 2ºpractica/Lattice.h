@@ -22,8 +22,10 @@
 #include"Position.h"
 #include"Cell.h"
 #include"MatrizVariable.h"
+#include<sstream>
 
 class Cell;
+class MatrizVariable;
 
 enum frontera {
   fria,

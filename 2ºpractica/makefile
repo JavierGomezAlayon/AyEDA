@@ -10,10 +10,10 @@
 # @see http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 
 CXX = g++						# The C++ compiler command
-CXXFLAGS = -std=c++17 -O0 -g -Wall	  # The C++ compiler options (preserve debug symbols and No optimization)
+CXXFLAGS = -std=c++17 -O0 -g #-Wall	  # The C++ compiler options (preserve debug symbols and No optimization)
 LDFLAGS =						# The linker options (if any)
 OBJS = *.cc
-CC = Position.cc Lattice.cc Cell.cc State.cc main.cc funciones_main.cc
+CC = Position.cc MatrizVariable.cc VectorVariable.cc Lattice.cc  Cell.cc State.cc main.cc funciones_main.cc 
 PROGRAM = 1Practica
 PARAM = 
 

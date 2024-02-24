@@ -20,6 +20,8 @@
 #include<vector>
 #include"VectorVariable.h"
 #include"Cell.h"
+class Cell;
+class VectorVariable;
 
 class MatrizVariable {
  public:
