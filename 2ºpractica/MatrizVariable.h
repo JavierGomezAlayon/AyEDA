@@ -23,7 +23,7 @@
 
 class MatrizVariable {
  public:
-  MatrizVariable(std::pair<int,int>);
+  MatrizVariable(std::pair<int,int> = std::pair<int,int>(1,1));
   ~MatrizVariable();
   Cell& getCell(const std::pair<int,int>);
   void setCell(const std::pair<int,int>, const Cell&);

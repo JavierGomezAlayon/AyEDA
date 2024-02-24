@@ -22,7 +22,7 @@
 #include"Cell.h"
 class VectorVariable {
  public:
-  VectorVariable(const int);
+  VectorVariable(const int = 1);
   ~VectorVariable();
   Cell& getCell(const int);
   int getTamano() const;

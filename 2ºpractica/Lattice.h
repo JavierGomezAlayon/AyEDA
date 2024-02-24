@@ -21,7 +21,7 @@
 #include<fstream>
 #include"Position.h"
 #include"Cell.h"
-#include"VectorVariable.h"
+#include"MatrizVariable.h"
 
 class Cell;
 
@@ -38,7 +38,7 @@ class Lattice {
   Lattice(const std::pair<int,int>&, const frontera);
   Lattice(const std::string);
   ~Lattice();
-  Cell& getCell(const Position&) const;
+  Cell& getCell(const Position&);
   const frontera getFrontera() const;
   const std::pair<int,int> getTamano() const;
   void inicializar();

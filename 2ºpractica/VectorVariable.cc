@@ -44,20 +44,6 @@ VectorVariable::~VectorVariable() {
   return;
 }
 
-/** std::ostream &operator<<(std::ostream &os, const VectorVariable<T> vector)
-  * @brief Sobrecarga del operador de salida
-  * @param os
-  * @param vector
-  * @return os
-  */
-std::ostream &operator<<(std::ostream &os, const VectorVariable vector) {
-  for (int i = 0; i < vector.vector_.size() - 1 ; i++) {
-    os << vector.vector_.at(i) << " ";
-  }
-  os << vector.vector_.at(vector.vector_.size() - 1);
-  return os;
-}
-
 /** VectorVariable::getCell()
   * @brief Devuelve la celula en la posicion dada
   * @param pos
@@ -114,3 +100,16 @@ void VectorVariable::AumentarTamano(const bool final) {
   return;
 }
 
+/** std::ostream &operator<<(std::ostream &os, const VectorVariable<T> vector)
+  * @brief Sobrecarga del operador de salida
+  * @param os
+  * @param vector
+  * @return os
+  */
+std::ostream &operator<<(std::ostream &os, const VectorVariable vector) {
+  for (int i = 0; i < vector.vector_.size() - 1 ; i++) {
+    os << vector.vector_.at(i) << " ";
+  }
+  os << vector.vector_.at(vector.vector_.size() - 1);
+  return os;
+}
