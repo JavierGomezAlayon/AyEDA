@@ -21,6 +21,7 @@
 #include"Position.h"
 #include"Cell.h"
 #include<sstream>
+#include"VectorVariable.h"
 
 class Cell;
 
@@ -44,7 +45,7 @@ class Lattice {
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  int matriz_;
+  VectorVariable matriz_;
   frontera frontera_;
   std::pair<int, int> tamano_;
   int generacion_;
