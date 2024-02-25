@@ -22,7 +22,6 @@
 #include"Cell.h"
 #include<sstream>
 #include"VectorVariable.h"
-
 class Cell;
 
 enum frontera {
@@ -45,7 +44,7 @@ class Lattice {
   void nextGeneration();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
-  VectorVariable matriz_;
+  MyVector matriz_;
   frontera frontera_;
   std::pair<int, int> tamano_;
   int generacion_;

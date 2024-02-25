@@ -19,7 +19,7 @@
 #include"Position.h"
 #include<iostream>
 #include"State.h"
-#include"Lattice.h"
+
 
 class Lattice;
 

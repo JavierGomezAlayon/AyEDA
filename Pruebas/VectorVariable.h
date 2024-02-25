@@ -18,23 +18,21 @@
 
 #include<iostream>
 #include<vector>
-#include"Cell.h"
-class Cell;
-class MatrizVariable;
+//#include"Cell.h"
 
-class VectorVariable {
+
+class MyVector {
  public:
-  VectorVariable(const int = 1);
-  ~VectorVariable();
-  Cell& getCell(const int);
+  MyVector();
+  //Cell& getCell(const int);
   int getTamano() const;
   int begin() const;
   int end() const;
-  void setCell(const int, const Cell&);
+  //void setCell(const int, const Cell&);
   void AumentarTamano(const bool);
-  friend std::ostream& operator<<(std::ostream& os, const VectorVariable vector);
+  friend std::ostream& operator<<(std::ostream& os, const MyVector vector);
  private:
-  std::vector<Cell*> vector_;
+  std::vector<int> vector_;
   int referencia0_; // Referencia donde está la posición 0.
  
 };

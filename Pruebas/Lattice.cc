@@ -50,7 +50,7 @@ Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) {
   this->frontera_ = frontera;
   this->generacion_ = 0;
   this->tamano_ = tamano;
-  this->matriz_ = 1;
+  //this->matriz_ = 1;
     // Esta parte es para la creación de la frontera fria y caliente que en esta practica no va a ser.
   //if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
   //  tamano_ = tamano + 2;
