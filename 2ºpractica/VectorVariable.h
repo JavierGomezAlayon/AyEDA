@@ -24,7 +24,7 @@ class MatrizVariable;
 
 class VectorVariable {
  public:
-  VectorVariable(const int = 1);
+  VectorVariable(const int = 1, const int = 0);
   ~VectorVariable();
   Cell& getCell(const int);
   int getTamano() const;
@@ -36,5 +36,6 @@ class VectorVariable {
  private:
   std::vector<Cell*> vector_;
   int referencia0_; // Referencia donde está la posición 0.
+  int fila_de_la_celda_; // Para saber en que fila de la celda está.
  
 };

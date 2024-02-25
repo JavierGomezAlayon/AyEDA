@@ -34,6 +34,7 @@ class MatrizVariable {
   void AumentarTamano(const int, const int);
   friend std::ostream& operator<<(std::ostream& os, const MatrizVariable matriz);
  private:
-  std::vector<VectorVariable*> matriz_;
+  std::vector<std::vector<Cell*>> matriz_;
   int referencia0_filas_; // Referencia donde está la posición 0 de las filas.
+  int referencia0_columnas_; // Referencia donde está la posición 0 de las columnas.
 };

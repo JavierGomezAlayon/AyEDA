@@ -14,7 +14,7 @@ CXXFLAGS = -std=c++17 -O0 -g #-Wall	  # The C++ compiler options (preserve debug
 LDFLAGS =						# The linker options (if any)
 OBJS = *.cc
 CC = Position.cc MatrizVariable.cc VectorVariable.cc Lattice.cc  Cell.cc State.cc main.cc funciones_main.cc 
-PROGRAM = 1Practica
+PROGRAM = 2Practica
 PARAM = 
 
 

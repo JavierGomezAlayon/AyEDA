@@ -24,7 +24,7 @@ Lattice::Lattice(const std::string fichero) {
   input >> this->tamano_.first;
   input >> this->tamano_.second;
   std::cout << this->tamano_.first << " " << this->tamano_.second << std::endl;
-  this->matriz_= MatrizVariable(this->tamano_);
+  matriz_= MatrizVariable(this->tamano_);
   std::cout << this->matriz_.getTamano().first << " " << this->matriz_.getTamano().second << std::endl;
   estado estado;
   std::string linea;
@@ -33,11 +33,11 @@ Lattice::Lattice(const std::string fichero) {
     std::getline(input, linea);
     std::cout << linea << std::endl;
     for (int j = 0; j < this->matriz_.getTamano().second ; j++) {
-      int estado_input = std::atoi(linea.substr(j,1).c_str());
+      int estado_input = linea.at(j);
       // Según el estado qu haya como input lo ponemos.
-      if (estado_input == 0) {
+      if (estado_input == ' ') {
         estado = muerto;
-      } else if (estado_input == 1) {
+      } else if (estado_input == 'x') {
         estado = vivo;
       } else { // error
         std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
@@ -79,7 +79,7 @@ Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) {
   * @brief el destructor de la clase Lattice
   */
 Lattice::~Lattice() {
-  this->matriz_.~MatrizVariable();
+  //this->matriz_.~MatrizVariable();
 }
 
 /** void inicializar();

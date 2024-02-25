@@ -28,9 +28,13 @@
 MatrizVariable::MatrizVariable(std::pair<int,int> tamano) {
   matriz_.resize(tamano.first);
   for (int i = 0; i < tamano.first; i++) {
-    matriz_[i] = new VectorVariable(tamano.second);
+    matriz_.at(i).resize(tamano.second);
+    for(int j = 0; j < tamano.second; j++) {
+      matriz_.at(i).at(j) = new Cell(Position(i,j), muerto);
+    }
   }
   referencia0_filas_ = 0;
+  referencia0_columnas_ = 0;
 }
 
 /** MatrizVariable::~MatrizVariable()
@@ -38,9 +42,10 @@ MatrizVariable::MatrizVariable(std::pair<int,int> tamano) {
   */
 MatrizVariable::~MatrizVariable() {
   for (int i = 0; i < this->matriz_.size(); i++) {
-    this->matriz_.at(i)->~VectorVariable();
+    for (int j = 0; j < this->matriz_.at(i).size(); j++) {
+      delete this->matriz_.at(i).at(j);
+    }
   }
-  this->matriz_.clear();
 }
 
 /** std::pair<int, int> MatrizVariable::getTamano()
@@ -48,7 +53,9 @@ MatrizVariable::~MatrizVariable() {
   * @return tamaño de la matriz.
   */
 std::pair<int, int> MatrizVariable::getTamano() const {
-  return std::pair<int, int>(this->matriz_.size(), this->matriz_.at(0)->getTamano());
+  int tamanoX = this->matriz_.size();
+  int tamanoY = this->matriz_.at(0).size();
+  return std::pair<int, int>(tamanoX, tamanoY);
 }
 
 /** std::pair<int, int> MatrizVariable::PosBegin()
@@ -56,7 +63,7 @@ std::pair<int, int> MatrizVariable::getTamano() const {
   * @return posición de inicio de la matriz.
   */
 std::pair<int, int> MatrizVariable::posBegin() const {
-  return std::pair<int, int>(-(this->referencia0_filas_), this->matriz_.at(0)->begin());
+  return std::pair<int, int>(-(this->referencia0_filas_), -(this->referencia0_columnas_));
 }
 
 /** std::pair<int, int> MatrizVariable::posEnd()
@@ -64,7 +71,7 @@ std::pair<int, int> MatrizVariable::posBegin() const {
   * @return posición de fin de la matriz.
   */
 std::pair<int, int> MatrizVariable::posEnd() const {
-  return std::pair<int, int>(this->matriz_.size() - this->referencia0_filas_ - 1, this->matriz_.at(0)->end());
+  return std::pair<int, int>(this->matriz_.size() - this->referencia0_filas_ - 1, this->matriz_.at(0).size() - this->referencia0_columnas_ - 1);
 }
 
 /** void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell)
@@ -73,7 +80,7 @@ std::pair<int, int> MatrizVariable::posEnd() const {
   * @param celda: celda a establecer.
   */
 void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell) {
-  this->matriz_.at(posicion.first + this->referencia0_filas_)->setCell(posicion.second, cell);
+  this->matriz_.at(posicion.first + this->referencia0_filas_).at(posicion.second + this->referencia0_columnas_) = new Cell(cell);
 }
 
 /** Cell& MatrizVariable::getCell(std::pair<int,int> posicion)
@@ -82,7 +89,7 @@ void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell
   * @return Una referencia del objeto Cell de dicha posición.
   */
 Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
-  return matriz_.at(posicion.first + referencia0_filas_)->getCell(posicion.second);
+  return *matriz_.at(posicion.first + referencia0_filas_).at(posicion.second + referencia0_columnas_);
 }
 
 /** void MatrizVariable::AumentarTamano(const bool filas, const bool columnas)
@@ -93,18 +100,19 @@ Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
   */
 void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
   if (filas == 1) {
-    this->matriz_.push_back(new VectorVariable(matriz_.at(0)->getTamano()));
+    this->matriz_.push_back(std::vector<Cell*>(matriz_.at(0).size()));
+    
   } else if (filas == -1) {
-    this->matriz_.insert(this->matriz_.begin(),  new VectorVariable(matriz_.at(0)->getTamano()));
+    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(0).size()));
     referencia0_filas_++;
   }
   if (columnas == 1) {
     for (int i = 0; i < this->matriz_.size(); i++) {
-      this->matriz_.at(i)->AumentarTamano(true);
+      this->matriz_.at(i).push_back(new Cell(Position( this->matriz_.at(i).size(), i), muerto));
     }
   } else if (columnas == -1) {
     for (int i = 0; i < this->matriz_.size(); i++) {
-      this->matriz_.at(i)->AumentarTamano(false);
+      this->matriz_.at(i).insert(this->matriz_.at(i).begin(), new Cell(Position(this->posBegin().first, i), muerto));
     }
   }
   return;
@@ -118,7 +126,10 @@ void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
   */
 std::ostream &operator<<(std::ostream &os, const MatrizVariable matriz) {
   for (int i = 0; i < matriz.matriz_.size(); i++) {
-    os << *matriz.matriz_.at(i) << std::endl;
+    for (int j = 0; j < matriz.matriz_.at(i).size(); j++) {
+      os << matriz.matriz_.at(i).at(j)->getState();
+    }
+    os << std::endl;
   }
   return os;
 }

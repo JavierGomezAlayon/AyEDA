@@ -20,18 +20,19 @@
 
 /** VectorVariable::VectorVariable()
   * @brief Crea el objeto de la clase VectorVariable.
-  * @param tamano
+  * @param tamano Tamaño del vector.
+  * @param fila_de_la_celda  Para saber en que fila de la celda está.
   * @return objeto de la clase VectorVariable
   * @note Se inicializa el vector con celulas muertas
   */
-VectorVariable::VectorVariable(const int tamano) {
-
+VectorVariable::VectorVariable(const int tamano , const int fila_de_la_celda) {
+  this->fila_de_la_celda_ = fila_de_la_celda;
   this->referencia0_ = 0;
   // dimensiono el vector
   this->vector_.resize(tamano);
   // inicializo el vector con las celulas muertas
   for (int i = 0; i < tamano; i++) {
-    this->vector_.at(i) = new Cell(Position(i), muerto); // se pone sin referencia0 debido a que al principio no hay ningúna célula en posición negativa.
+    this->vector_.at(i) = new Cell(Position(fila_de_la_celda_, i), muerto); // se pone sin referencia0 debido a que al principio no hay ningúna célula en posición negativa.
   }
   return;
 }

@@ -25,6 +25,7 @@ State::State(const estado estado) {
   this->setState(estado);
 }
 
+
 /** int State::getState() const 
   * @brief Para obtener el valor del estado
   * @return El estado

@@ -26,6 +26,15 @@ Position::Position(const int posicionX, const int posicionY) {
   this->position_ = std::pair<int, int>(posicionX, posicionY);
 }
 
+/** Position::Position(const std::pair<int, int>)
+  * @brief Crea el objeto de la clase Position.
+  * @param posicion
+  * @return objeto de la clase Position
+  */
+Position::Position(const std::pair<int, int> pair) {
+  this->position_ = pair;
+}
+
 /** int Position::getPosition() const 
   * @brief Para obtener el valor del estado
   * @return La posición mediante un objeto pair
