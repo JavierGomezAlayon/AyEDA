@@ -19,7 +19,7 @@
 
 //#include<vector>
 //#include"VectorVariable.h"
-//#include"Cell.h"
+#include"Cell.h"
 //
 //class Cell;
 //class VectorVariable;
