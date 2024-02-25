@@ -25,7 +25,6 @@
 #include<sstream>
 
 class Cell;
-class MatrizVariable;
 
 enum frontera {
   fria,
@@ -52,8 +51,5 @@ class Lattice {
   std::pair<int, int> tamano_;
   int generacion_;
 };
-
-
-
 
 #endif
