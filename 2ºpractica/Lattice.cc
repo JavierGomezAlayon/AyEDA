@@ -23,21 +23,29 @@ Lattice::Lattice(const std::string fichero) {
   this->generacion_ = 0;
   input >> this->tamano_.first;
   input >> this->tamano_.second;
+  std::cout << this->tamano_.first << " " << this->tamano_.second << std::endl;
   this->matriz_= MatrizVariable(this->tamano_);
+  std::cout << this->matriz_.getTamano().first << " " << this->matriz_.getTamano().second << std::endl;
   estado estado;
   std::string linea;
   std::getline(input, linea); // para quitar un bug de que coge solo un retorno de carro
   for (int i = 0; i < this->matriz_.getTamano().first ; i++) {
     std::getline(input, linea);
     std::cout << linea << std::endl;
-    //if (estado_input == 0) {
-    //  estado = muerto;
-    //} else if (estado_input == 1) {
-    //  estado = vivo;
-    //} else { // error
-    //  std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
-    //  exit(EXIT_FAILURE);
-    //}
+    for (int j = 0; j < this->matriz_.getTamano().second ; j++) {
+      int estado_input = std::atoi(linea.substr(j,1).c_str());
+      // Según el estado qu haya como input lo ponemos.
+      if (estado_input == 0) {
+        estado = muerto;
+      } else if (estado_input == 1) {
+        estado = vivo;
+      } else { // error
+        std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
+        exit(EXIT_FAILURE);
+      }
+      std::cout << int(estado) << std::endl;
+      this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), estado));
+    }
   }
 }
 /** Lattice::Lattice()

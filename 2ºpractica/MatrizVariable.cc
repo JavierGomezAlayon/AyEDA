@@ -26,7 +26,6 @@
   * @return objeto de la clase MatrizVariable
   */
 MatrizVariable::MatrizVariable(std::pair<int,int> tamano) {
-  std::cout << "holi" << std::endl;
   matriz_.resize(tamano.first);
   for (int i = 0; i < tamano.first; i++) {
     matriz_[i] = new VectorVariable(tamano.second);
