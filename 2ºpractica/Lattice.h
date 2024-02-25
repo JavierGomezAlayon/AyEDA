@@ -14,8 +14,7 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_Lattice_H
-#define C_Lattice_H
+#pragma once
 
 #include<vector>
 #include<fstream>
@@ -24,6 +23,7 @@
 #include"MatrizVariable.h"
 #include<sstream>
 
+class VectorVariable;
 class Cell;
 
 enum frontera {
@@ -51,5 +51,3 @@ class Lattice {
   std::pair<int, int> tamano_;
   int generacion_;
 };
-
-#endif

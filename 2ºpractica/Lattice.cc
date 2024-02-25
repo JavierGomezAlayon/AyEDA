@@ -16,29 +16,28 @@
 //        02/08/24 - Creación (primera versión) del código
 
 #include"Lattice.h"
-#include"MatrizVariable.h"
+
 
 Lattice::Lattice(const std::string fichero) {
   std::ifstream input(fichero);
   this->generacion_ = 0;
   input >> this->tamano_.first;
   input >> this->tamano_.second;
-  //this->matriz_= MatrizVariable(this->tamano_);
+  this->matriz_= MatrizVariable(this->tamano_);
   estado estado;
   std::string linea;
-  //for (int i = 0; i < this->matriz_.getTamano().first ; i++) {
+  for (int i = 0; i < this->matriz_.getTamano().first ; i++) {
     std::getline(input, linea);
     std::cout << linea << std::endl;
-    int estado_input = -1;
-    input >> estado_input;
-    if (estado_input == 0) {
-      estado = muerto;
-    } else if (estado_input == 1) {
-      estado = vivo;
-    } else { // error
-      std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
-      exit(EXIT_FAILURE);
-  //  }
+    std::istringstream stream(linea);
+    //if (estado_input == 0) {
+    //  estado = muerto;
+    //} else if (estado_input == 1) {
+    //  estado = vivo;
+    //} else { // error
+    //  std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
+    //  exit(EXIT_FAILURE);
+    //}
   }
 }
 /** Lattice::Lattice()
@@ -50,7 +49,7 @@ Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) {
   this->frontera_ = frontera;
   this->generacion_ = 0;
   this->tamano_ = tamano;
-  //this->matriz_ = MatrizVariable(tamano);
+  this->matriz_ = MatrizVariable(tamano);
     // Esta parte es para la creación de la frontera fria y caliente que en esta practica no va a ser.
   //if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
   //  tamano_ = tamano + 2;
@@ -104,7 +103,7 @@ void Lattice::inicializar() {
   * @return retorna una celula constante
   */
 Cell& Lattice::getCell(const Position& posicion) {
-  //return this->matriz_.getCell(posicion.getPosition());
+  return this->matriz_.getCell(posicion.getPosition());
 }
 
 /** const int Lattice::getTamano() const
@@ -156,7 +155,7 @@ void Lattice::nextGeneration() {
   * @return objeto de la clase ostream
   */
 std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
-  //os << tabla.matriz_;
+  os << tabla.matriz_;
   os << " G(" << tabla.generacion_ << ")\n";
   return os;
 }

@@ -14,8 +14,7 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_Position_H
-#define C_Position_H
+#pragma once
 
 #include <iostream>
 
@@ -27,7 +26,3 @@ class Position {
  private:
  std::pair<int, int> position_;
 };
-
-
-
-#endif

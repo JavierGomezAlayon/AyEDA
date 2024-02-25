@@ -14,12 +14,12 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_Cell_H
-#define C_Cell_H
+#pragma once
+
 #include"Position.h"
 #include<iostream>
 #include"State.h"
-#include"Lattice.h"
+
 class Lattice;
 
 class Cell {
@@ -37,6 +37,3 @@ class Cell {
   State siguiente_estado_;
 };
 
-
-
-#endif

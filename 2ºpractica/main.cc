@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
   Lattice lattice(datos.tamano, datos.border_type);
   //lattice.inicializar();
 
+  std::cout << datos.tamano.first << " " << datos.tamano.second  << " " << datos.border_type << std::endl;
   if (datos.fichero != "") {
     lattice = Lattice(datos.fichero);
   }

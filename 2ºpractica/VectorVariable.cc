@@ -16,6 +16,7 @@
 //        02/22/24 - Creación (primera versión) del código
 
 #include"VectorVariable.h"
+#include"Cell.h"
 
 /** VectorVariable::VectorVariable()
   * @brief Crea el objeto de la clase VectorVariable.
@@ -24,6 +25,7 @@
   * @note Se inicializa el vector con celulas muertas
   */
 VectorVariable::VectorVariable(const int tamano) {
+
   this->referencia0_ = 0;
   // dimensiono el vector
   this->vector_.resize(tamano);
@@ -113,3 +115,4 @@ std::ostream &operator<<(std::ostream &os, const VectorVariable vector) {
   os << vector.vector_.at(vector.vector_.size() - 1);
   return os;
 }
+

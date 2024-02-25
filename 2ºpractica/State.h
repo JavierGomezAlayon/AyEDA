@@ -14,8 +14,7 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
-#ifndef C_State_H
-#define C_State_H
+#pragma once
 #include <iostream>
 
 enum estado {
@@ -32,7 +31,3 @@ class State {
  private:
   estado estado_;
 };
-
-
-
-#endif

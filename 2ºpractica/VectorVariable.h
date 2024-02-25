@@ -14,13 +14,13 @@
 //
 // Historial de revisiones
 //        02/22/24 - Creación (primera versión) del código
-#ifndef C_VectorVariable_H
-#define C_VectorVariable_H
+#pragma once
 
 #include<iostream>
 #include<vector>
 #include"Cell.h"
 class Cell;
+class MatrizVariable;
 
 class VectorVariable {
  public:
@@ -38,5 +38,3 @@ class VectorVariable {
   int referencia0_; // Referencia donde está la posición 0.
  
 };
-
-#endif

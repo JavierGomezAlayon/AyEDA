@@ -14,8 +14,7 @@
 //
 // Historial de revisiones
 //        02/11/24 - Creación (primera versión) del código
-#ifndef C_funciones_main_H
-#define C_funciones_main_H
+#pragma once
 
 #include<iostream>
 #include<string>
@@ -30,5 +29,3 @@ struct Dato {
 
 Dato RecogerParametro(int argc, char *argv[]);
 void Recoger_borde(char *argv[], int &i, Dato &datos);
-
-#endif
