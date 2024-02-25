@@ -26,10 +26,10 @@ Lattice::Lattice(const std::string fichero) {
   this->matriz_= MatrizVariable(this->tamano_);
   estado estado;
   std::string linea;
+  std::getline(input, linea); // para quitar un bug de que coge solo un retorno de carro
   for (int i = 0; i < this->matriz_.getTamano().first ; i++) {
     std::getline(input, linea);
     std::cout << linea << std::endl;
-    std::istringstream stream(linea);
     //if (estado_input == 0) {
     //  estado = muerto;
     //} else if (estado_input == 1) {
