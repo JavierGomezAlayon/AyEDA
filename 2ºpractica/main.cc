@@ -38,16 +38,22 @@ int getch() {
 
 int main(int argc, char* argv[]) {
   Dato datos = RecogerParametro(argc, argv);
-  // inicializamos el objeto lattice
-  Lattice lattice(datos.tamano, datos.border_type);
-  //lattice.inicializar();
+  // Si el cliente puso un fichero se construye el lattice con el fichero.
   if (datos.fichero != "") {
-    lattice = Lattice(datos.fichero);
-  }
-  // bucle para pasar de generación en generación
-  while (getch()) {
-    std::cout << lattice << std::endl;
-    //lattice.nextGeneration();
+    Lattice lattice(datos.fichero, datos.border_type);
+    while (getch()) {
+      system("clear");
+      std::cout << lattice << std::endl;
+      lattice.nextGeneration();
+    }
+  } else {
+    Lattice lattice(datos.tamano, datos.border_type);
+    lattice.inicializar();
+    while (getch()) {
+      system("clear");
+      std::cout << lattice << std::endl;
+      lattice.nextGeneration();
+    }
   }
   return 0;
 }

@@ -37,7 +37,7 @@ Dato RecogerParametro(int argc, char *argv[]) {
   Dato datos;
   datos.fichero = "";
   // Compruebo que el número de argumento sea correcto.
-  if (argc == 5 || argc == 3) {
+  if (argc == 5 || argc == 6) {
     // Recorro el array comprobando lo que contiene
     for (int i = 1; i < argc; i++) {
       if (argv[i] == KSize) {

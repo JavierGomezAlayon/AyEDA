@@ -51,4 +51,22 @@ void Position::setPosition(const int posicionX,  const int posicionY) {
   this->position_ = std::pair<int, int>(posicionX, posicionY);
 }
 
+/** void Position::fix()
+  * @brief Arregla la posición si es negativa
+  * @param maximoX, maximoY Son los valores que se cuentan como fuera del tablero.
+  */
+void Position::fix(const int maximoX, const int maximoY) {
+  if (this->position_.first < 0) {
+    this->position_.first = 0;
+  }
+  if (this->position_.second < 0) {
+    this->position_.second = 0;
+  }
+  if (this->position_.first > maximoX) {
+    this->position_.first = maximoX - 1;
+  }
+  if (this->position_.second > maximoY) {
+    this->position_.second = maximoY - 1;
+  }
+}
 

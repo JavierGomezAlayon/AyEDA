@@ -1,4 +1,11 @@
-3 3
-xxx
-x x
-xxx
+10 5
+     
+     
+ xxx 
+     
+   x 
+     
+     
+ xxxx
+     
+     

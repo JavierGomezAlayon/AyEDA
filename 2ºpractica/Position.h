@@ -22,6 +22,7 @@ class Position {
  public:
   Position(const int = 0, const int = 0);
   Position(const std::pair<int, int>);
+  void fix(const int, const int);
   std::pair<int, int> getPosition() const;
   void setPosition(const int, const int);
  private:

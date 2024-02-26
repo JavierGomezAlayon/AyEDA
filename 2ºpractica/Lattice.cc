@@ -17,21 +17,18 @@
 
 #include"Lattice.h"
 
-
-Lattice::Lattice(const std::string fichero) {
-  std::ifstream input(fichero);
+Lattice::Lattice(const std::string fichero, const frontera frontera) {
   this->generacion_ = 0;
+  this->frontera_ = frontera;
+  std::ifstream input(fichero);
   input >> this->tamano_.first;
   input >> this->tamano_.second;
-  std::cout << this->tamano_.first << " " << this->tamano_.second << std::endl;
   matriz_= MatrizVariable(this->tamano_);
-  std::cout << this->matriz_.getTamano().first << " " << this->matriz_.getTamano().second << std::endl;
   estado estado;
   std::string linea;
   std::getline(input, linea); // para quitar un bug de que coge solo un retorno de carro
   for (int i = 0; i < this->matriz_.getTamano().first ; i++) {
     std::getline(input, linea);
-    std::cout << linea << std::endl;
     for (int j = 0; j < this->matriz_.getTamano().second ; j++) {
       int estado_input = linea.at(j);
       // Según el estado qu haya como input lo ponemos.
@@ -43,7 +40,6 @@ Lattice::Lattice(const std::string fichero) {
         std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
         exit(EXIT_FAILURE);
       }
-      std::cout << int(estado) << std::endl;
       this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), estado));
     }
   }
@@ -58,51 +54,43 @@ Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) {
   this->generacion_ = 0;
   this->tamano_ = tamano;
   this->matriz_ = MatrizVariable(tamano);
-    // Esta parte es para la creación de la frontera fria y caliente que en esta practica no va a ser.
-  //if (frontera == fria || frontera == caliente) { // si tiene una frontera fria o caliente se le añade 2 celulas constantes
-  //  tamano_ = tamano + 2;
-  //  vector_.resize(tamano_);
-  //  if (frontera == fria) {
-  //    vector_[0] = new Cell(Position(0), estado(muerto));
-  //    vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(muerto));
-  //  }
-  //  if (frontera == caliente) {
-  //    vector_[0] = new Cell(Position(0), estado(vivo));
-  //    vector_[tamano_ - 1] = new Cell(Position(tamano_ - 1), estado(vivo));
-  //  }
-  //} else if (frontera == periodica) {
-  //}
+  
   return;
 }
 
-/** ~Lattice()
-  * @brief el destructor de la clase Lattice
+/** Lattice::Lattice(const Lattice& lattice)
+  * @brief constructor de copia de la clase Lattice
+  * @param lattice
+  * @return objeto de la clase Lattice
   */
-Lattice::~Lattice() {
-  //this->matriz_.~MatrizVariable();
+void Lattice::setLattice(Lattice lattice) {
+  this->frontera_ = lattice.frontera_;
+  this->generacion_ = lattice.generacion_;
+  this->tamano_ = lattice.tamano_;
+  this->matriz_ = lattice.matriz_;
 }
 
+
 /** void inicializar();
-  * @brief inicializa la tabla con todas las celulas a estado 0 menos el del medio
+  * @brief Le pregunta al usuario cuales quiere que estén vivos
   */
 void Lattice::inicializar() {
-  //if (this->frontera_ == fria || this->frontera_ == caliente) {
-  //  for (int i = 1; i < tamano_ - 1 ; i++) {
-  //    if (i == tamano_ / 2) {
-  //      vector_[i] = new Cell(Position(i),State(vivo));
-  //    } else {
-  //      vector_[i] = new Cell(Position(i),State(muerto));
-  //    }
-  //  }
-  //} else {
-  //  for (int i = 0; i < tamano_ ; i++) {
-  //    if (i == tamano_ / 2) {
-  //      vector_[i] = new Cell(Position(i),State(vivo));
-  //    } else {
-  //      vector_[i] = new Cell(Position(i),State(muerto));
-  //    }
-  //  }
-  //}
+  std::cout << "Este es el inicializador de la matriz, por favor introduzca el estado de las celulas (1 -> viva o 0 -> muerta) fila por fila dejando un hueco entre cada celula." << std::endl;
+  std::cout << "La matriz es de "<< this->tamano_.first << " filas y " << this->tamano_.second << " columnas. " << std::endl;
+  for (int i = 0 ; i < this->tamano_.first ; i++) {
+    for (int j = 0 ; j < this->tamano_.second ; j++) {
+      int estado;
+      std::cin >> estado;
+      if (estado == 1) {
+        this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), vivo));
+      } else if (estado == 0) {
+        this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), muerto));
+      } else {
+        std::cerr << "Error (1): Se ha introducido un valor no computable." << std::endl;
+        exit(EXIT_FAILURE);
+      }
+    }
+  }
 }
 
 /** const Cell& Lattice::getCell(const Position&) const
@@ -110,7 +98,10 @@ void Lattice::inicializar() {
   * @param posicion
   * @return retorna una celula constante
   */
-Cell& Lattice::getCell(const Position& posicion) {
+Cell& Lattice::getCell(Position posicion) {
+  if (this->frontera_ == reflectora) {
+  posicion.fix(this->tamano_.first - 1, this->tamano_.second - 1);
+  }
   return this->matriz_.getCell(posicion.getPosition());
 }
 
@@ -127,33 +118,26 @@ const std::pair<int,int> Lattice::getTamano() const {
   * @return el tipo de frontera del lattice
   */
 const frontera Lattice::getFrontera() const{
-  return frontera_;
+  return this->frontera_;
 }
 
 /** void Lattice::nextGeneration()
   * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
-  //if (this->frontera_ == fria || this->frontera_ == caliente) {
-  //  for(int i = 1; i < this->tamano_ - 1; i++) { // cada celula obtiene el nextState
-  //    Position posicion(i);
-  //    this->getCell(posicion).nextState(*this);
-  //  }
-  //  for(int i = 1; i < this->tamano_ - 1; i++) { // cada celula se actualiza el estado
-  //    Position posicion(i);
-  //    this->getCell(posicion).updateState();
-  //  }
-  //} else {
-  //  for(int i = 0; i < this->tamano_; i++) { // cada celula obtiene el nextState
-  //    Position posicion(i);
-  //    this->getCell(posicion).nextState(*this);
-  //  }
-  //  for(int i = 0; i < this->tamano_; i++) { // cada celula se actualiza el estado
-  //    Position posicion(i);
-  //    this->getCell(posicion).updateState();
-  //  }
-  //}
-  //this->generacion_ ++;
+  for(int i = 0; i < this->tamano_.first; i++) { // cada celula obtiene el nextState
+    for(int j = 0; j < this->tamano_.second; j++) { // cada celula se actualiza el estado
+      Position posicion(i, j);
+      this->getCell(posicion).nextState(*this);
+    }
+  }
+  for(int i = 0; i < this->tamano_.first; i++) { // cada celula obtiene el nextState
+    for(int j = 0; j < this->tamano_.second; j++) { // cada celula se actualiza el estado
+      Position posicion(i, j);
+      this->getCell(posicion).updateState();
+    }
+  }
+  this->generacion_ ++;
 }
 
 

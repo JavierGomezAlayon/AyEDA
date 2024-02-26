@@ -37,13 +37,22 @@ MatrizVariable::MatrizVariable(std::pair<int,int> tamano) {
   referencia0_columnas_ = 0;
 }
 
+/** MatrizVariable::MatrizVariable()
+  * @brief Crea el objeto de la clase MatrizVariable.
+  * @return objeto de la clase MatrizVariable
+  */
+MatrizVariable::MatrizVariable() {
+  matriz_.resize(0);
+  referencia0_filas_ = 0;
+}
+
 /** MatrizVariable::~MatrizVariable()
   * @brief Destructor de la clase MatrizVariable
   */
 MatrizVariable::~MatrizVariable() {
   for (int i = 0; i < this->matriz_.size(); i++) {
     for (int j = 0; j < this->matriz_.at(i).size(); j++) {
-      delete this->matriz_.at(i).at(j);
+      //delete this->matriz_.at(i).at(j);
     }
   }
 }
@@ -127,14 +136,10 @@ void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
 std::ostream &operator<<(std::ostream &os, const MatrizVariable matriz) {
   for (int i = 0; i < matriz.matriz_.size(); i++) {
     for (int j = 0; j < matriz.matriz_.at(i).size(); j++) {
-      os << matriz.matriz_.at(i).at(j)->getState();
+      os << matriz.matriz_.at(i).at(j)->getState() << " ";
     }
     os << std::endl;
   }
   return os;
 }
 
-MatrizVariable::MatrizVariable() {
-  matriz_.resize(0);
-  referencia0_filas_ = 0;
-}

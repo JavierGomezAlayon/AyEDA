@@ -16,6 +16,7 @@
 //        02/08/24 - Creación (primera versión) del código
 
 #include"Cell.h"
+#include "Lattice.h"
 
 /** Cell::Cell(const Position& pos, const State& estado)
   * @brief Crea el objeto de la clase Cell.
@@ -27,25 +28,29 @@ Cell::Cell(const Position& pos, const State& estado) {
   this->estado_ = estado;
   return;
 }
-
 /** int nextState(const Lattice&) 
   * @brief determina el siguiente estado de la célula y lo guarda en siguiente_estado_
   * @param lattice
   */
-void Cell::nextState(const Lattice& lattice) {
+void Cell::nextState(Lattice& lattice) {
   std::pair<int,int> posicion_centro = this->posicion_.getPosition();
   // Determino las células de los lados y del centro
-  int centro = this->estado_.getState(); // el centro siempre va a ser la celula que llama al metodo.
-  int izquierda;
-  int derecha;
-  // Función de nextState
-  int siguiente_estado = (centro + derecha + centro * derecha + izquierda * centro *
-   derecha);
-  // Según el int genero el siguiente estado
-  if (siguiente_estado % 2 == 0) {
-    this->siguiente_estado_.setState(muerto);
+  int A_A = lattice.getCell(Position (posicion_centro.first - 1, posicion_centro.second - 1)).getState().getState();
+  int B_A = lattice.getCell(Position (posicion_centro.first, posicion_centro.second - 1)).getState().getState();
+  int C_A = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second - 1)).getState().getState();
+  int A_B = lattice.getCell(Position (posicion_centro.first - 1, posicion_centro.second)).getState().getState();
+  int B_B = this->estado_.getState(); // el centro siempre va a ser la celula que llama al metodo.
+  int C_B = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second)).getState().getState();
+  int A_C = lattice.getCell(Position (posicion_centro.first - 1, posicion_centro.second + 1)).getState().getState();
+  int B_C = lattice.getCell(Position (posicion_centro.first , posicion_centro.second + 1)).getState().getState();
+  int C_C = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second + 1)).getState().getState();
+  int suma = (A_A + B_A + C_A + A_B + C_B + A_C + B_C + C_C);
+  if (B_B == 1 &&(suma == 2 || suma == 3)) {
+    this->siguiente_estado_ = vivo;
+  } else if (B_B == 0 && suma == 3) {
+    this->siguiente_estado_ = vivo;
   } else {
-    this->siguiente_estado_.setState(vivo);
+    this->siguiente_estado_ = muerto;
   }
 }
 
