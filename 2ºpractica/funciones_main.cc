@@ -89,3 +89,19 @@ void Recoger_borde(char *argv[], int &i, Dato &datos) {
     exit(EXIT_FAILURE);
   }
 }
+
+/** void InterfazGeneraciones(Lattice &lattice);
+  * @brief Interfaz para mostrar las generaciones del juego de la vida.
+  * @param lattice
+  */
+void InterfazGeneraciones(Lattice &lattice) {
+  char input;
+  // Explicación de la interfaz
+  std::cout << "Pulse cualquier tecla para avanzar a la siguiente generación." << std::endl;
+  while (std::cin >> input) {
+    system("clear");
+    std::cout << lattice << std::endl;
+    std::cout << "Población: " << lattice.Population() << std::endl;
+    lattice.nextGeneration();
+  }
+}

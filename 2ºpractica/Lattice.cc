@@ -44,6 +44,7 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
     }
   }
 }
+
 /** Lattice::Lattice()
   * @brief Crea el objeto de la clase Lattice.
   * @param tamano,frontera,fichero
@@ -54,22 +55,8 @@ Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) {
   this->generacion_ = 0;
   this->tamano_ = tamano;
   this->matriz_ = MatrizVariable(tamano);
-  
   return;
 }
-
-/** Lattice::Lattice(const Lattice& lattice)
-  * @brief constructor de copia de la clase Lattice
-  * @param lattice
-  * @return objeto de la clase Lattice
-  */
-void Lattice::setLattice(Lattice lattice) {
-  this->frontera_ = lattice.frontera_;
-  this->generacion_ = lattice.generacion_;
-  this->tamano_ = lattice.tamano_;
-  this->matriz_ = lattice.matriz_;
-}
-
 
 /** void inicializar();
   * @brief Le pregunta al usuario cuales quiere que estén vivos
@@ -140,6 +127,17 @@ void Lattice::nextGeneration() {
   this->generacion_ ++;
 }
 
+int Lattice::Population() {
+  int suma = 0;
+  for(int i = 0; i < this->tamano_.first; i++) {
+    for(int j = 0; j < this->tamano_.second; j++) {
+      Position posicion(i, j);
+      suma += this->getCell(posicion).getState().getState();
+    }
+  }
+  return suma;
+}
+
 
 /** ostream& operator<<(ostream&, const Lattice&);
   * @brief sobrecarga del operador <<
@@ -147,8 +145,8 @@ void Lattice::nextGeneration() {
   * @return objeto de la clase ostream
   */
 std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
-  os << tabla.matriz_;
   os << " G(" << tabla.generacion_ << ")\n";
+  os << tabla.matriz_;
   return os;
 }
 

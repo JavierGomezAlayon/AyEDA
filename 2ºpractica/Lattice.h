@@ -38,12 +38,12 @@ class Lattice {
  public:
   Lattice(const std::pair<int,int>&, const frontera);
   Lattice(const std::string, const frontera);
-  void setLattice(Lattice);
   Cell& getCell(Position);
   const frontera getFrontera() const;
   const std::pair<int,int> getTamano() const;
   void inicializar();
   void nextGeneration();
+  int Population();
   friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
  private:
   MatrizVariable matriz_;

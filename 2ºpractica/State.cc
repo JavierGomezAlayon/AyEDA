@@ -28,7 +28,7 @@ State::State(const estado estado) {
 
 /** int State::getState() const 
   * @brief Para obtener el valor del estado
-  * @return El estado
+  * @return 1 si es vivo, 0 si es muerto.
   */
 int State::getState() const {
   return this->estado_;

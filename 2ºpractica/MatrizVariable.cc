@@ -134,11 +134,29 @@ void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
   * @return os.
   */
 std::ostream &operator<<(std::ostream &os, const MatrizVariable matriz) {
+  // techo
+  os << " ";
+  for(int i = 0; i < matriz.matriz_.size(); i++) {
+    os << "-";
+  }
+  std::endl(os);
+  //Matriz con `|` en los lados.
   for (int i = 0; i < matriz.matriz_.size(); i++) {
     for (int j = 0; j < matriz.matriz_.at(i).size(); j++) {
+      if (j == 0) {
+        os << "|";
+      }
       os << matriz.matriz_.at(i).at(j)->getState() << " ";
+      if (j == matriz.matriz_.at(i).size() - 1) {
+        os << "|";
+      }
     }
     os << std::endl;
+  }
+  // suelo
+  os << " ";
+  for(int i = 0; i < matriz.matriz_.size(); i++) {
+    os << "-";
   }
   return os;
 }

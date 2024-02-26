@@ -41,19 +41,21 @@ int main(int argc, char* argv[]) {
   // Si el cliente puso un fichero se construye el lattice con el fichero.
   if (datos.fichero != "") {
     Lattice lattice(datos.fichero, datos.border_type);
-    while (getch()) {
+    do {
       system("clear");
       std::cout << lattice << std::endl;
+      std::cout << "Población: " << lattice.Population() << std::endl;
       lattice.nextGeneration();
-    }
+    }while (getch()); 
   } else {
     Lattice lattice(datos.tamano, datos.border_type);
     lattice.inicializar();
-    while (getch()) {
+    do {
       system("clear");
       std::cout << lattice << std::endl;
+      std::cout << "Población: " << lattice.Population() << std::endl;
       lattice.nextGeneration();
-    }
+    }while (getch()); 
   }
   return 0;
 }
