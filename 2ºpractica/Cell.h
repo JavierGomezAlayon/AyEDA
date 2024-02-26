@@ -28,6 +28,7 @@ class Cell {
   State getState() const;
   Position getPosition() const;
   void setState(State);
+  void setPosition(Position);
   void nextState(Lattice&);
   void updateState();
   friend std::ostream& operator<<(std::ostream& os, const Cell& celula);

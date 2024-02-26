@@ -78,6 +78,14 @@ void Cell::setState(State estado) {
   this->estado_ = estado;
 }
 
+/** void setPosition(Position);
+  * @brief Pone como posición de la celula el valor dado
+  * @param posicion
+  */
+void Cell::setPosition(Position posicion) {
+  this->posicion_ = posicion;
+}
+
 /** void updateState()
   * @brief actualiza el estado de la célula
   */

@@ -32,6 +32,7 @@ class MatrizVariable {
   std::pair<int, int> posBegin() const;
   std::pair<int, int> posEnd() const;
   void AumentarTamano(const int, const int);
+  bool fueraDeRango(const std::pair<int,int>);
   friend std::ostream& operator<<(std::ostream& os, const MatrizVariable matriz);
  private:
   std::vector<std::vector<Cell*>> matriz_;

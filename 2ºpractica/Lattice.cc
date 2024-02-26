@@ -83,11 +83,15 @@ void Lattice::inicializar() {
 /** const Cell& Lattice::getCell(const Position&) const
   * @brief devuelve la celula que está en la posición descrita por el objeto posicion
   * @param posicion
-  * @return retorna una celula constante
+  * @return retorna una celula constante. Si es sin frontera devuelve una celula muerta.
   */
 Cell& Lattice::getCell(Position posicion) {
   if (this->frontera_ == reflectora) {
   posicion.fix(this->tamano_.first - 1, this->tamano_.second - 1);
+  }else if (this->frontera_ == sin_frontera && this->matriz_.fueraDeRango(posicion.getPosition())) {
+    // devuelve una celula muerta
+    Cell* pointer = new Cell(Position(-1,-1), muerto);
+    return *pointer;
   }
   return this->matriz_.getCell(posicion.getPosition());
 }
@@ -113,9 +117,33 @@ const frontera Lattice::getFrontera() const{
   */
 void Lattice::nextGeneration() {
   for(int i = 0; i < this->tamano_.first; i++) { // cada celula obtiene el nextState
-    for(int j = 0; j < this->tamano_.second; j++) { // cada celula se actualiza el estado
+    for(int j = 0; j < this->tamano_.second; j++) { 
       Position posicion(i, j);
       this->getCell(posicion).nextState(*this);
+    }
+  }
+  if (this->frontera_ == sin_frontera) {
+    // Comprobar si hay una celula viva en los bordes y si es así aumentar el tamaño de la matriz.
+    // Función comprobar frontera
+    for (int i = 0; i < this->tamano_.first; i++) {
+      if (this->getCell(Position(i,0)).getState().getState() == 1) {
+        this->matriz_.AumentarTamano(0,-1);
+        this->tamano_.second++;
+      }
+      if (this->getCell(Position(i,this->tamano_.second - 1)).getState().getState() == 1) {
+        this->matriz_.AumentarTamano(0,1);
+        this->tamano_.second++;
+      }
+    }
+    for (int i = 0; i < this->tamano_.second; i++) {
+      if (this->getCell(Position(0,i)).getState().getState() == 1) {
+        this->matriz_.AumentarTamano(-1,0);
+        this->tamano_.first++;
+      }
+      if (this->getCell(Position(this->tamano_.first - 1,i)).getState().getState() == 1) {
+        this->matriz_.AumentarTamano(1,0);
+        this->tamano_.first++;
+      }
     }
   }
   for(int i = 0; i < this->tamano_.first; i++) { // cada celula obtiene el nextState
@@ -124,6 +152,9 @@ void Lattice::nextGeneration() {
       this->getCell(posicion).updateState();
     }
   }
+    std::cout << "tamaño: " << this->tamano_.first << " " << this->tamano_.second << "\n";
+    std::cout << "posición begin: " << this->matriz_.posBegin().first << " " << this->matriz_.posBegin().second << "\n";
+    std::cout << "posición end: " << this->matriz_.posEnd().first << " " << this->matriz_.posEnd().second << "\n";
   this->generacion_ ++;
 }
 

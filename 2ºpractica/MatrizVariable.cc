@@ -98,7 +98,7 @@ void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell
   * @return Una referencia del objeto Cell de dicha posición.
   */
 Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
-  return *matriz_.at(posicion.first + referencia0_filas_).at(posicion.second + referencia0_columnas_);
+  return *matriz_.at(posicion.first - referencia0_filas_).at(posicion.second - referencia0_columnas_);
 }
 
 /** void MatrizVariable::AumentarTamano(const bool filas, const bool columnas)
@@ -109,22 +109,34 @@ Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
   */
 void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
   if (filas == 1) {
-    this->matriz_.push_back(std::vector<Cell*>(matriz_.at(0).size()));
-    
+    this->matriz_.push_back(std::vector<Cell*>(matriz_.at(0).size(), new Cell(Position(0,0), muerto))); // creo las células
+    for (int i = 0; i < this->matriz_.at(0).size(); i++) { // les pongo la posición
+      this->matriz_.at(this->matriz_.size() - 1).at(i)->setPosition(Position(this->posEnd().first, i));
+    }
   } else if (filas == -1) {
-    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(0).size()));
+    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(0).size(), new Cell(Position(0,0), muerto))); // creo las células
+    for (int i = 0; i < this->matriz_.at(0).size(); i++) { // les pongo la posición
+      this->matriz_.at(0).at(i)->setPosition(Position(this->posBegin().first, i));
+    }
     referencia0_filas_++;
   }
   if (columnas == 1) {
     for (int i = 0; i < this->matriz_.size(); i++) {
-      this->matriz_.at(i).push_back(new Cell(Position( this->matriz_.at(i).size(), i), muerto));
+      this->matriz_.at(i).push_back(new Cell(Position( i, this->matriz_.at(i).size()), muerto));
     }
   } else if (columnas == -1) {
     for (int i = 0; i < this->matriz_.size(); i++) {
-      this->matriz_.at(i).insert(this->matriz_.at(i).begin(), new Cell(Position(this->posBegin().first, i), muerto));
+      this->matriz_.at(i).insert(this->matriz_.at(i).begin(), new Cell(Position(i, this->posBegin().first), muerto));
     }
   }
   return;
+}
+
+bool MatrizVariable::fueraDeRango(const std::pair<int,int> posicion) {
+  if (posicion.first < this->posBegin().first || posicion.first > this->posEnd().first || posicion.second < this->posBegin().second || posicion.second > this->posEnd().second) {
+    return true;
+  }
+  return false;
 }
 
 /** std::ostream &operator<<(std::ostream &os, const MatrizVariable matriz)
@@ -136,8 +148,8 @@ void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
 std::ostream &operator<<(std::ostream &os, const MatrizVariable matriz) {
   // techo
   os << " ";
-  for(int i = 0; i < matriz.matriz_.size(); i++) {
-    os << "-";
+  for(int i = 0; i < matriz.matriz_.at(0).size(); i++) {
+    os << "- ";
   }
   std::endl(os);
   //Matriz con `|` en los lados.
@@ -155,8 +167,8 @@ std::ostream &operator<<(std::ostream &os, const MatrizVariable matriz) {
   }
   // suelo
   os << " ";
-  for(int i = 0; i < matriz.matriz_.size(); i++) {
-    os << "-";
+  for(int i = 0; i < matriz.matriz_.at(0).size(); i++) {
+    os << "- ";
   }
   return os;
 }
