@@ -80,7 +80,7 @@ std::pair<int, int> MatrizVariable::posBegin() const {
   * @return posición de fin de la matriz.
   */
 std::pair<int, int> MatrizVariable::posEnd() const {
-  return std::pair<int, int>(this->matriz_.size() - this->referencia0_filas_ - 1, this->matriz_.at(0).size() - this->referencia0_columnas_ - 1);
+  return std::pair<int, int>(this->matriz_.size() - this->referencia0_filas_ - 1, this->matriz_.at(0).size() - this->referencia0_columnas_ - 1 );
 }
 
 /** void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell)
@@ -108,25 +108,26 @@ Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
   * @note Si los int son 1 se aumenta positivamente, si son -1 aumenta negativamente y si son 0 no se aumenta.
   */
 void MatrizVariable::AumentarTamano(const int filas, const int columnas) { // (y, x)
-  if (filas == 1) {
-    this->matriz_.push_back(std::vector<Cell*>(matriz_.at(0).size(), new Cell(Position(0,0), muerto))); // creo las células
+  if (filas == 1) { // aumentar hacia abajo
+    this->matriz_.push_back(std::vector<Cell*>(matriz_.at(0).size())); // creo las células
     for (int i = 0; i < this->matriz_.at(0).size(); i++) { // les pongo la posición
-      this->matriz_.at(this->matriz_.size() - 1).at(i)->setPosition(Position(this->posEnd().first, i));
+      this->matriz_.at(this->matriz_.size() - 1).at(i) = new Cell(Position(this->posEnd().first, i - this->referencia0_columnas_), muerto);
     }
-  } else if (filas == -1) {
-    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(1).size(), new Cell(Position(0,0), muerto))); // creo las células
+  } else if (filas == -1) { // aumentar hacia arriba
+    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(1).size())); // creo las células
     for (int i = 0; i < this->matriz_.at(0).size(); i++) { // les pongo la posición
-      this->matriz_.at(0).at(i)->setPosition(Position(this->posBegin().first, i));
+      this->matriz_.at(0).at(i) = new Cell(Position(this->posBegin().first - 1, i - this->referencia0_columnas_), muerto);
     }
     referencia0_filas_++;
   }
-  if (columnas == 1) {
-    for (int i = 0; i < this->matriz_.size(); i++) {
-      this->matriz_.at(i).push_back(new Cell(Position( i, this->matriz_.at(i).size()), muerto));
+  if (columnas == 1) { // aumentar hacia la derecha
+    this->matriz_.at(0).push_back(new Cell(Position( 0, this->posEnd().second + 1), muerto));
+    for (int i = 1; i < this->matriz_.size(); i++) {
+      this->matriz_.at(i).push_back(new Cell(Position( i, this->posEnd().second), muerto));
     }
-  } else if (columnas == -1) {
+  } else if (columnas == -1) { // aumentar hacia la izquierda
     for (int i = 0; i < this->matriz_.size(); i++) {
-      this->matriz_.at(i).insert(this->matriz_.at(i).begin(), new Cell(Position(i, this->posBegin().first), muerto));
+      this->matriz_.at(i).insert(this->matriz_.at(i).begin(), new Cell(Position(i - this->referencia0_filas_, this->posBegin().second - 1), muerto));
     }
     referencia0_columnas_++;
   }

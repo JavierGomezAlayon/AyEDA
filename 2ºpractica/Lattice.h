@@ -44,8 +44,10 @@ class Lattice {
   void inicializar();
   void nextGeneration();
   int Population();
-  friend std::ostream& operator<<(std::ostream& os, const Lattice& tabla);
- private:
+  friend std::ostream &operator<<(std::ostream &os, const Lattice &tabla);
+
+private:
+  void corregirTamano();
   MatrizVariable matriz_;
   frontera frontera_;
   std::pair<int, int> tamano_;

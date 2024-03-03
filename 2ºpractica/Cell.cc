@@ -26,6 +26,7 @@
 Cell::Cell(const Position& pos, const State& estado) {
   this->posicion_ = pos;
   this->estado_ = estado;
+  this->siguiente_estado_ = muerto;
   return;
 }
 /** int nextState(const Lattice&) 
