@@ -15,6 +15,7 @@
 //
 // Historial de revisiones
 //        02/08/24 - Creación (primera versión) del código
+//        02/26/24 - Hay un bug con el borde noborder pero no sé como solucionarlo.
 
 
 #include"Lattice.h"

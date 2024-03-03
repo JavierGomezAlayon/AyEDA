@@ -62,6 +62,14 @@ State Cell::getState() const {
   return this->estado_;
 }
 
+/** State getNextState() const;
+  * @brief obtienes el siguiente estado de la celula
+  * @return siguiente estado de la celula
+  */
+State Cell::getNextState() const {
+  return this->siguiente_estado_;
+}
+
 /** Position getPosition() const;
   * @brief obtienes la posición de la celula
   * @return posición de la celula

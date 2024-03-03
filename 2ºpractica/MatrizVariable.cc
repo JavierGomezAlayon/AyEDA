@@ -98,7 +98,7 @@ void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell
   * @return Una referencia del objeto Cell de dicha posición.
   */
 Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
-  return *matriz_.at(posicion.first - referencia0_filas_).at(posicion.second - referencia0_columnas_);
+  return *matriz_.at(posicion.first + referencia0_filas_).at(posicion.second + referencia0_columnas_);
 }
 
 /** void MatrizVariable::AumentarTamano(const bool filas, const bool columnas)
@@ -107,14 +107,14 @@ Cell& MatrizVariable::getCell(std::pair<int,int> posicion) {
   * @param columnas: si se aumentan o no las columnas.
   * @note Si los int son 1 se aumenta positivamente, si son -1 aumenta negativamente y si son 0 no se aumenta.
   */
-void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
+void MatrizVariable::AumentarTamano(const int filas, const int columnas) { // (y, x)
   if (filas == 1) {
     this->matriz_.push_back(std::vector<Cell*>(matriz_.at(0).size(), new Cell(Position(0,0), muerto))); // creo las células
     for (int i = 0; i < this->matriz_.at(0).size(); i++) { // les pongo la posición
       this->matriz_.at(this->matriz_.size() - 1).at(i)->setPosition(Position(this->posEnd().first, i));
     }
   } else if (filas == -1) {
-    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(0).size(), new Cell(Position(0,0), muerto))); // creo las células
+    this->matriz_.insert(this->matriz_.begin(), std::vector<Cell*>(matriz_.at(1).size(), new Cell(Position(0,0), muerto))); // creo las células
     for (int i = 0; i < this->matriz_.at(0).size(); i++) { // les pongo la posición
       this->matriz_.at(0).at(i)->setPosition(Position(this->posBegin().first, i));
     }
@@ -128,6 +128,7 @@ void MatrizVariable::AumentarTamano(const int filas, const int columnas) {
     for (int i = 0; i < this->matriz_.size(); i++) {
       this->matriz_.at(i).insert(this->matriz_.at(i).begin(), new Cell(Position(i, this->posBegin().first), muerto));
     }
+    referencia0_columnas_++;
   }
   return;
 }

@@ -88,7 +88,7 @@ void Lattice::inicializar() {
 Cell& Lattice::getCell(Position posicion) {
   if (this->frontera_ == reflectora) {
   posicion.fix(this->tamano_.first - 1, this->tamano_.second - 1);
-  }else if (this->frontera_ == sin_frontera && this->matriz_.fueraDeRango(posicion.getPosition())) {
+  } else if (this->frontera_ == sin_frontera && this->matriz_.fueraDeRango(posicion.getPosition())) {
     // devuelve una celula muerta
     Cell* pointer = new Cell(Position(-1,-1), muerto);
     return *pointer;
@@ -116,8 +116,8 @@ const frontera Lattice::getFrontera() const{
   * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
-  for(int i = 0; i < this->tamano_.first; i++) { // cada celula obtiene el nextState
-    for(int j = 0; j < this->tamano_.second; j++) { 
+  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first; i++) { // cada celula obtiene el nextState
+    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second; j++) { 
       Position posicion(i, j);
       this->getCell(posicion).nextState(*this);
     }
@@ -126,28 +126,36 @@ void Lattice::nextGeneration() {
     // Comprobar si hay una celula viva en los bordes y si es así aumentar el tamaño de la matriz.
     // Función comprobar frontera
     for (int i = 0; i < this->tamano_.first; i++) {
-      if (this->getCell(Position(i,0)).getState().getState() == 1) {
+      if (this->getCell(Position(i,this->matriz_.posBegin().second)).getState().getState() == 1) {
         this->matriz_.AumentarTamano(0,-1);
         this->tamano_.second++;
+        break;
       }
-      if (this->getCell(Position(i,this->tamano_.second - 1)).getState().getState() == 1) {
+    }
+    for (int i = 0; i < this->tamano_.first; i++) {
+      if (this->getCell(Position(i,this->matriz_.posEnd().second)).getState().getState() == 1) {
         this->matriz_.AumentarTamano(0,1);
         this->tamano_.second++;
+        break;
       }
     }
     for (int i = 0; i < this->tamano_.second; i++) {
-      if (this->getCell(Position(0,i)).getState().getState() == 1) {
+      if (this->getCell(Position(this->matriz_.posBegin().first,i)). == 1) {
         this->matriz_.AumentarTamano(-1,0);
         this->tamano_.first++;
+        break;
       }
-      if (this->getCell(Position(this->tamano_.first - 1,i)).getState().getState() == 1) {
+    }
+    for (int i = 0; i < this->tamano_.second; i++) {
+      if (this->getCell(Position(this->matriz_.posEnd().first,i)).getState().getState() == 1) {
         this->matriz_.AumentarTamano(1,0);
         this->tamano_.first++;
+        break;
       }
     }
   }
-  for(int i = 0; i < this->tamano_.first; i++) { // cada celula obtiene el nextState
-    for(int j = 0; j < this->tamano_.second; j++) { // cada celula se actualiza el estado
+  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first; i++) { // cada celula obtiene el nextState
+    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second; j++) { 
       Position posicion(i, j);
       this->getCell(posicion).updateState();
     }

@@ -27,6 +27,7 @@ class Cell {
   Cell(const Position&, const State&);
   State getState() const;
   Position getPosition() const;
+  State getNextState() const;
   void setState(State);
   void setPosition(Position);
   void nextState(Lattice&);
