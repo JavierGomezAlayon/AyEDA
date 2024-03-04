@@ -105,3 +105,50 @@ void InterfazGeneraciones(Lattice &lattice) {
     lattice.nextGeneration();
   }
 }
+
+/** void Menu(char ch, Lattice& lattice, bool& contador_vida);
+  * @brief Menú para el juego de la vida.
+  * @param ch, lattice, contador_vida
+  */
+void Menu(char ch, Lattice& lattice, bool& contador_vida) {
+  switch (ch) {
+    case 'n':
+      lattice.nextGeneration();
+      if (contador_vida) {
+        system("clear");
+        std::cout << "Población: " << lattice.Population() << std::endl;
+      } else {
+        system("clear");
+        std::cout << lattice << std::endl;
+      }
+      break;
+    case 'l':
+      system("clear");
+      for (int i = 0; i < 5; i++) {
+        lattice.nextGeneration();
+        if (contador_vida) {
+          std::cout << "Población: " << lattice.Population() << std::endl;
+        } else {
+          std::cout << lattice << std::endl;
+        }
+      }
+      break;
+    case 'c':
+      system("clear");
+      contador_vida = !contador_vida;
+      std::cout << "Se ha cambiado el modo de visionado de la población.\n";
+      break;
+    case 'x':
+      exit(0);
+      break;
+    case 's':
+      system("clear");
+      lattice.save("save.txt");
+      std::cout << "Guardado en save.txt\n";
+      break;
+    case 'h':
+      system("clear");
+      std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
+      break;
+  }
+}
