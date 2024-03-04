@@ -21,21 +21,7 @@
 #include"../Lattice/Lattice.h"
 #include"../Cell/Cell.h"
 #include"../funciones_main/funciones_main.h"
-
-// función copiada de internet para hacer las cosas más bonitas y pasar de generación en generación de una forma más cómoda.
-#include <termios.h>
-#include <unistd.h>
-int getch() {
-  struct termios oldattr, newattr;
-  int ch;
-  tcgetattr(STDIN_FILENO, &oldattr);
-  newattr = oldattr;
-  newattr.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
-  ch = getchar();
-  tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-  return ch;
-}
+#include "main.h"
 
 int main(int argc, char* argv[]) {
   Dato datos = RecogerParametro(argc, argv);
@@ -46,45 +32,7 @@ int main(int argc, char* argv[]) {
     bool contador_vida = false;
     std::cout << lattice << std::endl;
     do {
-      switch (ch) {
-        case 'n':
-          lattice.nextGeneration();
-          if (contador_vida) {
-            system("clear");
-            std::cout << "Población: " << lattice.Population() << std::endl;
-          } else {
-            system("clear");
-            std::cout << lattice << std::endl;
-          }
-          break;
-        case 'l':
-          system("clear");
-          for (int i = 0; i < 5; i++) {
-            lattice.nextGeneration();
-            if (contador_vida) {
-              std::cout << "Población: " << lattice.Population() << std::endl;
-            } else {
-              std::cout << lattice << std::endl;
-            }
-          }
-          break;
-        case 'c':
-          system("clear");
-          contador_vida = !contador_vida;
-          break;
-        case 'x':
-          exit(0);
-          break;
-        case 's':
-          system("clear");
-          lattice.save("save.txt");
-          std::cout << "Guardado en save.txt\n";
-          break;
-        case 'h':
-          system("clear");
-          std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
-          break;
-      }
+      menu(ch, lattice, contador_vida);
     }while (std::cin >> ch); 
   } else {
     Lattice lattice(datos.tamano, datos.border_type);
@@ -93,45 +41,50 @@ int main(int argc, char* argv[]) {
     bool contador_vida = false;
     std::cout << lattice << std::endl;
     do {
-      switch (ch) {
-        case 'n':
-          lattice.nextGeneration();
-          if (contador_vida) {
-            system("clear");
-            std::cout << "Población: " << lattice.Population() << std::endl;
-          } else {
-            system("clear");
-            std::cout << lattice << std::endl;
-          }
-          break;
-        case 'l':
-          system("clear");
-          for (int i = 0; i < 5; i++) {
-            lattice.nextGeneration();
-            if (contador_vida) {
-              std::cout << "Población: " << lattice.Population() << std::endl;
-            } else {
-              std::cout << lattice << std::endl;
-            }
-          }
-          break;
-        case 'c':
-          system("clear");
-          contador_vida = !contador_vida;
-          break;
-        case 'x':
-          exit(0);
-          break;
-        case 's':
-          system("clear");
-          lattice.save("save.txt");
-          break;
-        case 'h':
-          system("clear");
-          std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
-          break;
-      }
+      menu(ch, lattice, contador_vida);
     }while (std::cin >> ch); 
   }
   return 0;
+}
+
+void Menu(char ch, Lattice& lattice, bool& contador_vida) {
+  switch (ch) {
+    case 'n':
+      lattice.nextGeneration();
+      if (contador_vida) {
+        system("clear");
+        std::cout << "Población: " << lattice.Population() << std::endl;
+      } else {
+        system("clear");
+        std::cout << lattice << std::endl;
+      }
+      break;
+    case 'l':
+      system("clear");
+      for (int i = 0; i < 5; i++) {
+        lattice.nextGeneration();
+        if (contador_vida) {
+          std::cout << "Población: " << lattice.Population() << std::endl;
+        } else {
+          std::cout << lattice << std::endl;
+        }
+      }
+      break;
+    case 'c':
+      system("clear");
+      contador_vida = !contador_vida;
+      break;
+    case 'x':
+      exit(0);
+      break;
+    case 's':
+      system("clear");
+      lattice.save("save.txt");
+      std::cout << "Guardado en save.txt\n";
+      break;
+    case 'h':
+      system("clear");
+      std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
+      break;
+  }
 }
