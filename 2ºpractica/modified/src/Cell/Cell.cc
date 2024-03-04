@@ -36,23 +36,6 @@ Cell::Cell(const Position& pos, const State& estado) {
 void Cell::nextState(Lattice& lattice) {
   std::pair<int,int> posicion_centro = this->posicion_.getPosition();
   // Determino las células de los lados y del centro (antes de la modificación)
-  //int A_A = lattice.getCell(Position (posicion_centro.first - 1, posicion_centro.second - 1)).getState().getState();
-  //int B_A = lattice.getCell(Position (posicion_centro.first, posicion_centro.second - 1)).getState().getState();
-  //int C_A = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second - 1)).getState().getState();
-  //int A_B = lattice.getCell(Position (posicion_centro.first - 1, posicion_centro.second)).getState().getState();
-  //int B_B = this->estado_.getState(); // el centro siempre va a ser la celula que llama al metodo.
-  //int C_B = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second)).getState().getState();
-  //int A_C = lattice.getCell(Position (posicion_centro.first - 1, posicion_centro.second + 1)).getState().getState();
-  //int B_C = lattice.getCell(Position (posicion_centro.first , posicion_centro.second + 1)).getState().getState();
-  //int C_C = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second + 1)).getState().getState();
-  //int suma = (A_A + B_A + C_A + A_B + C_B + A_C + B_C + C_C);
-  //if (B_B == 1 &&(suma == 2 || suma == 3)) {
-  //  this->siguiente_estado_ = vivo;
-  //} else if (B_B == 0 && suma == 3) {
-  //  this->siguiente_estado_ = vivo;
-  //} else {
-  //  this->siguiente_estado_ = muerto;
-  //}
   //modificación
   int pos0 = this->estado_.getState();
   int pos1 = lattice.getCell(Position (posicion_centro.first - 2 , posicion_centro.second - 2 )).getState().getState();
@@ -66,7 +49,7 @@ void Cell::nextState(Lattice& lattice) {
   int pos9 = lattice.getCell(Position (posicion_centro.first + 2, posicion_centro.second - 1)).getState().getState();
   int pos10 = lattice.getCell(Position (posicion_centro.first + 1, posicion_centro.second - 1)).getState().getState();
   int pos11 = lattice.getCell(Position (posicion_centro.first, posicion_centro.second - 1)).getState().getState();
-  int suma = (pos0+ pos1 + pos2 + pos3 + pos4 + pos5 + pos6 + pos7 + pos8 + pos9 + pos10 + pos11);
+  int suma = (pos0 + pos1 + pos2 + pos3 + pos4 + pos5 + pos6 + pos7 + pos8 + pos9 + pos10 + pos11);
   if (pos0 == 1 &&(suma == 2 || suma == 3)) {
     this->siguiente_estado_ = vivo;
   } else if (pos0 == 0 && suma == 3) {
