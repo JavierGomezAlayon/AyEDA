@@ -18,9 +18,9 @@
 
 #include<vector>
 #include<fstream>
-#include"Position.h"
-#include"Cell.h"
-#include"MatrizVariable.h"
+#include"../Position/Position.h"
+#include"../Cell/Cell.h"
+#include"../MatrizVariable/MatrizVariable.h"
 #include<sstream>
 
 class VectorVariable;
@@ -45,7 +45,7 @@ class Lattice {
   void nextGeneration();
   int Population();
   friend std::ostream &operator<<(std::ostream &os, const Lattice &tabla);
-
+  void save(const std::string);
 private:
   void corregirTamano();
   MatrizVariable matriz_;

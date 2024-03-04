@@ -21,6 +21,11 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
   this->generacion_ = 0;
   this->frontera_ = frontera;
   std::ifstream input(fichero);
+  // comprobar que se ha abierto el fichero correctamente
+  if (!input.is_open()) {
+    std::cerr << "Error (4): No se ha podido abrir el fichero " << fichero << std::endl;
+    exit(EXIT_FAILURE);
+  }
   input >> this->tamano_.first;
   input >> this->tamano_.second;
   matriz_= MatrizVariable(this->tamano_);
@@ -42,6 +47,9 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
       }
       this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), estado));
     }
+  }
+  if (frontera == sin_frontera) {
+    corregirTamano();
   }
 }
 
@@ -116,12 +124,6 @@ const frontera Lattice::getFrontera() const{
   * @brief Se carga la siguiente generación de celulas
   */
 void Lattice::nextGeneration() {
-  std::cout << "tamaño: " << this->tamano_.first << " " << this->tamano_.second << "\n";
-  std::cout << "posición begin: " << this->matriz_.posBegin().first << " " << this->matriz_.posBegin().second << "\n";
-  std::cout << "posición end: " << this->matriz_.posEnd().first << " " << this->matriz_.posEnd().second<< "\n";
-  if (this->frontera_ == sin_frontera) {
-    corregirTamano();
-  }
   for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) { // cada celula obtiene el nextState
     for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
       Position posicion(i, j);
@@ -136,6 +138,9 @@ void Lattice::nextGeneration() {
       Position posicion(i, j);
       this->getCell(posicion).updateState();
     }
+  }
+  if (this->frontera_ == sin_frontera) {
+    corregirTamano();
   }
   this->generacion_ ++;
 }
@@ -199,4 +204,25 @@ std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
   return os;
 }
 
+
+/** void Lattice::save(const std::string)
+  * @brief Guarda el estado actual del lattice en un fichero
+  * @param fichero
+  */
+void Lattice::save(const std::string fichero) {
+  std::ofstream output(fichero);
+  if (!output.is_open()) {
+    std::cerr << "Error (4): No se ha podido abrir el fichero " << fichero << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  output << this->tamano_.first << " " << this->tamano_.second << std::endl;
+  for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
+    for (int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) {
+      output << ((this->getCell(Position(i,j)).getState().getState() == 1) ? 'x' : ' ');
+    }
+    output << std::endl;
+  }
+  output.close();
+  return;
+}
 

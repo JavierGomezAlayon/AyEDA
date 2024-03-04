@@ -18,7 +18,7 @@
 
 #include<iostream>
 #include<string>
-#include"Lattice.h"
+#include"../Lattice/Lattice.h"
 
 // Definimos un struct para poder pasar al main los datos correspondientes.
 struct Dato {

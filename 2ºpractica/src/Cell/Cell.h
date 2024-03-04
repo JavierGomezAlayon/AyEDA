@@ -16,9 +16,9 @@
 //        02/08/24 - Creación (primera versión) del código
 #pragma once
 
-#include"Position.h"
+#include"../Position/Position.h"
 #include<iostream>
-#include"State.h"
+#include"../State/State.h"
 
 class Lattice;
 

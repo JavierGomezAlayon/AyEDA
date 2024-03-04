@@ -16,9 +16,9 @@
 //        02/23/24 - Creación (primera versión) del código
 
 #include "MatrizVariable.h"
-#include "VectorVariable.h"
-#include "Cell.h"
-#include "Lattice.h"
+#include "../VectorVariable/VectorVariable.h"
+#include "../Cell/Cell.h"
+#include "../Lattice/Lattice.h"
 
 /** MatrizVariable::MatrizVariable()
   * @brief Crea el objeto de la clase MatrizVariable.

@@ -17,7 +17,7 @@
 #pragma once
 
 #include<vector>
-#include"VectorVariable.h"
+#include"../VectorVariable/VectorVariable.h"
 
 class VectorVariable;
 

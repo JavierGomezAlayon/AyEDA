@@ -16,7 +16,7 @@
 //        02/08/24 - Creación (primera versión) del código
 
 #include"Cell.h"
-#include "Lattice.h"
+#include"../Lattice/Lattice.h"
 
 /** Cell::Cell(const Position& pos, const State& estado)
   * @brief Crea el objeto de la clase Cell.

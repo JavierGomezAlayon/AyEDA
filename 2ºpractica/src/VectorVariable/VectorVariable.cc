@@ -16,7 +16,7 @@
 //        02/22/24 - Creación (primera versión) del código
 
 #include"VectorVariable.h"
-#include"Cell.h"
+#include"../Cell/Cell.h"
 
 /** VectorVariable::VectorVariable()
   * @brief Crea el objeto de la clase VectorVariable.

@@ -18,7 +18,7 @@
 
 #include<iostream>
 #include<vector>
-#include"Cell.h"
+#include"../Cell/Cell.h"
 class Cell;
 class MatrizVariable;
 

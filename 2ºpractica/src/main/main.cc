@@ -18,9 +18,9 @@
 //        02/26/24 - Hay un bug con el borde noborder pero no sé como solucionarlo.
 
 
-#include"Lattice.h"
-#include"Cell.h"
-#include"funciones_main.h"
+#include"../Lattice/Lattice.h"
+#include"../Cell/Cell.h"
+#include"../funciones_main/funciones_main.h"
 
 // función copiada de internet para hacer las cosas más bonitas y pasar de generación en generación de una forma más cómoda.
 #include <termios.h>
@@ -42,12 +42,43 @@ int main(int argc, char* argv[]) {
   // Si el cliente puso un fichero se construye el lattice con el fichero.
   if (datos.fichero != "") {
     Lattice lattice(datos.fichero, datos.border_type);
+    char ch;
+    bool contador_vida = false;
     do {
       system("clear");
-      std::cout << lattice << std::endl;
-      std::cout << "Población: " << lattice.Population() << std::endl;
-      lattice.nextGeneration();
-    }while (getch()); 
+      switch (ch) {
+        case 'n':
+          lattice.nextGeneration();
+          if (contador_vida) {
+            std::cout << "Población: " << lattice.Population() << std::endl;
+          } else {
+            std::cout << lattice << std::endl;
+          }
+          break;
+        case 'l':
+          for (int i = 0; i < 5; i++) {
+            lattice.nextGeneration();
+            if (contador_vida) {
+              std::cout << "Población: " << lattice.Population() << std::endl;
+            } else {
+              std::cout << lattice << std::endl;
+            }
+          }
+          break;
+        case 'c':
+          contador_vida = !contador_vida;
+          break;
+        case 'x':
+          exit(0);
+          break;
+        case 's':
+          lattice.save("save.txt");
+          break;
+        case 'h':
+          std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
+          break;
+      }
+    }while (std::cin >> ch); 
   } else {
     Lattice lattice(datos.tamano, datos.border_type);
     lattice.inicializar();
