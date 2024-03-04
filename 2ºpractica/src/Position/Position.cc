@@ -63,10 +63,10 @@ void Position::fix(const int maximoX, const int maximoY) {
     this->position_.second = 0;
   }
   if (this->position_.first > maximoX) {
-    this->position_.first = maximoX - 1;
+    this->position_.first = maximoX;
   }
   if (this->position_.second > maximoY) {
-    this->position_.second = maximoY - 1;
+    this->position_.second = maximoY;
   }
 }
 

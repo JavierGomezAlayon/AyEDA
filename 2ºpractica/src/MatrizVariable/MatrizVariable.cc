@@ -80,7 +80,7 @@ std::pair<int, int> MatrizVariable::posBegin() const {
   * @return posición de fin de la matriz.
   */
 std::pair<int, int> MatrizVariable::posEnd() const {
-  return std::pair<int, int>(this->matriz_.size() - this->referencia0_filas_ - 1, this->matriz_.at(0).size() - this->referencia0_columnas_ - 1 );
+  return std::pair<int, int>(this->matriz_.size() - this->referencia0_filas_ - 1, this->matriz_.at(0).size() - this->referencia0_columnas_ - 1);
 }
 
 /** void MatrizVariable::setCell(const std::pair<int,int> posicion, const Cell& cell)
