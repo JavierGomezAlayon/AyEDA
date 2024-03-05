@@ -38,18 +38,35 @@ class Lattice {
  public:
   Lattice(const std::pair<int,int>&, const frontera);
   Lattice(const std::string, const frontera);
-  Cell& getCell(Position);
-  const frontera getFrontera() const;
-  const std::pair<int,int> getTamano() const;
-  void inicializar();
-  void nextGeneration();
-  int Population();
+  virtual Cell& getCell(Position) = 0;
+  virtual const frontera getFrontera() const;
+  virtual const std::pair<int,int> getTamano() const;
+  virtual void inicializar();
+  virtual void nextGeneration() = 0;
+  virtual int Population();
   friend std::ostream &operator<<(std::ostream &os, const Lattice &tabla);
-  void save(const std::string);
-private:
-  void corregirTamano();
+  virtual void save(const std::string);
+ protected:
   MatrizVariable matriz_;
   frontera frontera_;
   std::pair<int, int> tamano_;
   int generacion_;
+};
+
+class LatticeNoBorder : public Lattice {
+ public:
+  LatticeNoBorder(const std::pair<int,int>&);
+  LatticeNoBorder(const std::string);
+  Cell& getCell(Position) override;
+  void nextGeneration() override;
+ private:
+  void corregirTamano();
+};
+
+class LatticeReflectora : public Lattice {
+ public:
+  LatticeReflectora(const std::pair<int,int>&);
+  LatticeReflectora(const std::string);
+  Cell& getCell(Position) override;
+  void nextGeneration() override;
 };

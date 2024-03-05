@@ -48,9 +48,7 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
       this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), estado));
     }
   }
-  if (frontera == sin_frontera) {
-    corregirTamano();
-  }
+  input.close();
 }
 
 /** Lattice::Lattice()
@@ -59,7 +57,6 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
   * @return objeto de la clase Lattice
   */
 Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) { 
-  this->frontera_ = frontera;
   this->generacion_ = 0;
   this->tamano_ = tamano;
   this->matriz_ = MatrizVariable(tamano);
@@ -72,9 +69,9 @@ Lattice::Lattice(const std::pair<int,int>& tamano, frontera frontera) {
 void Lattice::inicializar() {
   std::cout << "Este es el inicializador de la matriz, por favor introduzca el estado de las celulas (1 -> viva o 0 -> muerta) fila por fila dejando un hueco entre cada celula." << std::endl;
   std::cout << "La matriz es de "<< this->tamano_.first << " filas y " << this->tamano_.second << " columnas. " << std::endl;
+  int estado;
   for (int i = 0 ; i < this->tamano_.first ; i++) {
     for (int j = 0 ; j < this->tamano_.second ; j++) {
-      int estado;
       std::cin >> estado;
       if (estado == 1) {
         this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), vivo));
@@ -86,22 +83,6 @@ void Lattice::inicializar() {
       }
     }
   }
-}
-
-/** const Cell& Lattice::getCell(const Position&) const
-  * @brief devuelve la celula que está en la posición descrita por el objeto posicion
-  * @param posicion
-  * @return retorna una celula constante. Si es sin frontera devuelve una celula muerta.
-  */
-Cell& Lattice::getCell(Position posicion) {
-  if (this->frontera_ == reflectora) {
-  posicion.fix(this->tamano_.first - 1, this->tamano_.second - 1);
-  } else if (this->frontera_ == sin_frontera && this->matriz_.fueraDeRango(posicion.getPosition())) {
-    // devuelve una celula muerta
-    Cell* pointer = new Cell(Position(-1,-1), muerto);
-    return *pointer;
-  }
-  return this->matriz_.getCell(posicion.getPosition());
 }
 
 /** const int Lattice::getTamano() const
@@ -120,66 +101,7 @@ const frontera Lattice::getFrontera() const{
   return this->frontera_;
 }
 
-/** void Lattice::nextGeneration()
-  * @brief Se carga la siguiente generación de celulas
-  */
-void Lattice::nextGeneration() {
-  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) { // cada celula obtiene el nextState
-    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
-      Position posicion(i, j);
-      this->getCell(posicion).nextState(*this);
-    }
-  }
-  if (this->frontera_ == sin_frontera) {
-    corregirTamano();
-  }
-  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1 ; i++) { // cada celula obtiene el updateState
-    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
-      Position posicion(i, j);
-      this->getCell(posicion).updateState();
-    }
-  }
-  if (this->frontera_ == sin_frontera) {
-    corregirTamano();
-  }
-  this->generacion_ ++;
-}
 
-/** void Lattice::corregirTamano()
-  * @brief Corrige el tamaño de la matriz si hay una celula viva en los bordes
-  */
-void Lattice::corregirTamano() {
-  // Comprobar si hay una celula viva en los bordes y si es así aumentar el tamaño de la matriz.
-  // Función comprobar frontera
-  for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
-    if (this->getCell(Position(i, this->matriz_.posBegin().second)).getState().getState() == 1) {
-      this->matriz_.AumentarTamano(0, -1); // aumento hacia la izquierda
-      this->tamano_.second++;
-      break;
-    }
-  }
-  for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
-    if (this->getCell(Position(i, this->matriz_.posEnd().second)).getState().getState() == 1) {
-      this->matriz_.AumentarTamano(0, 1); // aumento hacia la derecha
-      this->tamano_.second++;
-      break;
-    }
-  }
-  for (int i = this->matriz_.posBegin().second; i < this->matriz_.posEnd().second + 1; i++) {
-    if (this->getCell(Position(this->matriz_.posBegin().first, i)).getState().getState() == 1) {
-      this->matriz_.AumentarTamano(-1, 0); // aumento hacia arriba
-      this->tamano_.first++;
-      break;
-    }
-  }
-  for (int i = this->matriz_.posBegin().second; i < this->matriz_.posEnd().second + 1; i++) {
-    if (this->getCell(Position(this->matriz_.posEnd().first, i)).getState().getState() == 1) {
-      this->matriz_.AumentarTamano(1, 0); // aumento hacia abajo
-      this->tamano_.first++;
-      break;
-    }
-  }
-}
 
 int Lattice::Population() {
   int suma = 0;
@@ -226,3 +148,144 @@ void Lattice::save(const std::string fichero) {
   return;
 }
 
+//---------------------------------------------------------------------------------------------------//
+
+/** LatticeNoBorder::LatticeNoBorder(const std::pair<int,int>&)
+  * @brief Crea el objeto de la clase LatticeNoBorder.
+  * @param tamano
+  * @return objeto de la clase LatticeNoBorder
+  */
+LatticeNoBorder::LatticeNoBorder(const std::pair<int,int>& tamano) : Lattice(tamano, sin_frontera) {
+  corregirTamano();
+  return;
+}
+
+/** LatticeNoBorder::LatticeNoBorder(const std::string)
+  * @brief Crea el objeto de la clase LatticeNoBorder.
+  * @param fichero
+  * @return objeto de la clase LatticeNoBorder
+  */
+LatticeNoBorder::LatticeNoBorder(const std::string fichero) : Lattice(fichero, sin_frontera) {
+  corregirTamano();
+  return;
+}
+
+/** const Cell& LatticeNoBorder::getCell(const Position&) const
+  * @brief devuelve la celula que está en la posición descrita por el objeto posicion
+  * @param posicion
+  * @return retorna una celula constante. Si es sin frontera devuelve una celula muerta.
+  */
+Cell& LatticeNoBorder::getCell(Position posicion) {
+  if (this->matriz_.fueraDeRango(posicion.getPosition())) {
+    // devuelve una celula muerta
+    Cell* pointer = new Cell(Position(-1,-1), muerto);
+    return *pointer;
+  }
+  return this->matriz_.getCell(posicion.getPosition());
+}
+
+/** void LatticeNoBorder::nextGeneration()
+  * @brief Se carga la siguiente generación de celulas
+  */
+void LatticeNoBorder::nextGeneration() {
+  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) { // cada celula obtiene el nextState
+    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
+      Position posicion(i, j);
+      this->getCell(posicion).nextState(*this);
+    }
+  }
+  corregirTamano();
+  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1 ; i++) { // cada celula obtiene el updateState
+    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
+      Position posicion(i, j);
+      this->getCell(posicion).updateState();
+    }
+  }
+  corregirTamano();
+  this->generacion_ ++;
+}
+
+/** void LatticeNoBorder::corregirTamano()
+  * @brief Corrige el tamaño de la matriz si hay una celula viva en los bordes
+  */
+void LatticeNoBorder::corregirTamano() {
+  // Comprobar si hay una celula viva en los bordes y si es así aumentar el tamaño de la matriz.
+  // Función comprobar frontera
+  for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
+    if (this->getCell(Position(i, this->matriz_.posBegin().second)).getState().getState() == 1) {
+      this->matriz_.AumentarTamano(0, -1); // aumento hacia la izquierda
+      this->tamano_.second++;
+      break;
+    }
+  }
+  for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
+    if (this->getCell(Position(i, this->matriz_.posEnd().second)).getState().getState() == 1) {
+      this->matriz_.AumentarTamano(0, 1); // aumento hacia la derecha
+      this->tamano_.second++;
+      break;
+    }
+  }
+  for (int i = this->matriz_.posBegin().second; i < this->matriz_.posEnd().second + 1; i++) {
+    if (this->getCell(Position(this->matriz_.posBegin().first, i)).getState().getState() == 1) {
+      this->matriz_.AumentarTamano(-1, 0); // aumento hacia arriba
+      this->tamano_.first++;
+      break;
+    }
+  }
+  for (int i = this->matriz_.posBegin().second; i < this->matriz_.posEnd().second + 1; i++) {
+    if (this->getCell(Position(this->matriz_.posEnd().first, i)).getState().getState() == 1) {
+      this->matriz_.AumentarTamano(1, 0); // aumento hacia abajo
+      this->tamano_.first++;
+      break;
+    }
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------//
+
+
+/** LatticeReflectora::LatticeReflectora(const std::pair<int,int>&)
+  * @brief Crea el objeto de la clase LatticeReflectora.
+  * @param tamano
+  * @return objeto de la clase LatticeReflectora
+  */
+LatticeReflectora::LatticeReflectora(const std::pair<int,int>& tamano) : Lattice(tamano, reflectora) {
+  return;
+}
+
+/** LatticeReflectora::LatticeReflectora(const std::string)
+  * @brief Crea el objeto de la clase LatticeReflectora.
+  * @param fichero
+  * @return objeto de la clase LatticeReflectora
+  */
+LatticeReflectora::LatticeReflectora(const std::string fichero) : Lattice(fichero, reflectora) {
+  return;
+}
+
+/** const Cell& LatticeReflectora::getCell(const Position&) const
+  * @brief devuelve la celula que está en la posición descrita por el objeto posicion
+  * @param posicion
+  * @return retorna una celula constante. Si es sin frontera devuelve una celula muerta.
+  */
+Cell& LatticeReflectora::getCell(Position posicion) {
+  posicion.fix(this->tamano_.first - 1, this->tamano_.second - 1);
+  return this->matriz_.getCell(posicion.getPosition());
+}
+
+/** void LatticeReflectora::nextGeneration()
+  * @brief Se carga la siguiente generación de celulas
+  */
+void LatticeReflectora::nextGeneration() {
+  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) { // cada celula obtiene el nextState
+    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
+      Position posicion(i, j);
+      this->getCell(posicion).nextState(*this);
+    }
+  }
+  for(int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1 ; i++) { // cada celula obtiene el updateState
+    for(int j = this->matriz_.posBegin().second; j < this->matriz_.posEnd().second + 1; j++) { 
+      Position posicion(i, j);
+      this->getCell(posicion).updateState();
+    }
+  }
+  this->generacion_ ++;
+}

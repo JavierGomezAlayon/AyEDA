@@ -13,7 +13,7 @@ CXX = g++						# The C++ compiler command
 CXXFLAGS = -std=c++17 -O0 -g #-Wall	  # The C++ compiler options (preserve debug symbols and No optimization)
 LDFLAGS =						# The linker options (if any)
 OBJS = *.cc
-CC = src/Position/Position.cc src/MatrizVariable/MatrizVariable.cc src/VectorVariable/VectorVariable.cc src/Lattice/Lattice.cc  src/Cell/Cell.cc src/State/State.cc src/main/main.cc src/funciones_main/funciones_main.cc 
+CC = src/Position/Position.cc src/MatrizVariable/MatrizVariable.cc src/VectorVariable/VectorVariable.cc src/Lattice/Lattice.cc  src/Cell/Cell.cc src/State/State.cc src/main.cc src/funciones_main/funciones_main.cc 
 PROGRAM = 3Practica
 PARAM = 
 

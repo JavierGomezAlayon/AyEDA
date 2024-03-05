@@ -45,23 +45,21 @@ Dato RecogerParametro(int argc, char *argv[]) {
         datos.tamano.second = std::atoi(argv[i + 2]);
         i += 2;
       } else if (argv[i] == KBorder) { // compruebo que tipo de borde es y le asigno un objeto frontera al struct datos.
-        try{
-          Recoger_borde(argv, i, datos);
-        } catch (const std::string& error) {
-          throw error;
-        }
+        Recoger_borde(argv, i, datos);
         i++;
       } else if (argv[i] == Kfichero) {
         datos.fichero = argv[i + 1];
         i++;
       } else { // Error
-        throw std::string ("Error (1): Has puesto un argumento invalido.");
+        std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
+        exit(EXIT_FAILURE);
       }
     }
     return datos;
   }
   // Error
-  throw std::string ("Error (0): Has puesto un número de argumentos invalido.");
+  std::cerr << "Error (0): Has puesto un número de argumentos invalido." << std::endl ;
+  exit(EXIT_FAILURE);
 }
 
 /** void Recoger_borde(char *argv[], int &i, Dato &datos);
@@ -75,8 +73,9 @@ void Recoger_borde(char *argv[], int &i, Dato &datos) {
     }
     else if (*argv[i + 2] == '1') {
       datos.border_type = caliente;
-    } else { // Error
-      throw std::string ("Error (3): Has puesto un tipo de frontera abierta no valido");
+    } else {
+      std::cerr << "Error (3): Has puesto un tipo de frontera abierta no valido" << std::endl;
+      exit(EXIT_FAILURE);
     }
     i++;
   } else if (argv[i + 1] == KPeriodica) {
@@ -86,53 +85,75 @@ void Recoger_borde(char *argv[], int &i, Dato &datos) {
   } else if (argv[i + 1] == kSinborde) {
     datos.border_type = sin_frontera;
   } else { // Error
-    throw std::string ("Error (1): Has puesto un argumento invalido.");
+    std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
+    exit(EXIT_FAILURE);
   }
 }
 
-/** void Menu(char ch, Lattice& lattice, bool& contador_vida);
-  * @brief Menú para el juego de la vida.
-  * @param ch, lattice, contador_vida
+/** void InterfazGeneraciones(Lattice &lattice);
+  * @brief Interfaz para mostrar las generaciones del juego de la vida.
+  * @param lattice
   */
-void Menu(char ch, Lattice& lattice, bool& contador_vida) {
-  switch (ch) {
-    case 'n':
-      lattice.nextGeneration();
-      if (contador_vida) {
-        system("clear");
-        std::cout << "Población: " << lattice.Population() << std::endl;
-      } else {
-        system("clear");
-        std::cout << lattice << std::endl;
-      }
-      break;
-    case 'l':
-      system("clear");
-      for (int i = 0; i < 5; i++) {
+void InterfazGeneraciones(Lattice &lattice) {
+  char input;
+  // Explicación de la interfaz
+  std::cout << "Pulse cualquier tecla para avanzar a la siguiente generación." << std::endl;
+  while (std::cin >> input) {
+    system("clear");
+    std::cout << lattice << std::endl;
+    std::cout << "Población: " << lattice.Population() << std::endl;
+    lattice.nextGeneration();
+  }
+}
+
+/** void Menu(Lattice& lattice);
+  * @brief Menú para el juego de la vida.
+  * @param lattice
+  */
+void Menu(Lattice& lattice) {
+  char ch;
+  bool contador_vida = false;
+  std::cout << lattice << std::endl;
+  do {
+    switch (ch) {
+      case 'n':
         lattice.nextGeneration();
         if (contador_vida) {
+          system("clear");
           std::cout << "Población: " << lattice.Population() << std::endl;
         } else {
+          system("clear");
           std::cout << lattice << std::endl;
         }
-      }
-      break;
-    case 'c':
-      system("clear");
-      contador_vida = !contador_vida;
-      std::cout << "Se ha cambiado el modo de visionado de la población.\n";
-      break;
-    case 'x':
-      exit(0);
-      break;
-    case 's':
-      system("clear");
-      lattice.save("save.txt");
-      std::cout << "Guardado en save.txt\n";
-      break;
-    case 'h':
-      system("clear");
-      std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
-      break;
-  }
+        break;
+      case 'l':
+        system("clear");
+        for (int i = 0; i < 5; i++) {
+          lattice.nextGeneration();
+          if (contador_vida) {
+            std::cout << "Población: " << lattice.Population() << std::endl;
+          } else {
+            std::cout << lattice << std::endl;
+          }
+        }
+        break;
+      case 'c':
+        system("clear");
+        contador_vida = !contador_vida;
+        std::cout << "Se ha cambiado el modo de visionado de la población.\n";
+        break;
+      case 'x':
+        exit(0);
+        break;
+      case 's':
+        system("clear");
+        lattice.save("save.txt");
+        std::cout << "Guardado en save.txt\n";
+        break;
+      case 'h':
+        system("clear");
+        std::cout << "introduce n para siguiente generación, l para ver las siguientes 5 generaciones, c para ver la población, s para guardar y x para salir.\n";
+        break;
+    }
+  } while (std::cin >> ch);
 }

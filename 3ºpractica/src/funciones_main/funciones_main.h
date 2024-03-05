@@ -29,4 +29,5 @@ struct Dato {
 
 Dato RecogerParametro(int argc, char *argv[]);
 void Recoger_borde(char *argv[], int &i, Dato &datos);
-void Menu(char ch, Lattice& lattice, bool& contador_vida);
+void InterfazGeneraciones(Lattice &lattice);
+void Menu(Lattice& lattice);
