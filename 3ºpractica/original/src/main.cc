@@ -27,21 +27,41 @@ int main(int argc, char* argv[]) {
   // Si el cliente puso un fichero se construye el lattice con el fichero.
   if (datos.fichero != "") {
     if (datos.border_type == sin_frontera) {
-      LatticeNoBorder lattice(datos.fichero);
-      Menu(lattice);
+      try{
+        LatticeNoBorder lattice(datos.fichero);
+        Menu(lattice);
+      } catch (std::string& error) {
+        std::cerr << error << std::endl;
+        exit(1);
+      }
     } else {
-      LatticeReflectora lattice(datos.fichero);
-      Menu(lattice); 
+      try{
+        LatticeReflectora lattice(datos.fichero);
+        Menu(lattice);
+      } catch (std::string& error) {
+        std::cerr << error << std::endl;
+        exit(1);
+      }
     }
   } else {
     if (datos.border_type == sin_frontera) {
-      LatticeNoBorder lattice(datos.tamano);
-      lattice.inicializar();
-      Menu(lattice);
+      try{
+        LatticeNoBorder lattice(datos.fichero);
+        lattice.inicializar();
+        Menu(lattice);
+      } catch (std::string& error) {
+        std::cerr << error << std::endl;
+        exit(1);
+      }
     } else {
+      try{
       LatticeReflectora lattice(datos.tamano);
       lattice.inicializar();
       Menu(lattice);
+      } catch (std::string& error) {
+        std::cerr << error << std::endl;
+        exit(1);
+      }
     }
   }
   return 0;

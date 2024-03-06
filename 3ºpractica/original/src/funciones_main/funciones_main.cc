@@ -51,14 +51,14 @@ Dato RecogerParametro(int argc, char *argv[]) {
         datos.fichero = argv[i + 1];
         i++;
       } else { // Error
-        std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
+        throw std::string( "Error (1): Has puesto un argumento invalido." );
         exit(EXIT_FAILURE);
       }
     }
     return datos;
   }
   // Error
-  std::cerr << "Error (0): Has puesto un número de argumentos invalido." << std::endl ;
+  throw std::string( "Error (0): Has puesto un número de argumentos invalido." ) ;
   exit(EXIT_FAILURE);
 }
 
@@ -74,7 +74,7 @@ void Recoger_borde(char *argv[], int &i, Dato &datos) {
     else if (*argv[i + 2] == '1') {
       datos.border_type = caliente;
     } else {
-      std::cerr << "Error (3): Has puesto un tipo de frontera abierta no valido" << std::endl;
+      throw std::string( "Error (3): Has puesto un tipo de frontera abierta no valido" );
       exit(EXIT_FAILURE);
     }
     i++;
@@ -85,7 +85,7 @@ void Recoger_borde(char *argv[], int &i, Dato &datos) {
   } else if (argv[i + 1] == kSinborde) {
     datos.border_type = sin_frontera;
   } else { // Error
-    std::cerr << "Error (1): Has puesto un argumento invalido." << std::endl;
+    throw std::string( "Error (1): Has puesto un argumento invalido." );
     exit(EXIT_FAILURE);
   }
 }

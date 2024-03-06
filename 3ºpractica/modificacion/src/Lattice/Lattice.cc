@@ -23,7 +23,7 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
   std::ifstream input(fichero);
   // comprobar que se ha abierto el fichero correctamente
   if (!input.is_open()) {
-    std::cerr << "Error (4): No se ha podido abrir el fichero " << fichero << std::endl;
+    throw std::string( "Error (4): No se ha podido abrir el fichero " + fichero );
     exit(EXIT_FAILURE);
   }
   input >> this->tamano_.first;
@@ -42,7 +42,7 @@ Lattice::Lattice(const std::string fichero, const frontera frontera) {
       } else if (estado_input == 'x') {
         estado = vivo;
       } else { // error
-        std::cerr << "Error (2): En el fichero " << fichero << " se ha introducido un valor no computable o no se ha introducido los suficientes valores." << std::endl;
+        throw std::string( "Error (2): En el fichero " + fichero + " se ha introducido un valor no computable o no se ha introducido los suficientes valores.");
         exit(EXIT_FAILURE);
       }
       this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), estado));
@@ -78,7 +78,7 @@ void Lattice::inicializar() {
       } else if (estado == 0) {
         this->matriz_.setCell(std::pair<int,int>(i,j), Cell(Position(i,j), muerto));
       } else {
-        std::cerr << "Error (1): Se ha introducido un valor no computable." << std::endl;
+        throw std::string( "Error (1): Se ha introducido un valor no computable." );
         exit(EXIT_FAILURE);
       }
     }
@@ -134,7 +134,7 @@ std::ostream& operator<<(std::ostream& os, const Lattice& tabla) {
 void Lattice::save(const std::string fichero) {
   std::ofstream output(fichero);
   if (!output.is_open()) {
-    std::cerr << "Error (4): No se ha podido abrir el fichero " << fichero << std::endl;
+    throw std::string( "Error (4): No se ha podido abrir el fichero " + fichero );
     exit(EXIT_FAILURE);
   }
   output << this->tamano_.first << " " << this->tamano_.second << std::endl;
@@ -219,9 +219,12 @@ void LatticeNoBorder::corregirTamano() {
     }
   }
   for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
+    // MODIFICACIÓN
     if (this->getCell(Position(i, this->matriz_.posEnd().second)).getState().getState() == 1) {
-      this->matriz_.AumentarTamano(0, 1); // aumento hacia la derecha
-      this->tamano_.second++;
+      this->matriz_.AumentarTamano(1, 1); // aumento hacia la derecha
+      this->tamano_.second += 2;
+      this->matriz_.AumentarTamano(-1, -1); // aumento hacia la derecha
+      this->tamano_.first += 2;
       break;
     }
   }
