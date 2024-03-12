@@ -221,9 +221,9 @@ void LatticeNoBorder::corregirTamano() {
   for (int i = this->matriz_.posBegin().first; i < this->matriz_.posEnd().first + 1; i++) {
     // MODIFICACIÓN
     if (this->getCell(Position(i, this->matriz_.posEnd().second)).getState().getState() == 1) {
-      this->matriz_.AumentarTamano(1, 1); // aumento hacia la derecha
+      this->matriz_.AumentarTamano(1, 1); // aumento hacia la derecha y abajo.
       this->tamano_.second += 2;
-      this->matriz_.AumentarTamano(-1, -1); // aumento hacia la derecha
+      this->matriz_.AumentarTamano(-1, -1); // aumento hacia la izquierda y arriba.
       this->tamano_.first += 2;
       break;
     }
