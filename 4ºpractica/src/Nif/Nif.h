@@ -16,12 +16,18 @@
 //        03/12/24 - Creación (primera versión) del código
 #ifndef C_Nif_H
 #define C_Nif_H
+#include <iostream>
+#include <string>
 
 class Nif {
  public:
   Nif();
+  Nif(std::string nif);
+  long int getValue();
+  std::string getOriginal();
  private:
- 
+  std::string nif_;
+  long int IDnif_;
 };
 
 

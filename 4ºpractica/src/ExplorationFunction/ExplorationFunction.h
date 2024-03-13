@@ -17,11 +17,10 @@
 #ifndef C_ExplorationFunction_H
 #define C_ExplorationFunction_H
 
-template <typename key>
+template <class Key>
 class ExplorationFunction {
  public:
-  ExplorationFunction();
-  virtual unsigned ExplorationFunction<Key>::operator()(const Key&, unsigned) const=0;
+  virtual unsigned operator()(const Key&, unsigned) const = 0;
  private:
  
 };

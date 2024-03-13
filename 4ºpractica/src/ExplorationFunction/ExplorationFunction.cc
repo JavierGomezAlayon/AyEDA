@@ -22,7 +22,7 @@
   * @param 
   * @return objeto de la clase ExplorationFunction
   */
-ExplorationFunction::ExplorationFunction() {
+//ExplorationFunction::ExplorationFunction() {
 
-}
+//}
 

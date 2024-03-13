@@ -18,11 +18,37 @@
 #include"Nif.h"
 
 /** Nif::Nif()
-  * @brief Crea el objeto de la clase Nif.
-  * @param 
+  * @brief Constructor por defecto del objeto de la clase Nif.
   * @return objeto de la clase Nif
   */
 Nif::Nif() {
+  nif_ = "00000000A";
+  IDnif_ = 0;
+}
 
+/** Nif::Nif(std::string nif)
+  * @brief Constructor del objeto de la clase Nif.
+  * @param nif string que contiene el nif.
+  * @return objeto de la clase Nif
+  */
+Nif::Nif(std::string nif) {
+  nif_ = nif;
+  IDnif_ = std::stol(nif);
+}
+
+/** Nif::getValue()
+  * @brief Devuelve el valor del nif.
+  * @return valor del nif.
+  */
+long int Nif::getValue() {
+  return IDnif_;
+}
+
+/** Nif::getOriginal()
+  * @brief Devuelve el nif original.
+  * @return nif original.
+  */
+std::string Nif::getOriginal() {
+  return nif_;
 }
 

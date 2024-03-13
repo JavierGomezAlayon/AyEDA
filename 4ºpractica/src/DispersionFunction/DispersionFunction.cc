@@ -22,7 +22,7 @@
   * @param 
   * @return objeto de la clase DispersionFunction
   */
-DispersionFunction::DispersionFunction() {
+//DispersionFunction::DispersionFunction() {
 
-}
+//}
 

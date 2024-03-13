@@ -17,12 +17,4 @@
 
 #include"Sequence.h"
 
-/** Sequence::Sequence()
-  * @brief Crea el objeto de la clase Sequence.
-  * @param 
-  * @return objeto de la clase Sequence
-  */
-Sequence::Sequence() {
-
-}
 

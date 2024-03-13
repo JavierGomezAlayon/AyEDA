@@ -16,34 +16,41 @@
 //        03/12/24 - Creación (primera versión) del código
 #ifndef C_Sequence_H
 #define C_Sequence_H
+#include "../DispersionFunction/DispersionFunction.h"
+#include "../ExplorationFunction/ExplorationFunction.h"
+#include "../HashTable/HashTable.h"
 
-template <typename key>
-class Sequence {
+template <typename Key>
+class Container {
  public:
-  Sequence();
-  virtual bool Sequence<Key>::insert(const Key& k) = 0;
-  virtual bool Sequence<Key>::search(const Key& k) const = 0;
+  virtual bool insert(const Key& k) = 0;
+  virtual bool search(const Key& k) const = 0;
  private:
  
 };
 
 template<class Key> 
-class dynamicSequence: public Sequence<Key> {
+class dynamicSequence: public Container<Key> {
  public:
   dynamicSequence();
-  bool insert(const Key& k);
-  bool search(const Key& k) const;
+  bool insert(const Key& k) override;
+  bool search(const Key& k) const override;
  private:
 };
 
 template<class Key> 
-class staticSequence: public Sequence<Key> {
+class staticSequence: public Container<Key> {
  public:
   staticSequence();
-  bool insert(const Key& k);
-  bool search(const Key& k) const;
-  virtual bool staticSequence<Key>::isFull() const = 0;
+  bool insert(const Key& k) override;
+  bool search(const Key& k) const override;
+  virtual bool isFull() const;
  private:
+  int tableSize_;
+  //Container table_;
+  DispersionFunction<Key>* fd_;
+  ExplorationFunction<Key>* fe_;
+  int blockSize_;
 };
 
 

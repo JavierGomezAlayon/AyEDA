@@ -17,11 +17,11 @@
 #ifndef C_DispersionFunction_H
 #define C_DispersionFunction_H
 
-template <typename key>
+template <typename Key>
 class DispersionFunction {
  public:
   DispersionFunction();
-  virtual unsigned DispersionFunction<Key>::operator()(const Key&) const = 0;
+  virtual unsigned operator()(const Key&) const = 0;
  private:
  
 };

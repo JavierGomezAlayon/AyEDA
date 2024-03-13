@@ -19,13 +19,28 @@
 
 #include "../Sequence/Sequence.h"
 
-template <class Key, class container=staticSequence<Key> >
+template <class Key>
 class HashTable {
  public:
   HashTable();
  private:
- 
+  int tableSize_;
 };
+
+
+
+// -------------------------------------------------------------------------------------------------------------------------------- //
+
+
+
+
+
+
+
+
+
+
+
 
 
 
