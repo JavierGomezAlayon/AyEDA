@@ -23,7 +23,7 @@ class DispersionFunction {
   DispersionFunction();
   virtual unsigned operator()(const Key&) const = 0;
  private:
- 
+  
 };
 
 

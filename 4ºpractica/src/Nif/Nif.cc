@@ -16,14 +16,17 @@
 //        03/12/24 - Creación (primera versión) del código
 
 #include"Nif.h"
+#include "../Funciones/Funciones.h"
+int Nif::contador = 0;
 
 /** Nif::Nif()
   * @brief Constructor por defecto del objeto de la clase Nif.
   * @return objeto de la clase Nif
   */
 Nif::Nif() {
-  nif_ = "00000000A";
-  IDnif_ = 0;
+  IDnif_ = numero_aleatorio(10000000, 99999999, contador);
+  nif_ = std::to_string(IDnif_) + letra_mayus_aleatoria(contador);
+  contador++;
 }
 
 /** Nif::Nif(std::string nif)

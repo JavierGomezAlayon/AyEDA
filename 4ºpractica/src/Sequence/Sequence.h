@@ -21,7 +21,7 @@
 #include "../HashTable/HashTable.h"
 
 template <typename Key>
-class Container {
+class Sequence {
  public:
   virtual bool insert(const Key& k) = 0;
   virtual bool search(const Key& k) const = 0;
@@ -30,7 +30,7 @@ class Container {
 };
 
 template<class Key> 
-class dynamicSequence: public Container<Key> {
+class dynamicSequence: public Sequence<Key> {
  public:
   dynamicSequence();
   bool insert(const Key& k) override;
@@ -39,17 +39,13 @@ class dynamicSequence: public Container<Key> {
 };
 
 template<class Key> 
-class staticSequence: public Container<Key> {
+class staticSequence: public Sequence<Key> {
  public:
   staticSequence();
   bool insert(const Key& k) override;
   bool search(const Key& k) const override;
   virtual bool isFull() const;
  private:
-  int tableSize_;
-  //Container table_;
-  DispersionFunction<Key>* fd_;
-  ExplorationFunction<Key>* fe_;
   int blockSize_;
 };
 

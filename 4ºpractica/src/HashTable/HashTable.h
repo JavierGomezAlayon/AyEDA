@@ -17,23 +17,39 @@
 #ifndef C_HashTable_H
 #define C_HashTable_H
 
+#include <map>
 #include "../Sequence/Sequence.h"
-
-template <class Key>
+// debería de ir: <class Key, class Container=staticSequence<Key> >
+template<class Key, class Container>
 class HashTable {
  public:
-  HashTable();
+  HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&,unsigned);
  private:
   int tableSize_;
+  DispersionFunction<Key>& fd_;
+  ExplorationFunction<Key>& fe_;
+  int blockSize_;
+  std::map <Key, Container> table_; // con tamaño tableSize_.
 };
 
 
 
 // -------------------------------------------------------------------------------------------------------------------------------- //
 
-
-
-
+/**
+ * @brief Construct a new Hash Table< Key, Container>:: Hash Table object
+ * 
+ * @tparam Key 
+ * @tparam Container 
+ * @param tableSize_ 
+ * @param fd_ 
+ * @param fe_ 
+ * @param blockSize_ 
+*/
+template<typename Key, typename Container>
+HashTable<Key,Container>::HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&, unsigned) {
+  
+}
 
 
 

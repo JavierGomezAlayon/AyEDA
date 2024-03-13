@@ -10,13 +10,19 @@
 // Archivo ExplorationFunction.h: Declaración de la clase ExplorationFunction
 //        En este fichero se declara la clase ExplorationFunction
 // Referencias:
-//        Enlaces de interés
+//        Enlaces de Keyerés
 //
 // Historial de revisiones
 //        03/12/24 - Creación (primera versión) del código
 #ifndef C_ExplorationFunction_H
 #define C_ExplorationFunction_H
+// el punto 2 de la practica.
 
+// hay que implementar 4 funciones de exploración distKeyas: 
+//■ Exploración lineal, g(k,i) = i
+//■ Exploración cuadrática, g(k,i) = i^2
+//■ Doble dispersión, g(k,i) = f(k) * i // (f(k) es una función de dispersión.)
+//■ Redispersión, g(k,i) = f(i)(k). // f(i)(k) es una función de dispersión que depende de i.)
 template <class Key>
 class ExplorationFunction {
  public:
@@ -24,6 +30,35 @@ class ExplorationFunction {
  private:
  
 };
+template <class Key>
+class LinearExploration : public ExplorationFunction<Key> {
+ public:
+  LinearExploration();
+  unsigned operator()(const Key&, unsigned) const override;
+ private:
+};
+template <class Key>
+class QuadraticExploration : public ExplorationFunction<Key> {
+ public:
+  QuadraticExploration();
+  unsigned operator()(const Key&, unsigned) const override;
+ private:
+};
+template <class Key>
+class DoubleDispersion : public ExplorationFunction<Key> {
+ public:
+  DoubleDispersion();
+  unsigned operator()(const Key&, unsigned) const override;
+ private:
+};
+template <class Key>
+class Redispersion : public ExplorationFunction<Key> {
+ public:
+  Redispersion();
+  unsigned operator()(const Key&, unsigned) const override;
+ private:
+};
+
 
 
 

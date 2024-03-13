@@ -17,8 +17,5 @@
 
 #include "HashTable.h"
 
-template<typename Key>
-HashTable<Key>::HashTable() {
-  
-}
+
 

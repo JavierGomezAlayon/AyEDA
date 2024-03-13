@@ -19,7 +19,12 @@
 #include <iostream>
 #include <string>
 
-class Nif {
+class Key {
+  public:
+  virtual long int getValue() = 0;
+
+  };
+class Nif : public Key{
  public:
   Nif();
   Nif(std::string nif);
@@ -28,6 +33,7 @@ class Nif {
  private:
   std::string nif_;
   long int IDnif_;
+  static int contador; //se utiliza para generar números aleatorios distintos para nada más.
 };
 
 
