@@ -50,8 +50,10 @@ int main() {
   std::cout << (*sum)(nif0) << std::endl;
   std::cout << (*sum)(nif1) << std::endl;
 
+  std::cout << "\nprueba de ExplorationFunction: \n";
+  std::cout << "Todavía no se ha implementado de buena forma la función de exploración. \n";
 
-
+  
 
 
 
