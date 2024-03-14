@@ -43,7 +43,7 @@ Nif::Nif(std::string nif) {
   * @brief Devuelve el valor del nif.
   * @return valor del nif.
   */
-long int Nif::getValue() {
+long int Nif::getValue() const {
   return IDnif_;
 }
 
@@ -51,7 +51,17 @@ long int Nif::getValue() {
   * @brief Devuelve el nif original.
   * @return nif original.
   */
-std::string Nif::getOriginal() {
+std::string Nif::getOriginal() const {
   return nif_;
 }
+
+/** Nif::operator==(const Nif& nif) const
+  * @brief Sobrecarga del operador == para comparar dos nif.
+  * @param nif objeto de la clase Nif.
+  * @return true si son iguales, false si no lo son.
+  */
+bool Nif::operator==(const Nif& nif) const {
+  return nif_ == nif.nif_;
+}
+
 

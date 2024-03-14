@@ -45,9 +45,12 @@ class HashTable {
  * @param fd_ 
  * @param fe_ 
  * @param blockSize_ 
-*/
+ */
 template<typename Key, typename Container>
-HashTable<Key,Container>::HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&, unsigned) {
+HashTable<Key,Container>::HashTable(unsigned sizeTabla, DispersionFunction<Key>& fd, ExplorationFunction<Key>& fe , unsigned blockSize) : tableSize_(sizeTabla), fd_(fd), fe_(fe), blockSize_(blockSize) {
+  for (int i = 0; i < tableSize_; i++) {
+    table_[i].second = new Container(blockSize_);
+  }
   
 }
 

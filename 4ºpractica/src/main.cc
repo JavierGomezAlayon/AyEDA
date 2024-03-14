@@ -6,35 +6,59 @@
 #include "ExplorationFunction/ExplorationFunction.h"
 
 int main() {
+  std::cout << "pruebas de Nif: \n";
+  Nif nif0;
   Nif nif1;
-  Nif nif2;
-  Nif nif3;
-  Nif nif4;
-  Nif nif5;
-  Nif nif6;
-  Nif nif7;
-  Nif nif8;
-  Nif nif9;
-  Nif nif10;
 
+  std::cout << nif0.getValue() << std::endl;
+  std::cout << nif0.getOriginal() << std::endl;
   std::cout << nif1.getOriginal() << std::endl;
   std::cout << nif1.getValue() << std::endl;
-  std::cout << nif2.getOriginal() << std::endl;
-  std::cout << nif2.getValue() << std::endl;
-  std::cout << nif3.getOriginal() << std::endl;
-  std::cout << nif3.getValue() << std::endl;
-  std::cout << nif4.getOriginal() << std::endl;
-  std::cout << nif4.getValue() << std::endl;
-  std::cout << nif5.getOriginal() << std::endl;
-  std::cout << nif5.getValue() << std::endl;
-  std::cout << nif6.getOriginal() << std::endl;
-  std::cout << nif6.getValue() << std::endl;
-  std::cout << nif7.getOriginal() << std::endl;
-  std::cout << nif7.getValue() << std::endl;
-  std::cout << nif8.getOriginal() << std::endl;
-  std::cout << nif8.getValue() << std::endl;
-  std::cout << nif9.getOriginal() << std::endl;
-  std::cout << nif9.getValue() << std::endl;
-  std::cout << nif10.getOriginal() << std::endl;
-  std::cout << nif10.getValue() << std::endl;
+
+  std::cout << "\npruebas de Sequence: \n";
+  std::cout << "pruebas de staticSequence: \n";
+  staticSequence<Nif> sequence(3);
+  std::cout << sequence.isFull() << std::endl;
+  std::cout << sequence.insert(nif0) << std::endl;
+  std::cout << sequence.search(nif1) << std::endl;
+  std::cout << sequence.insert(nif1) << std::endl;
+  std::cout << sequence.search(nif0) << std::endl;
+  std::cout << sequence.search(nif1) << std::endl;
+  std::cout << sequence.isFull() << std::endl;
+
+  std::cout << "pruebas de dynamicSequence: \n";
+  dynamicSequence<Nif> sequenced;
+  std::cout << sequenced.insert(nif0) << std::endl;
+  std::cout << sequenced.search(nif1) << std::endl;
+  std::cout << sequenced.insert(nif1) << std::endl;
+  std::cout << sequenced.search(nif0) << std::endl;
+  std::cout << sequenced.search(nif1) << std::endl;
+  
+  std::cout << "\nprueba de DispersionFunction: \n";
+  std::cout << "pruebas de Modulo: \n";
+  DispersionFunction<Nif>* modulo = new Modulo<Nif>(3);
+  std::cout << (*modulo)(nif0) << std::endl;
+  std::cout << (*modulo)(nif1) << std::endl;
+
+  std::cout << "pruebas de PseudoRandom: \n";
+  DispersionFunction<Nif>* pseudoRandom = new PseudoRandom<Nif>(3);
+  std::cout << (*pseudoRandom)(nif0) << std::endl;
+  std::cout << (*pseudoRandom)(nif1) << std::endl;
+
+  std::cout << "pruebas de Sum: \n"; 
+  DispersionFunction<Nif>* sum = new Sum<Nif>(3);
+  std::cout << (*sum)(nif0) << std::endl;
+  std::cout << (*sum)(nif1) << std::endl;
+
+
+
+
+
+
+
+  delete modulo;
+  delete pseudoRandom;
+  delete sum;
+
+  return 0;
 }

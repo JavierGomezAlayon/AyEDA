@@ -19,23 +19,18 @@
 #include <iostream>
 #include <string>
 
-class Key {
-  public:
-  virtual long int getValue() = 0;
-
-  };
-class Nif : public Key{
+class Nif {
  public:
   Nif();
   Nif(std::string nif);
-  long int getValue();
-  std::string getOriginal();
+  long int getValue() const;
+  std::string getOriginal() const;
+  bool operator==(const Nif& nif) const;
  private:
   std::string nif_;
   long int IDnif_;
   static int contador; //se utiliza para generar números aleatorios distintos para nada más.
 };
-
 
 
 #endif

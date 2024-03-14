@@ -25,7 +25,7 @@
   * @return número aleatorio.
   */
 int numero_aleatorio(const int limite_inferior, const int limite_superior, const int sumador) {
-  srand(time(NULL) * sumador + 1);
+  srand(time(NULL) * (sumador + 1));
   return limite_inferior + rand() % (limite_superior +1 - limite_inferior);
 }
 /** char letra_mayus_aleatoria()

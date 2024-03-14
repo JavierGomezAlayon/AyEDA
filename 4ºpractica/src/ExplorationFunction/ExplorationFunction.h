@@ -16,6 +16,7 @@
 //        03/12/24 - Creación (primera versión) del código
 #ifndef C_ExplorationFunction_H
 #define C_ExplorationFunction_H
+#include "../DispersionFunction/DispersionFunction.h"
 // el punto 2 de la practica.
 
 // hay que implementar 4 funciones de exploración distKeyas: 
@@ -23,13 +24,16 @@
 //■ Exploración cuadrática, g(k,i) = i^2
 //■ Doble dispersión, g(k,i) = f(k) * i // (f(k) es una función de dispersión.)
 //■ Redispersión, g(k,i) = f(i)(k). // f(i)(k) es una función de dispersión que depende de i.)
+
 template <class Key>
 class ExplorationFunction {
  public:
   virtual unsigned operator()(const Key&, unsigned) const = 0;
- private:
- 
+  virtual ~ExplorationFunction() {};
+ protected:
+  const DispersionFunction<Key>& dispersionFunction_;
 };
+
 template <class Key>
 class LinearExploration : public ExplorationFunction<Key> {
  public:
@@ -37,6 +41,7 @@ class LinearExploration : public ExplorationFunction<Key> {
   unsigned operator()(const Key&, unsigned) const override;
  private:
 };
+
 template <class Key>
 class QuadraticExploration : public ExplorationFunction<Key> {
  public:
@@ -44,6 +49,7 @@ class QuadraticExploration : public ExplorationFunction<Key> {
   unsigned operator()(const Key&, unsigned) const override;
  private:
 };
+
 template <class Key>
 class DoubleDispersion : public ExplorationFunction<Key> {
  public:
@@ -51,6 +57,7 @@ class DoubleDispersion : public ExplorationFunction<Key> {
   unsigned operator()(const Key&, unsigned) const override;
  private:
 };
+
 template <class Key>
 class Redispersion : public ExplorationFunction<Key> {
  public:
@@ -59,6 +66,39 @@ class Redispersion : public ExplorationFunction<Key> {
  private:
 };
 
+// ---------------------------------------------------------------------------------------------------------------------- //
+
+template <class Key>
+LinearExploration<Key>::LinearExploration() {}
+
+template <class Key>
+unsigned LinearExploration<Key>::operator()(const Key&, unsigned i) const {
+  return i + 1;
+}
+
+template <class Key>
+QuadraticExploration<Key>::QuadraticExploration() {}
+
+template <class Key>
+unsigned QuadraticExploration<Key>::operator()(const Key&, unsigned i) const {
+  return i * i;
+}
+
+template <class Key>
+DoubleDispersion<Key>::DoubleDispersion() {}
+
+template <class Key>
+unsigned DoubleDispersion<Key>::operator()(const Key& key, unsigned i) const {
+  return i * key.getValue();
+}
+
+template <class Key>
+Redispersion<Key>::Redispersion() {}
+
+template <class Key>
+unsigned Redispersion<Key>::operator()(const Key& key, unsigned i) const {
+  return i * key;
+}
 
 
 
