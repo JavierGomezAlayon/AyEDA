@@ -28,7 +28,7 @@
 template <class Key>
 class ExplorationFunction {
  public:
-  ExplorationFunction(const DispersionFunction<Key>& dispersionFunction);
+  ExplorationFunction(const DispersionFunction<Key>& dispersionFunction) : dispersionFunction_(dispersionFunction) {}
   virtual unsigned operator()(const Key&, unsigned) const = 0;
   virtual ~ExplorationFunction() {};
  protected:
@@ -81,12 +81,12 @@ unsigned QuadraticExploration<Key>::operator()(const Key&, unsigned i) const {
 
 template <class Key>
 unsigned DoubleDispersion<Key>::operator()(const Key& key, unsigned i) const {
-  return i * key.getValue();
+  return i * this->dispersionFunction_(key);
 }
 
 template <class Key>
 unsigned Redispersion<Key>::operator()(const Key& key, unsigned i) const {
-  return i * key.getValue();
+  return i * this->dispersionFunction_(key);
 }
 
 

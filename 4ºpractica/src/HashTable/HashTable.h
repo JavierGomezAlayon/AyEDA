@@ -23,7 +23,7 @@
 template<class Key, class Container>
 class HashTable {
  public:
-  HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&,unsigned);
+  HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&, unsigned);
  private:
   int tableSize_;
   DispersionFunction<Key>& fd_;

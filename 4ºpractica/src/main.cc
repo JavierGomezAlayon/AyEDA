@@ -52,11 +52,25 @@ int main() {
 
   std::cout << "\nprueba de ExplorationFunction: \n";
   std::cout << "Todavía no se ha implementado de buena forma la función de exploración. \n";
+  ExplorationFunction<Nif>* linearExploration = new LinearExploration<Nif>(*modulo);
+  std::cout << (*linearExploration)(nif0, 2) << std::endl;
+  std::cout << (*linearExploration)(nif1, 2) << std::endl;
+  ExplorationFunction<Nif>* quadraticExploration = new QuadraticExploration<Nif>(*modulo);
+  std::cout << (*quadraticExploration)(nif0, 3) << std::endl;
+  std::cout << (*quadraticExploration)(nif1, 3) << std::endl;
+  ExplorationFunction<Nif>* doubleDispersion = new DoubleDispersion<Nif>(*modulo);
+  std::cout << (*doubleDispersion)(nif0, 2) << std::endl;
+  std::cout << (*doubleDispersion)(nif1, 2) << std::endl;
+  ExplorationFunction<Nif>* redispersion = new Redispersion<Nif>(*modulo);
+  std::cout << (*redispersion)(nif0, 2) << std::endl;
+  std::cout << (*redispersion)(nif1, 2) << std::endl;
 
-  
 
 
-
+  delete linearExploration;
+  delete quadraticExploration;
+  delete doubleDispersion;
+  delete redispersion;
 
   delete modulo;
   delete pseudoRandom;
