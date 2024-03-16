@@ -24,6 +24,10 @@ template<class Key, class Container>
 class HashTable {
  public:
   HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&, unsigned);
+  insertar(const Key& k);
+  bool search(const Key& k) const;
+  friend std::ostream& operator<<(std::ostream& os, const HashTable<Key, Container>& ht);
+  ~HashTable();
  private:
   int tableSize_;
   DispersionFunction<Key>& fd_;

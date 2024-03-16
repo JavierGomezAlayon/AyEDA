@@ -28,8 +28,6 @@ class Sequence {
   virtual bool insert(const Key& k) = 0;
   virtual bool search(const Key& k) const = 0;
  protected:
-  std::vector<Key*> sequence_;
-  int blockSize_;
 };
 
 template<class Key> 
@@ -38,6 +36,8 @@ class dynamicSequence: public Sequence<Key> {
   dynamicSequence();
   bool insert(const Key& k) override;
   bool search(const Key& k) const override;
+ private:
+  std::vector<Key*> sequence_;
 };
 
 template<class Key> 

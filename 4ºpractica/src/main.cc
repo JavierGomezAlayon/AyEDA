@@ -76,5 +76,8 @@ int main() {
   delete pseudoRandom;
   delete sum;
 
+
+  //poner ExplorationFunction<Nif>*
+
   return 0;
 }
