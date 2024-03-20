@@ -1,83 +1,108 @@
 #include <iostream>
-#include "DispersionFunction/DispersionFunction.h"
+#include <string>
 #include "Nif/Nif.h"
 #include "HashTable/HashTable.h"
 #include "Sequence/Sequence.h"
+#include "DispersionFunction/DispersionFunction.h"
 #include "ExplorationFunction/ExplorationFunction.h"
+#include "main.h"
 
-int main() {
-  std::cout << "pruebas de Nif: \n";
-  Nif nif0;
-  Nif nif1;
-
-  std::cout << nif0.getValue() << std::endl;
-  std::cout << nif0.getOriginal() << std::endl;
-  std::cout << nif1.getOriginal() << std::endl;
-  std::cout << nif1.getValue() << std::endl;
-
-  std::cout << "\npruebas de Sequence: \n";
-  std::cout << "pruebas de staticSequence: \n";
-  staticSequence<Nif> sequence(3);
-  std::cout << sequence.isFull() << std::endl;
-  std::cout << sequence.insert(nif0) << std::endl;
-  std::cout << sequence.search(nif1) << std::endl;
-  std::cout << sequence.insert(nif1) << std::endl;
-  std::cout << sequence.search(nif0) << std::endl;
-  std::cout << sequence.search(nif1) << std::endl;
-  std::cout << sequence.isFull() << std::endl;
-
-  std::cout << "pruebas de dynamicSequence: \n";
-  dynamicSequence<Nif> sequenced;
-  std::cout << sequenced.insert(nif0) << std::endl;
-  std::cout << sequenced.search(nif1) << std::endl;
-  std::cout << sequenced.insert(nif1) << std::endl;
-  std::cout << sequenced.search(nif0) << std::endl;
-  std::cout << sequenced.search(nif1) << std::endl;
-  
-  std::cout << "\nprueba de DispersionFunction: \n";
-  std::cout << "pruebas de Modulo: \n";
-  DispersionFunction<Nif>* modulo = new Modulo<Nif>(3);
-  std::cout << (*modulo)(nif0) << std::endl;
-  std::cout << (*modulo)(nif1) << std::endl;
-
-  std::cout << "pruebas de PseudoRandom: \n";
-  DispersionFunction<Nif>* pseudoRandom = new PseudoRandom<Nif>(3);
-  std::cout << (*pseudoRandom)(nif0) << std::endl;
-  std::cout << (*pseudoRandom)(nif1) << std::endl;
-
-  std::cout << "pruebas de Sum: \n"; 
-  DispersionFunction<Nif>* sum = new Sum<Nif>(3);
-  std::cout << (*sum)(nif0) << std::endl;
-  std::cout << (*sum)(nif1) << std::endl;
-
-  std::cout << "\nprueba de ExplorationFunction: \n";
-  std::cout << "Todavía no se ha implementado de buena forma la función de exploración. \n";
-  ExplorationFunction<Nif>* linearExploration = new LinearExploration<Nif>(*modulo);
-  std::cout << (*linearExploration)(nif0, 2) << std::endl;
-  std::cout << (*linearExploration)(nif1, 2) << std::endl;
-  ExplorationFunction<Nif>* quadraticExploration = new QuadraticExploration<Nif>(*modulo);
-  std::cout << (*quadraticExploration)(nif0, 3) << std::endl;
-  std::cout << (*quadraticExploration)(nif1, 3) << std::endl;
-  ExplorationFunction<Nif>* doubleDispersion = new DoubleDispersion<Nif>(*modulo);
-  std::cout << (*doubleDispersion)(nif0, 2) << std::endl;
-  std::cout << (*doubleDispersion)(nif1, 2) << std::endl;
-  ExplorationFunction<Nif>* redispersion = new Redispersion<Nif>(*modulo);
-  std::cout << (*redispersion)(nif0, 2) << std::endl;
-  std::cout << (*redispersion)(nif1, 2) << std::endl;
-
-
-
-  delete linearExploration;
-  delete quadraticExploration;
-  delete doubleDispersion;
-  delete redispersion;
-
-  delete modulo;
-  delete pseudoRandom;
-  delete sum;
-
-
-  //poner ExplorationFunction<Nif>*
-
+int main(int argc, char* argv[]) {
+  Dato argumentos;
+  try {
+    argumentos = leer_datos(argc, argv);
+  } catch (std::string& error) {
+    std::cerr << error << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  DispersionFunction<Nif>* df;
+  ExplorationFunction<Nif>* ef;
+  switch (argumentos.funcion_dispersion) { // elijo el tipo de función de dispersión
+    case 1:
+      df = new Modulo<Nif>(argumentos.table_size);
+      break;
+    case 2:
+      df = new PseudoRandom<Nif>(argumentos.table_size);
+      break;
+    case 3:
+      df = new Sum<Nif>(argumentos.table_size);
+      break;
+    default:
+      break;
+  }
+  if(argumentos.hash_type == 1) { // elijo el tipo de hash
+    switch (argumentos.funcion_exploracion) { // elijo el tipo de exploración
+      case 1:
+        ef = new LinearExploration<Nif>(*df);
+        break;
+      case 2:
+        ef = new QuadraticExploration<Nif>(*df);
+        break;
+      case 3:
+        ef = new DoubleDispersion<Nif>(*df);
+        break;
+      case 4:
+        ef = new Redispersion<Nif>(*df);
+        break;
+      default:
+        break;
+    }
+    closedHashTable<Nif> HashTable(argumentos.table_size, *df, *ef, argumentos.block_size);
+    menu(HashTable);
+  } else {
+    openHashTable<Nif> HashTable(argumentos.table_size, *df);
+    for (int i = 0; i < 10; i++) {
+      HashTable.insertar(Nif());
+    }
+    std::cout << HashTable << std::endl;
+  }
   return 0;
+}
+
+void menu(closedHashTable<Nif>& HashTable) {
+  while (true) {
+    std::cout << "Introduce uno de los siguientes parámetros:\n'x' para salir del programa\n'i' para insertar un Nif en la tabla\n's' para buscar un Nif en la tabla" << std::endl;
+    char opcion;
+    std::cin >> opcion;
+    switch (opcion) {
+      case 'i': {
+        std::string nif;
+        std::cout << "Introduce el Nif a insertar: ";
+        std::cin >> nif;
+        Nif n(nif);
+        if (HashTable.insertar(n)) {
+          system("clear");
+          std::cout << "Insertado con éxito" << std::endl;
+          std::cout << HashTable << std::endl;
+        } else {
+          system("clear");
+          std::cout << "No se ha podido insertar" << std::endl;
+          std::cout << HashTable << std::endl;
+        }
+        break;
+      }
+      case 's':{
+        std::string nif;
+        std::cout << "Introduce el Nif a buscar: ";
+        std::cin >> nif;
+        Nif n(nif);
+        if (HashTable.search(n)) {
+          system("clear");
+          std::cout << "El Nif se encuentra en la tabla" << std::endl;
+          std::cout << HashTable << std::endl;
+        } else {
+          system("clear");
+          std::cout << "El Nif no se encuentra en la tabla" << std::endl;
+          std::cout << HashTable << std::endl;
+        }
+        break;
+      }
+      case 'x':
+        std::cout << "Saliendo del programa" << std::endl;
+        return;
+      default:
+        std::cout << "Opción no válida" << std::endl;
+        break;
+    }
+  }
 }

@@ -22,12 +22,21 @@
 #include "../ExplorationFunction/ExplorationFunction.h"
 #include "../HashTable/HashTable.h"
 
-template <typename Key>
+template <class Key>
 class Sequence {
  public:
   virtual bool insert(const Key& k) = 0;
   virtual bool search(const Key& k) const = 0;
+  friend std::ostream& operator<<(std::ostream& os, const Sequence<Key>& s) {
+    for (const auto& k : s.sequence_) {
+      if (k != nullptr) {
+        os << *k << " ";
+      }
+    }
+    return os;
+  }
  protected:
+  std::vector<Key*> sequence_;
 };
 
 template<class Key> 
@@ -36,8 +45,6 @@ class dynamicSequence: public Sequence<Key> {
   dynamicSequence();
   bool insert(const Key& k) override;
   bool search(const Key& k) const override;
- private:
-  std::vector<Key*> sequence_;
 };
 
 template<class Key> 

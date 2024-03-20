@@ -21,6 +21,8 @@
 template <typename Key>
 class DispersionFunction {
  public:
+  DispersionFunction(int tableSize) : tableSize_(tableSize) {}
+  int getTableSize() const { return tableSize_; }
   virtual unsigned operator()(const Key&) const = 0;
   virtual ~DispersionFunction() {}
  protected:
@@ -59,9 +61,7 @@ class Sum : public DispersionFunction<Key> {
  * @param tableSize 
  */
 template<typename Key>
-Modulo<Key>::Modulo(int tableSize) {
-  this->tableSize_ = tableSize;
-}
+Modulo<Key>::Modulo(int tableSize) : DispersionFunction<Key>(tableSize) {}
 
 /** Modulo<Key>::operator()(const Key& k)
  * @brief Devuelve el resto de la división de la clave entre el tamaño de la tabla.
@@ -80,9 +80,7 @@ unsigned Modulo<Key>::operator()(const Key& k) const {
  * @param tableSize 
  */
 template<typename Key>
-PseudoRandom<Key>::PseudoRandom(int tableSize) {
-  this->tableSize_ = tableSize;
-}
+PseudoRandom<Key>::PseudoRandom(int tableSize) : DispersionFunction<Key>(tableSize) {}
 
 /** PseudoRandom<Key>::operator()(const Key& k)
  * @brief Devuelve el resto de la división de la clave entre el tamaño de la tabla.
@@ -101,9 +99,7 @@ unsigned PseudoRandom<Key>::operator()(const Key& k) const {
  * @param tableSize 
  */
 template<typename Key>
-Sum<Key>::Sum(int tableSize) {
-  this->tableSize_ = tableSize;
-}
+Sum<Key>::Sum(int tableSize) : DispersionFunction<Key>(tableSize) {}
 
 /** Sum<Key>::operator()(const Key& k)
  * @brief Devuelve la suma de los dígitos de la clave.
@@ -121,8 +117,5 @@ unsigned Sum<Key>::operator()(const Key& k) const {
   }
   return (sum % this->tableSize_);
 }
-
-
-
 
 #endif

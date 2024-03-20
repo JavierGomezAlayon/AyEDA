@@ -10,7 +10,7 @@
 # @see http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 
 CXX = g++						# The C++ compiler command
-CXXFLAGS = -std=c++17 -O0 -g -Wall	  # The C++ compiler options (preserve debug symbols and No optimization)
+CXXFLAGS = -std=c++17 -O0 -g #-Wall	  # The C++ compiler options (preserve debug symbols and No optimization)
 LDFLAGS =						# The linker options (if any)
 OBJS = *.cc
 CC = src/main.cc src/DispersionFunction/DispersionFunction.cc src/ExplorationFunction/ExplorationFunction.cc src/HashTable/HashTable.cc src/Nif/Nif.cc src/Sequence/Sequence.cc src/Funciones/Funciones.cc

@@ -71,22 +71,26 @@ class Redispersion : public ExplorationFunction<Key> {
 
 template <class Key>
 unsigned LinearExploration<Key>::operator()(const Key&, unsigned i) const {
-  return i + 1;
+  return (i + 1) % this->dispersionFunction_.getTableSize();
 }
 
 template <class Key>
 unsigned QuadraticExploration<Key>::operator()(const Key&, unsigned i) const {
-  return i * i;
+  return (i * i) % this->dispersionFunction_.getTableSize();
 }
 
 template <class Key>
 unsigned DoubleDispersion<Key>::operator()(const Key& key, unsigned i) const {
-  return i * this->dispersionFunction_(key);
+  return (i * this->dispersionFunction_(key) % this->dispersionFunction_.getTableSize());
 }
 
 template <class Key>
 unsigned Redispersion<Key>::operator()(const Key& key, unsigned i) const {
-  return i * this->dispersionFunction_(key);
+  srand(key.getValue());
+  for (int j = 0; j < i; j++) {
+    rand();
+  }
+  return rand() % this->dispersionFunction_.getTableSize();
 }
 
 

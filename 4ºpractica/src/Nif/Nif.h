@@ -25,6 +25,7 @@ class Nif {
   Nif(std::string nif);
   long int getValue() const;
   std::string getOriginal() const;
+  friend std::ostream& operator<<(std::ostream& os, const Nif& nif);
   bool operator==(const Nif& nif) const;
  private:
   std::string nif_;
