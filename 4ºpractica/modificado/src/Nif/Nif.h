@@ -33,5 +33,25 @@ class Nif {
   static int contador; //se utiliza para generar números aleatorios distintos para nada más.
 };
 
+class coche {
+ public:
+  coche();
+  coche(std::string matricula);
+  coche(std::string matricula, std::string marca, std::string modelo, int numero_clase, int numero_valvulas, int CC, int potencia);
+  std::string getMatricula() const;
+  long int getValue() const;
+  friend std::ostream& operator<<(std::ostream& os, const coche& coche);
+  bool operator==(const coche& coche) const;
+ private:
+  std::string matricula_;
+  int potencia_;
+  std::string marca_;
+  std::string modelo_;
+  int numero_clase_;
+  int numero_valvulas;
+  int CC_;
+  static int contador; //se utiliza para generar números aleatorios distintos para nada más.
+};
+
 
 #endif

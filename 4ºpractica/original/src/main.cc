@@ -6,6 +6,8 @@
 #include "DispersionFunction/DispersionFunction.h"
 #include "ExplorationFunction/ExplorationFunction.h"
 #include "main.h"
+void menu(openHashTable<Nif>& HashTable);
+void menu(closedHashTable<Nif>& HashTable);
 
 int main(int argc, char* argv[]) {
   Dato argumentos;
@@ -60,6 +62,54 @@ int main(int argc, char* argv[]) {
 }
 
 void menu(closedHashTable<Nif>& HashTable) {
+  while (true) {
+    std::cout << "Introduce uno de los siguientes parámetros:\n'x' para salir del programa\n'i' para insertar un Nif en la tabla\n's' para buscar un Nif en la tabla" << std::endl;
+    char opcion;
+    std::cin >> opcion;
+    switch (opcion) {
+      case 'i': {
+        std::string nif;
+        std::cout << "Introduce el Nif a insertar: ";
+        std::cin >> nif;
+        Nif n(nif);
+        if (HashTable.insertar(n)) {
+          system("clear");
+          std::cout << "Insertado con éxito" << std::endl;
+          std::cout << HashTable << std::endl;
+        } else {
+          system("clear");
+          std::cout << "No se ha podido insertar" << std::endl;
+          std::cout << HashTable << std::endl;
+        }
+        break;
+      }
+      case 's':{
+        std::string nif;
+        std::cout << "Introduce el Nif a buscar: ";
+        std::cin >> nif;
+        Nif n(nif);
+        if (HashTable.search(n)) {
+          system("clear");
+          std::cout << "El Nif se encuentra en la tabla" << std::endl;
+          std::cout << HashTable << std::endl;
+        } else {
+          system("clear");
+          std::cout << "El Nif no se encuentra en la tabla" << std::endl;
+          std::cout << HashTable << std::endl;
+        }
+        break;
+      }
+      case 'x':
+        std::cout << "Saliendo del programa" << std::endl;
+        return;
+      default:
+        std::cout << "Opción no válida" << std::endl;
+        break;
+    }
+  }
+}
+
+void menu(openHashTable<Nif>& HashTable) {
   while (true) {
     std::cout << "Introduce uno de los siguientes parámetros:\n'x' para salir del programa\n'i' para insertar un Nif en la tabla\n's' para buscar un Nif en la tabla" << std::endl;
     char opcion;

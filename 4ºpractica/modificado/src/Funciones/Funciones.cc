@@ -107,4 +107,3 @@ char letra_mayus_aleatoria(const int sumador) {
   srand(time(NULL) * sumador + 1);
   return 'A' + rand() % 26;
 }
-

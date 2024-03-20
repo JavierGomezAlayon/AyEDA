@@ -34,6 +34,4 @@ int numero_aleatorio(const int limite_inferior = 0, const int limite_superior = 
 char letra_mayus_aleatoria(const int sumador = 0);
 
 
-
-
 #endif
