@@ -30,7 +30,7 @@ void seleccion(staticSequence<Key>& sec, int n, bool imprimirTraza = false) {
     }
     std::swap(sec[i], sec[min]);
     if (imprimirTraza) {
-      std::cout << "Traza nº " << i + 1 << ": ";
+      std::cout << "Traza en Selección nº " << i + 1 << ": ";
       std::cout << sec << std::endl;
     }
   }
@@ -52,7 +52,7 @@ void quickSort(staticSequence<Key>& sec, int ini, int fin, bool imprimirTraza = 
   if (ini < f) {
     quickSort(sec, ini, f, imprimirTraza);
     if (imprimirTraza) {
-      std::cout << "Traza de sec en quickSort (izquierda): ";
+      std::cout << "Traza en quickSort (izquierda): ";
       for (int k = ini; k <= f; ++k) {
         std::cout << sec[k].getValue() << " ";
       }
@@ -62,11 +62,8 @@ void quickSort(staticSequence<Key>& sec, int ini, int fin, bool imprimirTraza = 
   if (i < fin) {
     quickSort(sec, i, fin, imprimirTraza);
     if (imprimirTraza) {
-      std::cout << "Traza de sec en quickSort (derecha): ";
-      for (int k = i; k <= fin; ++k) {
-        std::cout << sec[k].getValue() << " ";
-      }
-      std::cout << std::endl;
+      std::cout << "Traza en quickSort (derecha): ";
+      std::cout << sec << std::endl;
     }
   }
 }
@@ -81,8 +78,8 @@ void heapSort(staticSequence<Key>& sec, int n, bool imprimirTraza = false) {
     std::swap(sec[1], sec[i]);
     baja(sec, i - 1, 1);
     if (imprimirTraza) {
-      std::cout << "Traza de sec en heapSort: ";
-      for (int k = 0; k < n; ++k) {
+      std::cout << "Traza en heapSort: ";
+      for (int k = 0; k < n + 1; ++k) {
         std::cout << sec[k].getValue() << " ";
       }
       std::cout << std::endl;
@@ -163,7 +160,7 @@ void countingSort(staticSequence<Key>& sec, int n, int exp, bool imprimirTraza =
     sec[i] = output[i];
   }
   if (imprimirTraza) {
-    std::cout << "Traza de sec en countingSort (exp = " << exp << "): ";
+    std::cout << "Traza en countingSort (exp = " << exp << "): ";
     for (int k = 0; k < n; ++k) {
       std::cout << sec[k].getValue() << " ";
     }
