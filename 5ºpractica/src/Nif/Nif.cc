@@ -64,6 +64,17 @@ bool Nif::operator==(const Nif& nif) const {
   return nif_ == nif.nif_;
 }
 
+/** Nif::operator=(const int& rhs)
+  * @brief Sobrecarga del operador = para asignar un valor a un nif.
+  * @param rhs valor a asignar.
+  * @return objeto de la clase Nif.
+  */
+Nif& Nif::operator=(const int& rhs) {
+  IDnif_ = rhs;
+  nif_ = std::to_string(rhs);
+  return *this;
+}
+
 /** Nif::operator<<(std::ostream& os, const Nif& nif)
   * @brief Sobrecarga del operador << para imprimir un nif.
   * @param os flujo de salida.
@@ -74,3 +85,4 @@ std::ostream& operator<<(std::ostream& os, const Nif& nif) {
   os << nif.nif_;
   return os;
 }
+

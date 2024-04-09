@@ -25,6 +25,7 @@ class Sequence {
  public:
   virtual bool insert(const Key& k) = 0;
   virtual bool search(const Key& k) const = 0;
+  virtual Key& operator[](const int index) { return *this->sequence_.at(index); }	
   friend std::ostream& operator<<(std::ostream& os, const Sequence<Key>& s) {
     for (const auto& k : s.sequence_) {
       if (k != nullptr) {
@@ -52,6 +53,7 @@ class staticSequence: public Sequence<Key> {
   bool insert(const Key& k) override;
   bool search(const Key& k) const override;
   bool isFull() const;
+  int getSize() const { return this->blockSize_; }
  private:
   int blockSize_; // el vector tiene un tamaño fijo: blockSize_.
   int indice_ = 0;

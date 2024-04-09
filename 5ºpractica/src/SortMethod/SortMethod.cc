@@ -15,14 +15,3 @@
 // Historial de revisiones
 //        04/08/24 - Creación (primera versión) del código
 
-#include"SortMethod.h"
-
-/** SortMethod::SortMethod()
-  * @brief Crea el objeto de la clase SortMethod.
-  * @param 
-  * @return objeto de la clase SortMethod
-  */
-SortMethod::SortMethod() {
-
-}
-

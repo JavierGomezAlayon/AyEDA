@@ -15,14 +15,6 @@
 // Historial de revisiones
 //        04/08/24 - Creación (primera versión) del código
 
-#include"Metodos.h"
 
-/** Metodos::Metodos()
-  * @brief Crea el objeto de la clase Metodos.
-  * @param 
-  * @return objeto de la clase Metodos
-  */
-Metodos::Metodos() {
 
-}
 

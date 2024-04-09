@@ -16,14 +16,143 @@
 //        04/08/24 - Creación (primera versión) del código
 #ifndef C_SortMethod_H
 #define C_SortMethod_H
+#include "../Sequence/Sequence.h"
+#include "../Nif/Nif.h"
+#include "../Metodos/Metodos.h"
 
+template <class Key>
 class SortMethod {
  public:
-  SortMethod();
- private:
- 
+  SortMethod(staticSequence<Key>* sequence, bool traza = false);
+  virtual void sort() = 0;
+ protected:
+  staticSequence<Key>* sequence_;
+  bool traza_;
 };
 
+template <class Key>
+class Seleccion : public SortMethod<Key> {
+ public:
+  Seleccion(staticSequence<Key>* sequence, bool traza = false);
+  void sort() override;
+};
 
+template <class Key>
+class QuickSort : public SortMethod<Key> {
+ public:
+  QuickSort(staticSequence<Key>* sequence, bool traza = false);
+  void sort() override;
+};
+
+template <class Key>
+class HeapSort : public SortMethod<Key> {
+ public:
+  HeapSort(staticSequence<Key>* sequence, bool traza = false);
+  void sort() override;
+};
+
+template <class Key>
+class ShellSort : public SortMethod<Key> {
+ public:
+  ShellSort(staticSequence<Key>* sequence, bool traza = false);
+  void sort() override;
+};
+
+template <class Key>
+class RadixSort : public SortMethod<Key> {
+ public:
+  RadixSort(staticSequence<Key>* sequence, bool traza = false);
+  void sort() override;
+};
+
+// -------------------------------------------------------------------------- //
+
+
+/** 
+  * @brief Constructor de la clase SortMethod
+  * @return un objeto de la clase SortMethod
+  */
+template <class Key>
+SortMethod<Key>::SortMethod(staticSequence<Key>* sequence, bool traza): sequence_(sequence), traza_(traza) {}
+
+/** 
+  * @brief Constructor de la clase Seleccion
+  * @return un objeto de la clase Seleccion
+  */
+template <class Key>
+Seleccion<Key>::Seleccion(staticSequence<Key>* sequence, bool traza): SortMethod<Key>(sequence, traza) {}
+
+/** 
+  * @brief Método que ordena la secuencia
+  */
+template <class Key>
+void Seleccion<Key>::sort() {
+  int size = this->sequence_->getSize();
+  seleccion(*this->sequence_, size, this->traza_);
+}
+
+/** 
+  * @brief Constructor de la clase QuickSort
+  * @return un objeto de la clase QuickSort
+  */
+template <class Key>
+QuickSort<Key>::QuickSort(staticSequence<Key>* sequence, bool traza): SortMethod<Key>(sequence, traza) {}
+
+/** 
+  * @brief Método que ordena la secuencia
+  */
+template <class Key>
+void QuickSort<Key>::sort() {
+  int size = this->sequence_->getSize();
+  quickSort(*this->sequence_, 0, size - 1, this->traza_);
+}
+
+/** 
+  * @brief Constructor de la clase HeapSort
+  * @return un objeto de la clase HeapSort
+  */
+template <class Key>
+HeapSort<Key>::HeapSort(staticSequence<Key>* sequence, bool traza): SortMethod<Key>(sequence, traza) {}
+
+/** 
+  * @brief Método que ordena la secuencia
+  */
+template <class Key>
+void HeapSort<Key>::sort() {
+  int size = this->sequence_->getSize();
+  heapSort(*this->sequence_, size, this->traza_);
+}
+
+/** 
+  * @brief Constructor de la clase ShellSort
+  * @return un objeto de la clase ShellSort
+  */
+template <class Key>
+ShellSort<Key>::ShellSort(staticSequence<Key>* sequence, bool traza): SortMethod<Key>(sequence, traza) {}
+
+/** 
+  * @brief Método que ordena la secuencia
+  */
+template <class Key>
+void ShellSort<Key>::sort() {
+  int size = this->sequence_->getSize();
+  shellSort(*this->sequence_, size, this->traza_);
+}
+
+/** 
+  * @brief Constructor de la clase RadixSort
+  * @return un objeto de la clase RadixSort
+  */
+template <class Key>
+RadixSort<Key>::RadixSort(staticSequence<Key>* sequence, bool traza): SortMethod<Key>(sequence, traza) {}
+
+/** 
+  * @brief Método que ordena la secuencia
+  */
+template <class Key>
+void RadixSort<Key>::sort() {
+  int size = this->sequence_->getSize();
+  radixSort(*this->sequence_, size, this->traza_);
+}
 
 #endif

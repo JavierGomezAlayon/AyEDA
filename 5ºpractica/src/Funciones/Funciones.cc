@@ -48,17 +48,17 @@ Dato leer_datos(int argc, char *argv[]) {
         i ++;
       } else if (argv[i] == Kord) { // compruebo que tipo de borde es y le asigno un objeto frontera al struct datos.
         datos.ordenacion = std::atoi(argv[i + 1]);
-        if (datos.ordenacion < 1 || datos.ordenacion > 3) {
+        if (datos.ordenacion < 1 || datos.ordenacion > 5) {
           throw std::string( "Error (2): Has puesto un metodo de ordenación invalido." );
         }
         i++;
       } else if (argv[i] == Kinit) {
         if (argv[i + 1] == Krandom) {
-          datos.init = 0;
+          datos.init = 2;
         } else if (argv[i + 1] == Kmanual) {
           datos.init = 1;
         } else if (argv[i + 1] == Kfile) {
-          datos.init = 2;
+          datos.init = 3;
           datos.fichero = argv[i + 2];
           i++;
         } else {
