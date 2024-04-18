@@ -15,13 +15,3 @@
 // Historial de revisiones
 //        04/18/24 - Creación (primera versión) del código
 
-#include"Nodo.h"
-
-/** Nodo::Nodo()
-  * @brief Crea el objeto de la clase Nodo.
-  * @param 
-  * @return objeto de la clase Nodo
-  */
-Nodo::Nodo() {
-
-}

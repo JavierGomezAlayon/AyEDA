@@ -13,7 +13,7 @@ CXX = g++						# The C++ compiler command
 CXXFLAGS = -std=c++17 -O0 -g -Wall	  # The C++ compiler options (preserve debug symbols and No optimization)
 LDFLAGS =						# The linker options (if any)
 OBJS = *.cc
-CC = src/main.cc src/Funciones/Funciones.cc src/Nif/Nif.cc src/Ab/Ab.cc src/Nodo/Nodo.cc
+CC = src/main.cc src/Funciones/Funciones.cc src/Nif/Nif.cc src/Ab/Ab.cc src/NodoB/NodoB.cc
 PROGRAM = practica6
 PARAM = 
 

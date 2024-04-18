@@ -17,6 +17,9 @@
 #include <iostream>
 #include <string>
 #include "Funciones/Funciones.h"
+#include "Ab/Ab.h"
+#include "NodoB/NodoB.h"
+#include "Nif/Nif.h"
 
 int main(int argc, char *argv[]) {
   Dato datos;
@@ -34,7 +37,13 @@ int main(int argc, char *argv[]) {
   std::cout << "fichero: " << datos.fichero << std::endl;
 
   //crear el árbol
-  
+  AB<int> arbol;
+  //insertar las claves
+  for (int i = 0; i < datos.size; i++) {
+    arbol.insertar(i);
+  }
+    //mostrar el árbol
+
 
   //menú
   int opcion;
@@ -50,13 +59,20 @@ int main(int argc, char *argv[]) {
       case 0:
         return 0;
       case 1:
-        //insertar_clave();
+        std::cout << "Introduce la clave a insertar: ";
+        //std::string clave;
+        //std::cin >> clave;
+        //Nif nif(clave);
+        //arbol.insertar(nif.getValue());
+        int clave;
+        std::cin >> clave;
+        arbol.insertar(clave);
         break;
       case 2:
         //buscar_clave();
         break;
       case 3:
-        //mostrar_arbol_inorden();
+        arbol.inorden();
         break;
       default:
         std::cout << "Opción no válida" << std::endl;

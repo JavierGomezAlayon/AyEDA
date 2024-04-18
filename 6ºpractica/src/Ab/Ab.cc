@@ -15,13 +15,3 @@
 // Historial de revisiones
 //        04/18/24 - Creación (primera versión) del código
 
-#include"Ab.h"
-
-/** Ab::Ab()
-  * @brief Crea el objeto de la clase Ab.
-  * @param 
-  * @return objeto de la clase Ab
-  */
-Ab::Ab() {
-
-}
