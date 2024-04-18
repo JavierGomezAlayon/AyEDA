@@ -25,4 +25,3 @@
 *programa_sin_cc::*programa_sin_cc() {
 
 }
-
