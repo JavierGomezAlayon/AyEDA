@@ -50,6 +50,7 @@ NodoB<Key>::NodoB() {
   der_ = nullptr;
 }
 
+
 /** NodoB<Key>::NodoB(const Key &dato, NodoB<Key> *izq, NodoB<Key> *der)
   * @brief Constructor parametrizado de la clase NodoB
   * @param dato Dato que se va a almacenar en el nodo

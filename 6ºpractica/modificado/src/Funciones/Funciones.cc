@@ -72,6 +72,15 @@ Dato leer_datos(int argc, char *argv[]) {
       }
     }
     return datos;
+  } else if (argc == 2 && argv[1] == Khelp) {
+      std::cout << "Uso: " << argv[0] << std::endl;
+      std::cout << " -ab para indicar el tipo de árbol con el que se va a trabajar. (1 = abe, 2 = abb)" << std::endl;
+      std::cout << " -init indica la forma de introducir los datos de la secuencia:" << std::endl;
+      std::cout << " manual" << std::endl;
+      std::cout << " random [s], s es el número de elementos a generar" << std::endl;
+      std::cout << " file [s] [f], s es el número de elementos a generar, f es nombre del fichero de entrada" << std::endl;
+      std::cout << " -h muestra esta ayuda" << std::endl;
+      exit(EXIT_SUCCESS);
   }
   // Error
   throw std::string( "Error (4): Has puesto un número de argumentos invalido." ) ;

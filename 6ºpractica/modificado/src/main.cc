@@ -30,17 +30,29 @@ int main(int argc, char *argv[]) {
     return 1;
   }
   //mostrar los datos recogidos
-  std::cout << "Datos recogidos: " << std::endl;
-  std::cout << "ab: " << datos.ab << std::endl;
-  std::cout << "init: " << datos.init << std::endl;
-  std::cout << "size: " << datos.size << std::endl;
-  std::cout << "fichero: " << datos.fichero << std::endl;
+  //std::cout << "Datos recogidos: " << std::endl;
+  //std::cout << "ab: " << datos.ab << std::endl;
+  //std::cout << "init: " << datos.init << std::endl;
+  //std::cout << "size: " << datos.size << std::endl;
+  //std::cout << "fichero: " << datos.fichero << std::endl;
 
   //crear el árbol
-  AB<int> arbol;
+  AB<int>* arbol;
+  if (datos.ab == 1) {
+    arbol = new ABE<int>();
+  } else if (datos.ab == 2) {
+    arbol = new ABB<int>();
+  } else {
+    std::cerr << "Tipo de árbol no válido" << std::endl;
+    return 1;
+  }
   //insertar las claves
-  for (int i = 0; i < datos.size; i++) {
-    arbol.insertar(i);
+  if (datos.init == 2) {
+    int numero;
+    for (int i = 0; i < datos.size; i++) {
+      numero = numero_aleatorio(0,1000000,i);
+      arbol->insertar(numero);
+    }
   }
     //mostrar el árbol
 
@@ -66,13 +78,23 @@ int main(int argc, char *argv[]) {
         //arbol.insertar(nif.getValue());
         int clave;
         std::cin >> clave;
-        arbol.insertar(clave);
+        if (arbol->insertar(clave)) {
+          std::cout << "Clave insertada correctamente" << std::endl;
+        } else {
+          std::cout << "Error al insertar la clave" << std::endl;
+        }
+        std::cout << std::endl;
+       arbol->recorridoPorNiveles();
         break;
       case 2:
-        //buscar_clave();
+        std::cout << "Introduce la clave a buscar: "; 
+        int clave2;
+        std::cin >> clave2;
+        std::cout << arbol->buscar(clave2) << std::endl;
         break;
       case 3:
-        arbol.inorden();
+        std::cout << std::endl;
+        arbol->recorridoPorNiveles();
         break;
       default:
         std::cout << "Opción no válida" << std::endl;
