@@ -19,6 +19,8 @@
 
 #include "../NodoB/NodoB.h"
 #include <queue>
+#include <iostream>
+
 
 template <class Key>
 class AB {

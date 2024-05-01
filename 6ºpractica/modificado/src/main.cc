@@ -20,6 +20,8 @@
 #include "Ab/Ab.h"
 #include "NodoB/NodoB.h"
 #include "Nif/Nif.h"
+#include <chrono>
+#include <ctime>
 
 int main(int argc, char *argv[]) {
   Dato datos;
@@ -59,6 +61,10 @@ int main(int argc, char *argv[]) {
 
   //menú
   int opcion;
+  std::chrono::time_point<std::chrono::system_clock> start, end, start2, end2;
+  std::chrono::duration<float,std::milli> duration, duration2;
+  int clave3; 
+  
   while (true) {
     opcion = 0;
     std::cout << "Menú: " << std::endl;
@@ -94,7 +100,22 @@ int main(int argc, char *argv[]) {
         break;
       case 3:
         std::cout << std::endl;
+        //modificación
+        start = std::chrono::system_clock::now();
         arbol->recorridoPorNiveles();
+        end = std::chrono::system_clock::now();
+        duration = end - start;
+        std::cout << "Tiempo de ejecución: " << duration.count() << "ms" << std::endl;
+        std::cout << std::endl;
+
+        std::cout << "Introduce la clave a buscar: "; 
+        std::cin >> clave3;
+        start2 = std::chrono::system_clock::now();
+        std::cout << arbol->buscar(clave3) << std::endl;
+        end2 = std::chrono::system_clock::now();
+        duration2 = end2 - start2;
+        std::cout << "Tiempo de ejecución: " << duration2.count() << "ms" << std::endl;
+        std::cout << std::endl;
         break;
       default:
         std::cout << "Opción no válida" << std::endl;
